@@ -51,6 +51,10 @@ const Header = () => {
             </li>
             <li>
               {" "}
+              <Link to="/industryOverview">Industry Overview</Link>
+            </li>
+            <li>
+              {" "}
               <Link to="/">Search Aircraft</Link>
             </li>
             <li>

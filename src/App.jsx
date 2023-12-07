@@ -5,6 +5,7 @@ import Header from "./components/common/header/index";
 import Footer from "./components/common/footer";
 import useUserAuthentication from "./custom-hooks/useUserAuthentication";
 import styles from "./styles/authentication.module.scss";
+import BasicCard from "./components/common/BasicCard";
 
 function App() {
   // const location = useLocation();
@@ -27,11 +28,12 @@ function App() {
   return (
     <>
       <Header />
-      {isAuthenticating ? (
+      {/* {isAuthenticating ? (
         <div className={styles.mainwrapper}>Authenticating...</div>
       ) : (
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
-      )}
+      )} */}
+      <Home />
       <Footer />
     </>
   );

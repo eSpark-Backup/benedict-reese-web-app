@@ -7,6 +7,7 @@ import CompareAircrafts from "./views/compareAircrafts/CompareAircrafts";
 import Sample from "./views/Sample/Sample";
 import NotFound from "./views/NotFound/NotFound";
 import NotAuthorized from "./views/NotAuthorized";
+import IndustryOverview from "./views/industryOverview";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
   {
     path: "/compare/",
     element: <CompareAircrafts />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/industryOverview/",
+    element: <IndustryOverview />,
     errorElement: <NotFound />,
   },
   { path: "/sample", element: <Sample /> },

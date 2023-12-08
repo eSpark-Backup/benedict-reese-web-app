@@ -16,6 +16,7 @@
     "chart.js": "^4.2.0",
     "classnames": "^2.3.2",
     "cosmicjs": "^4.3.1",
+    "cross-spawn": "^7.0.3",
     "fast-equals": "^4.0.3",
     "google-maps-react": "^2.0.6",
     "js-cookie": "^3.0.5",

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./BasicCard.module.scss";
+import StandardCard from "../StandardCard";
 
 const BasicCard = ({
   item: {
@@ -7,33 +8,39 @@ const BasicCard = ({
     PerNoOfFlights,
     NoOfHours,
     PerNoOfHours,
-    isFlightsPending: { status, color, statusIcon },
+    isFlightsPending: { status, statusIcon },
     typeOfFlight: { name, icon },
-  },
+  }
 }) => {
+  let formattedNoOfHours = NoOfHours.toLocaleString();
+  let formattedNoOfFlights = NoOfFlights.toLocaleString();
+
+
   return (
-    <div className={styles.card}>
-      <div className={styles.flightStatus}>
-        <span>
-          <img src={statusIcon} alt="" />
-        </span>
-        <p>Flights {name}</p>
+    <StandardCard>
+      <div className={styles.container}>
+        <div className={styles.flightStatus}>
+          <span>
+            <img src={icon} alt="" />
+          </span>
+          <p>Flights {name}</p>
+        </div>
+        <div className={styles.NoOfFlights}>
+          <h1>{formattedNoOfFlights}</h1>
+          <span className={status ? styles.flightPending : styles.flightPast}>
+            <p>{PerNoOfFlights}%</p>
+            <img src={statusIcon} alt="icon" />
+          </span>
+        </div>
+        <div className={styles.NoOfHours}>
+          <p>{formattedNoOfHours} hours</p>
+          <span className={status ? styles.flightPending : styles.flightPast}>
+            <p>{PerNoOfHours}%</p>
+            <img src={statusIcon} alt="icon" />
+          </span>
+        </div>
       </div>
-      <div className={styles.NoOfFlights}>
-        <h1>{NoOfFlights}</h1>
-        <span>
-          <p>{PerNoOfFlights}</p>
-          <img src="" alt="icon" />
-        </span>
-      </div>
-      <div className={styles.NoOfHours}>
-        <h1>{NoOfHours}</h1>
-        <span>
-          <p>{PerNoOfHours}</p>
-          <img src="" alt="icon" />
-        </span>
-      </div>
-    </div>
+    </StandardCard>
   );
 };
 

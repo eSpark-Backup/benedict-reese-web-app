@@ -1,29 +1,30 @@
-
-.card {
-  box-shadow: 0px 28px 56.2px -20px rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
-  display: inline-block;
-  padding-inline: 70px;
+.container {
+  font-family: poppins;
+  padding: 35px 95px;
 }
+
 .flightStatus {
   display: flex;
   align-items: center;
-  
-  p{
+  gap: 14px;
+
+  p {
     font-size: 32px;
+    margin: 0;
+    padding: 0;
   }
-  span{
+  span {
     width: 62px;
     height: 62px;
     border-radius: 12px;
-    background-color: #F4F5F5;
+    background-color: #f4f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    img{
-        width: 43px;
-        height: 43px;
+    img {
+      width: 43px;
+      height: 43px;
     }
   }
 }
@@ -31,34 +32,75 @@
 .NoOfFlights {
   display: flex;
   align-items: center;
-  
-  h1{
+  gap: 50px;
+
+  h1 {
     font-size: 62px;
-    font-weight: 700;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
   }
-  span{
-    border: 1px solid black;
-  }
-    p{
+
+  p {
     font-size: 28px;
     margin: 0;
     padding: 0;
+  }
+  span {
+    padding-inline: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    align-items: centre;
   }
 }
 
 .NoOfHours {
   display: flex;
   align-items: center;
-  span{
-    border: 1px solid green;
+  gap: 20px;
+
+  p {
+    font-size: 42px;
+    margin: 0;
+    padding: 0;
   }
-  p{
-    font-size: 28px;
+
+  span {
+    padding-inline: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    align-items: centre;
+
+    p {
+      font-size: 28px;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 
 span {
-    display: flex;
-    align-items: center;
-    border-radius: 12px;
-  }
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.flightPending {
+  border: 2px solid #70fd63;
+  background-color: #befdb8;
+  color: #00811c;
+}
+
+.flightPast {
+  border: 2px solid #fd6f6f;
+  background-color: #ffb1b1;
+}
+
+.flightPending p {
+  color: #00811c;
+}
+.flightPast p {
+  color: #aa0101;
+}

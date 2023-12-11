@@ -11,6 +11,7 @@ import Chart from "../../components/pie/pie";
 import HealthScoreIndicator from "../../components/ScoreIndicator";
 import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
+import NewsEventCard from "../../components/common/NewsEventCard";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -35,14 +36,8 @@ const IndustryOverview = () => {
   ];
 
   const chart2Heading = ["Flights by Aircraft Class"];
-  const chart2Data = [15, 30, 5, 25, 25,];
-  const chart2Labels = [
-    "Prop",
-    "VLJ",
-    "Light Jet",
-    "Medium Jet",
-    "Large Jet",
-  ];
+  const chart2Data = [15, 30, 5, 25, 25];
+  const chart2Labels = ["Prop", "VLJ", "Light Jet", "Medium Jet", "Large Jet"];
   const chart2BackgroundColor = [
     "#FF0000",
     "#FFB800",
@@ -74,16 +69,8 @@ const IndustryOverview = () => {
 
   const chart4Heading = ["Domestic Vs International"];
   const chart4Data = [20, 80];
-  const chart4Labels = [
-    "Domestic",
-    "International",
-    
-  ];
-  const chart4BackgroundColor = [
-    "#FFB800",
-    "#FF0000",
-    
-  ];
+  const chart4Labels = ["Domestic", "International"];
+  const chart4BackgroundColor = ["#FFB800", "#FF0000"];
 
   const [data, setData] = useState([
     {
@@ -114,48 +101,54 @@ const IndustryOverview = () => {
 
   return (
     <>
-    <div style={{paddingLeft:"40px", paddingRight:"40px"}}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {data.map((item) => (
-          <BasicCard item={item} />
-        ))}
-      </div>
-      <br />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Chart
-        heading={chart1Heading}
-        chartData={chart1Data}
-        chartLabels={chart1Labels}
-        backgroundColor={chart1BackgroundColor}
-      />
-      <Chart
-        heading={chart2Heading}
-        chartData={chart2Data}
-        chartLabels={chart2Labels}
-        backgroundColor={chart2BackgroundColor}
-      />
-      <HealthScore/>
-      </div>
-      <div style={{ display: "flex", justifyContent: "start", marginTop:"40px" }}>
-      <Chart
-        heading={chart3Heading}
-        chartData={chart3Data}
-        chartLabels={chart3Labels}
-        backgroundColor={chart3BackgroundColor}
-      />
-      <Chart
-        heading={chart4Heading}
-        chartData={chart4Data}
-        chartLabels={chart4Labels}
-        backgroundColor={chart4BackgroundColor}
-      />
-      </div>
-      
-      
+      <div style={{ paddingLeft: "40px", paddingRight: "40px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {data.map((item, index) => (
+            <BasicCard item={item} key={index}/>
+          ))}
+        </div>
+        <br />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Chart
+            heading={chart1Heading}
+            chartData={chart1Data}
+            chartLabels={chart1Labels}
+            backgroundColor={chart1BackgroundColor}
+          />
+          <Chart
+            heading={chart2Heading}
+            chartData={chart2Data}
+            chartLabels={chart2Labels}
+            backgroundColor={chart2BackgroundColor}
+          />
+          <HealthScore />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "40px",
+            paddingBottom: '40px'
+          }}
+        >
+          <Chart
+            heading={chart3Heading}
+            chartData={chart3Data}
+            chartLabels={chart3Labels}
+            backgroundColor={chart3BackgroundColor}
+          />
+          <Chart
+            heading={chart4Heading}
+            chartData={chart4Data}
+            chartLabels={chart4Labels}
+            backgroundColor={chart4BackgroundColor}
+          />
+        <NewsEventCard />
+
+        </div>
       </div>
     </>
   );
-  // return <BasicCard item={data[0]} />;
 };
 
 export default IndustryOverview;

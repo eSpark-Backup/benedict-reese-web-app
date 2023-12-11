@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://premium.compareprivateplanes.com/api/";
+const API_URL = `${process.env.REACT_APP_API_URL}api/`;
 
 class AircraftService {
   async getAircrafts() {

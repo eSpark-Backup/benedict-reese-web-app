@@ -27,11 +27,12 @@ function App() {
   return (
     <>
       <Header />
-      {isAuthenticating ? (
+      {/* {isAuthenticating ? (
         <div className={styles.mainwrapper}>Authenticating...</div>
       ) : (
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
-      )}
+      )} */}
+      <Home />
       <Footer />
     </>
   );

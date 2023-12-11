@@ -8,6 +8,9 @@ import flightsPast30 from "../../images/flights_past30.svg";
 import flightPending from "../../images/arrowPending.svg";
 import flightPast from "../../images/arrowPast.svg";
 import Chart from "../../components/pie/pie";
+import HealthScoreIndicator from "../../components/ScoreIndicator";
+import ScoreIndicator from "../../components/ScoreIndicator";
+import { HealthScore } from "../../components/HealthScore";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -111,13 +114,14 @@ const IndustryOverview = () => {
 
   return (
     <>
+    <div style={{paddingLeft:"40px", paddingRight:"40px"}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {data.map((item) => (
           <BasicCard item={item} />
         ))}
       </div>
       <br />
-      <div style={{ display: "flex", justifyContent: "start" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Chart
         heading={chart1Heading}
         chartData={chart1Data}
@@ -130,6 +134,7 @@ const IndustryOverview = () => {
         chartLabels={chart2Labels}
         backgroundColor={chart2BackgroundColor}
       />
+      <HealthScore/>
       </div>
       <div style={{ display: "flex", justifyContent: "start", marginTop:"40px" }}>
       <Chart
@@ -144,6 +149,9 @@ const IndustryOverview = () => {
         chartLabels={chart4Labels}
         backgroundColor={chart4BackgroundColor}
       />
+      </div>
+      
+      
       </div>
     </>
   );

@@ -4,52 +4,6 @@ import StandardCard from "../common/StandardCard";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
-  const columns = 3; // Number of columns
-  const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
-
-  const updatedChartLabels = chartLabels.concat(
-    new Array(columns - (chartLabels.length % columns)).fill(null)
-  );
-
-  const renderChartLabels = () => {
-    const renderedLabels = [];
-    for (let i = 0; i < rows; i++) {
-      const rowLabels = updatedChartLabels.slice(i * columns, (i + 1) * columns);
-      renderedLabels.push(
-        <div key={i} style={{ flex: 1 }}>
-          {rowLabels.map((label, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "10px",
-              }}
-            >
-              {label && (
-                <div
-                  style={{
-                    width: "31px",
-                    height: "18px",
-                    backgroundColor:
-                      chartData && chartData.length > index
-                        ? backgroundColor[index]
-                        : "transparent",
-                    marginRight: "10px",
-                  }}
-                ></div>
-              )}
-              {label && (
-                <span style={{ fontSize: "12px" }}>{label}</span>
-              )}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return renderedLabels;
-  };
-
   const data = {
     labels: chartLabels,
     datasets: [
@@ -91,10 +45,13 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
     },
   };
 
+  const columns = 3; // Number of columns
+  const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
+
   return (
-    <div style={{ marginLeft: "50px" }}>
-      <StandardCard>
-        <h2 style={{ paddingTop: "20px", paddingBottom: "20px", paddingLeft: "25px" }}>{heading}</h2>
+    <div >
+      <StandardCard style={{height:"525px"}} >
+        <h2 style={{paddingTop:"20px", paddingBottom:"20px", paddingLeft:"25px"}}>{heading}</h2>
         <div
           style={{
             position: "relative",
@@ -123,7 +80,39 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
             marginBottom: "20px",
           }}
         >
-          {renderChartLabels()}
+          {[...Array(columns)].map((_, colIndex) => (
+            <div key={colIndex} style={{ flex: 1 }}>
+              {[...Array(rows)].map((_, rowIndex) => {
+                const dataIndex = colIndex * rows + rowIndex;
+                if (dataIndex < chartLabels.length) {
+                  return (
+                    <div
+                      key={dataIndex}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "31px",
+                          height: "18px",
+                          backgroundColor:
+                            data.datasets[0].backgroundColor[dataIndex],
+                          marginRight: "10px",
+                        }}
+                      ></div>
+                      <span style={{ fontSize: "12px" }}>
+                        {chartLabels[dataIndex]}
+                      </span>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          ))}
         </div>
       </StandardCard>
     </div>

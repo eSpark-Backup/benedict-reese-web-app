@@ -1,0 +1,31 @@
+.healthScoreIndicator {
+  display: inline-block;
+  margin-left: -30px;
+}
+
+.healthScoreIndicator h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #b6b8bd;
+}
+
+.circleChart {
+  max-width: 50%;
+  height: auto;
+}
+
+.circleChartCircle {
+  animation: circle-animation 2s ease-in-out forwards;
+}
+
+.circleChartText {
+  font-size: 0.7em;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+@keyframes circle-animation {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

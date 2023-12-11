@@ -29,8 +29,6 @@ import { Button, Slider } from "@mui/material";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
-
-
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -75,7 +73,8 @@ export default function Search() {
   const [hourly_fuel_burn_GPH, sethourly_fuel_burn_GPH] = useState(0);
   const [hourly_fuel_burn_LPH, setHourly_fuel_burn_LPH] = useState(0);
   const [baggage_capacity_CF, setbaggage_capacity_CF] = useState(0);
-  const [baggage_capacityCubicmeters, setBaggage_capacity_cubicmeters] = useState(0);
+  const [baggage_capacityCubicmeters, setBaggage_capacity_cubicmeters] =
+    useState(0);
   const [TO_distance_feet, setTO_distance_feet] = useState(0);
   const [TO_distance_meters, SetTO_distance_meters] = useState(0);
   const [landing_distance_feet, setlanding_distance_feet] = useState(0);
@@ -171,10 +170,10 @@ export default function Search() {
 
   const [aircraftsData, setAircraftsData] = useState([]);
   const [filterResult, setFilterResult] = useState([]);
-  const [currentPage,setCurrentPage] = useState([])
+  const [currentPage, setCurrentPage] = useState([]);
   const inputLimit = 21;
-  const [pageNumber,setPageNumber] = useState(1)
-  const [maxPage,setMaxPage] = useState(0)
+  const [pageNumber, setPageNumber] = useState(1);
+  const [maxPage, setMaxPage] = useState(0);
 
   useEffect(() => {
     aircraftService.getAircrafts().then((data) => {
@@ -243,7 +242,7 @@ export default function Search() {
           ? aircraft.TO_distance_meters
           : max;
       }, 0);
-      
+
       const landing_distance_feet = data.reduce((max, aircraft) => {
         return aircraft.landing_distance_feet > max
           ? aircraft.landing_distance_feet
@@ -284,14 +283,14 @@ export default function Search() {
       setestimated_hourly_charter(estimated_hourly_charter);
       setnew_purchase(new_purchase);
       setaverage_pre_owned(average_pre_owned);
-      
-      setMaxRangeKm(range_km)
-      sethigh_cruise_knotsKmh(high_speed_cruise_kmh)
-      setMax_altitude_meters(max_altitude_meters)
-      setHourly_fuel_burn_LPH(hourly_fuel_burn_LPH)
-      setBaggage_capacity_cubicmeters(baggage_capacity_cubicmeters)
-      SetTO_distance_meters(TO_distance_meters)
-      setlanding_distance_meters(landing_distance_meters)
+
+      setMaxRangeKm(range_km);
+      sethigh_cruise_knotsKmh(high_speed_cruise_kmh);
+      setMax_altitude_meters(max_altitude_meters);
+      setHourly_fuel_burn_LPH(hourly_fuel_burn_LPH);
+      setBaggage_capacity_cubicmeters(baggage_capacity_cubicmeters);
+      SetTO_distance_meters(TO_distance_meters);
+      setlanding_distance_meters(landing_distance_meters);
     });
   }, []);
 
@@ -312,8 +311,18 @@ export default function Search() {
     } else {
       setRange([range[0], Math.max(newValue[1], range[0] + minDistance)]);
     }
-    handleSearchChanged("range_NM", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] * 0.539956803) );
-    handleSearchChanged("range_NM_min", unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] * 0.539956803));
+    handleSearchChanged(
+      "range_NM",
+      unit === "Imperial Units"
+        ? newValue[1]
+        : Math.ceil(newValue[1] * 0.539956803)
+    );
+    handleSearchChanged(
+      "range_NM_min",
+      unit === "Imperial Units"
+        ? newValue[0]
+        : Math.ceil(newValue[0] * 0.539956803)
+    );
   };
 
   const handlePaxChanged = (event, newValue, activeThumb) => {
@@ -344,8 +353,18 @@ export default function Search() {
         Math.max(newValue[1], cruiseSpeed[0] + minDistance),
       ]);
     }
-    handleSearchChanged("high_cruise_knots", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] * 0.539956803));
-    handleSearchChanged("high_cruise_knots_min", unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] * 0.539956803));
+    handleSearchChanged(
+      "high_cruise_knots",
+      unit === "Imperial Units"
+        ? newValue[1]
+        : Math.ceil(newValue[1] * 0.539956803)
+    );
+    handleSearchChanged(
+      "high_cruise_knots_min",
+      unit === "Imperial Units"
+        ? newValue[0]
+        : Math.ceil(newValue[0] * 0.539956803)
+    );
   };
 
   const handleMaxAltitudeChanged = (event, newValue, activeThumb) => {
@@ -363,8 +382,14 @@ export default function Search() {
         Math.max(newValue[1], maxAltitude[0] + minDistance),
       ]);
     }
-    handleSearchChanged("max_altitude_feet", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] / 0.3048));
-    handleSearchChanged("max_altitude_feet_min", unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] / 0.3048));
+    handleSearchChanged(
+      "max_altitude_feet",
+      unit === "Imperial Units" ? newValue[1] : Math.ceil(newValue[1] / 0.3048)
+    );
+    handleSearchChanged(
+      "max_altitude_feet_min",
+      unit === "Imperial Units" ? newValue[0] : Math.ceil(newValue[0] / 0.3048)
+    );
   };
 
   const handleFuelBurnChanged = (event, newValue, activeThumb) => {
@@ -382,8 +407,14 @@ export default function Search() {
         Math.max(newValue[1], fuelBurn[0] + minDistance),
       ]);
     }
-    handleSearchChanged("hourly_fuel_burn_GPH", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] / 3.78541));
-    handleSearchChanged("hourly_fuel_burn_GPH_min", unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] / 3.78541));
+    handleSearchChanged(
+      "hourly_fuel_burn_GPH",
+      unit === "Imperial Units" ? newValue[1] : Math.ceil(newValue[1] / 3.78541)
+    );
+    handleSearchChanged(
+      "hourly_fuel_burn_GPH_min",
+      unit === "Imperial Units" ? newValue[0] : Math.ceil(newValue[0] / 3.78541)
+    );
   };
 
   const handleBaggageCapacityChanged = (event, newValue, activeThumb) => {
@@ -401,8 +432,18 @@ export default function Search() {
         Math.max(newValue[1], baggageCapacity[0] + minDistance),
       ]);
     }
-    handleSearchChanged("baggage_capacity_CF", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] / 0.0283168466));
-    handleSearchChanged("baggage_capacity_CF_min", unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] / 0.0283168466));
+    handleSearchChanged(
+      "baggage_capacity_CF",
+      unit === "Imperial Units"
+        ? newValue[1]
+        : Math.ceil(newValue[1] / 0.0283168466)
+    );
+    handleSearchChanged(
+      "baggage_capacity_CF_min",
+      unit === "Imperial Units"
+        ? newValue[0]
+        : Math.ceil(newValue[0] / 0.0283168466)
+    );
   };
 
   const handleTakeOffChanged = (event, newValue, activeThumb) => {
@@ -420,8 +461,14 @@ export default function Search() {
         Math.max(newValue[1], takeOffDistance[0] + minDistance),
       ]);
     }
-    handleSearchChanged("TO_distance_feet", unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] / 0.3048));
-    handleSearchChanged("TO_distance_feet_min",unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] / 0.3048));
+    handleSearchChanged(
+      "TO_distance_feet",
+      unit === "Imperial Units" ? newValue[1] : Math.ceil(newValue[1] / 0.3048)
+    );
+    handleSearchChanged(
+      "TO_distance_feet_min",
+      unit === "Imperial Units" ? newValue[0] : Math.ceil(newValue[0] / 0.3048)
+    );
   };
 
   const handleLandingDistanceChanged = (event, newValue, activeThumb) => {
@@ -439,8 +486,14 @@ export default function Search() {
         Math.max(newValue[1], landingDistance[0] + minDistance),
       ]);
     }
-    handleSearchChanged("landing_distance_feet",  unit === 'Imperial Units' ?newValue[1]: Math.ceil(newValue[1] / 0.3048));
-    handleSearchChanged("landing_distance_feet_min",  unit === 'Imperial Units' ?newValue[0]: Math.ceil(newValue[0] / 0.3048));
+    handleSearchChanged(
+      "landing_distance_feet",
+      unit === "Imperial Units" ? newValue[1] : Math.ceil(newValue[1] / 0.3048)
+    );
+    handleSearchChanged(
+      "landing_distance_feet_min",
+      unit === "Imperial Units" ? newValue[0] : Math.ceil(newValue[0] / 0.3048)
+    );
   };
 
   const handleAnnualFixedChanged = (event, newValue, activeThumb) => {
@@ -526,13 +579,25 @@ export default function Search() {
   const searchAircraft = async () => {
     const searchParams = new URLSearchParams(search);
     console.log(searchParams.toString());
-    const res = await searchService(`https://premium.compareprivateplanes.com/api/search?${searchParams.toString()}`);
+    const res = await searchService(
+      `${process.env.REACT_APP_API_URL}api/search?${searchParams.toString()}`
+    );
     console.log(res);
-    localStorage.setItem('aircrafts', `${JSON.stringify(res)}`)
+    localStorage.setItem("aircrafts", `${JSON.stringify(res)}`);
     setFilterResult(res);
-    setCurrentPage(res.slice(inputLimit -1 * inputLimit,res.length < (pageNumber * inputLimit) ? res.length : (pageNumber * inputLimit)))
-    let limit = res.length % inputLimit === 0 ? res.length / inputLimit : (res.length / inputLimit) + 1 
-    setMaxPage(parseInt(limit))
+    setCurrentPage(
+      res.slice(
+        inputLimit - 1 * inputLimit,
+        res.length < pageNumber * inputLimit
+          ? res.length
+          : pageNumber * inputLimit
+      )
+    );
+    let limit =
+      res.length % inputLimit === 0
+        ? res.length / inputLimit
+        : res.length / inputLimit + 1;
+    setMaxPage(parseInt(limit));
   };
 
   const openFilter = () => {
@@ -544,40 +609,80 @@ export default function Search() {
     }
   };
 
-  const calculateStepper = (maxValue)=>{
-    return maxValue > 1000000 ? 500000 : maxValue > 100000 ? 10000 : maxValue > 10000 ? 1000 :maxValue > 1000 ? 100 : maxValue > 100 ? 10 :1
-  }
+  const calculateStepper = (maxValue) => {
+    return maxValue > 1000000
+      ? 500000
+      : maxValue > 100000
+      ? 10000
+      : maxValue > 10000
+      ? 1000
+      : maxValue > 1000
+      ? 100
+      : maxValue > 100
+      ? 10
+      : 1;
+  };
 
-  const paginationButtons = () =>{
-
-    const elements = []
-    let limit = filterResult?.length % inputLimit === 0 ? filterResult?.length / inputLimit : (filterResult?.length / inputLimit) + 1 
-    for(let i = Math.max(pageNumber -10,1); i <= Math.min(pageNumber + 10,limit); i++){
-      if(pageNumber === i)
-      {
-        elements.push(<Button style={{margin:'2px',}} size="small" variant="contained" onClick={()=> {setPageNumber(i)}}>{i}</Button>)
-      }
-      else{
-        elements.push(<Button style={{margin:'2px',}} size="small" variant="outlined" onClick={()=> {setPageNumber(i)}}>{i}</Button>)
+  const paginationButtons = () => {
+    const elements = [];
+    let limit =
+      filterResult?.length % inputLimit === 0
+        ? filterResult?.length / inputLimit
+        : filterResult?.length / inputLimit + 1;
+    for (
+      let i = Math.max(pageNumber - 10, 1);
+      i <= Math.min(pageNumber + 10, limit);
+      i++
+    ) {
+      if (pageNumber === i) {
+        elements.push(
+          <Button
+            style={{ margin: "2px" }}
+            size="small"
+            variant="contained"
+            onClick={() => {
+              setPageNumber(i);
+            }}
+          >
+            {i}
+          </Button>
+        );
+      } else {
+        elements.push(
+          <Button
+            style={{ margin: "2px" }}
+            size="small"
+            variant="outlined"
+            onClick={() => {
+              setPageNumber(i);
+            }}
+          >
+            {i}
+          </Button>
+        );
       }
     }
     return elements;
-  }
-  useEffect(()=>{
-    const newPage = filterResult.slice((pageNumber -1) * inputLimit,filterResult.length < (pageNumber * inputLimit) ? filterResult.length : (pageNumber * inputLimit))
-    setCurrentPage(newPage)
-    
-  },[pageNumber])
+  };
+  useEffect(() => {
+    const newPage = filterResult.slice(
+      (pageNumber - 1) * inputLimit,
+      filterResult.length < pageNumber * inputLimit
+        ? filterResult.length
+        : pageNumber * inputLimit
+    );
+    setCurrentPage(newPage);
+  }, [pageNumber]);
 
-  useEffect(()=>{
-    console.log('Testing')
-    handleRangeChanged()
-    handleCruiseChanged()
-    handleTakeOffChanged()
-    handleFuelBurnChanged()
-    handleMaxAltitudeChanged()
-    handleBaggageCapacityChanged()
-  },[unit])
+  useEffect(() => {
+    console.log("Testing");
+    handleRangeChanged();
+    handleCruiseChanged();
+    handleTakeOffChanged();
+    handleFuelBurnChanged();
+    handleMaxAltitudeChanged();
+    handleBaggageCapacityChanged();
+  }, [unit]);
   return (
     <div className={cn("section-pt80", styles.section)}>
       <div className={cn(styles.container)}>
@@ -681,7 +786,7 @@ export default function Search() {
                     valueLabelDisplay="auto"
                     disableSwap
                     step={calculateStepper(max_pax)}
-                    />
+                  />
                 </div>
               </Accordion>
             </div>
@@ -697,7 +802,8 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Max Range ({ unit === 'Imperial Units' ?'NM': 'KM'}): {range[0]} - {range[1]}
+                    Max Range ({unit === "Imperial Units" ? "NM" : "KM"}):{" "}
+                    {range[0]} - {range[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -705,11 +811,13 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum distance"}
                     value={range}
-                    max={unit === 'Imperial Units' ? rangeNM : rangeKm}
+                    max={unit === "Imperial Units" ? rangeNM : rangeKm}
                     onChange={handleRangeChanged}
                     valueLabelDisplay="auto"
                     disableSwap
-                    step={calculateStepper(unit === 'Imperial Units' ? rangeNM : rangeKm)}
+                    step={calculateStepper(
+                      unit === "Imperial Units" ? rangeNM : rangeKm
+                    )}
                   />
                 </div>
               </Accordion>
@@ -726,7 +834,8 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Cruise Speed ({ unit === 'Imperial Units' ?'Knots': 'Kmh'}): {cruiseSpeed[0]} - {cruiseSpeed[1]}
+                    Cruise Speed ({unit === "Imperial Units" ? "Knots" : "Kmh"}
+                    ): {cruiseSpeed[0]} - {cruiseSpeed[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -734,10 +843,18 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum cruise"}
                     value={cruiseSpeed}
-                    max={unit === 'Imperial Units' ? high_cruise_knots : highCruiseKnotsKmh}
+                    max={
+                      unit === "Imperial Units"
+                        ? high_cruise_knots
+                        : highCruiseKnotsKmh
+                    }
                     onChange={handleCruiseChanged}
                     valueLabelDisplay="auto"
-                    step={calculateStepper(unit === 'Imperial Units' ? high_cruise_knots : highCruiseKnotsKmh)}
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? high_cruise_knots
+                        : highCruiseKnotsKmh
+                    )}
                     disableSwap
                   />
                 </div>
@@ -755,7 +872,9 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Max Altitude ({ unit === 'Imperial Units' ?'Feet': 'Meters'}): {maxAltitude[0]} - {maxAltitude[1]}
+                    Max Altitude (
+                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                    {maxAltitude[0]} - {maxAltitude[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -763,8 +882,16 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum altitude"}
                     value={maxAltitude}
-                    max={unit === 'Imperial Units' ? max_altitude_feet : maxAltitudeMeters}
-                    step={calculateStepper(unit === 'Imperial Units' ? max_altitude_feet : maxAltitudeMeters)}
+                    max={
+                      unit === "Imperial Units"
+                        ? max_altitude_feet
+                        : maxAltitudeMeters
+                    }
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? max_altitude_feet
+                        : maxAltitudeMeters
+                    )}
                     onChange={handleMaxAltitudeChanged}
                     valueLabelDisplay="auto"
                     disableSwap
@@ -784,8 +911,9 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Fuel Burn ({ unit === 'Imperial Units' ?'Gallons/Hour': 'Liters/Hour'}): {fuelBurn[0]} -{" "}
-                    {fuelBurn[1]}
+                    Fuel Burn (
+                    {unit === "Imperial Units" ? "Gallons/Hour" : "Liters/Hour"}
+                    ): {fuelBurn[0]} - {fuelBurn[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -793,10 +921,18 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum fuel"}
                     value={fuelBurn}
-                    max={unit === 'Imperial Units' ? hourly_fuel_burn_GPH : hourly_fuel_burn_LPH}
+                    max={
+                      unit === "Imperial Units"
+                        ? hourly_fuel_burn_GPH
+                        : hourly_fuel_burn_LPH
+                    }
                     onChange={handleFuelBurnChanged}
                     valueLabelDisplay="auto"
-                    step={calculateStepper(unit === 'Imperial Units' ? hourly_fuel_burn_GPH : hourly_fuel_burn_LPH)}
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? hourly_fuel_burn_GPH
+                        : hourly_fuel_burn_LPH
+                    )}
                     disableSwap
                   />
                 </div>
@@ -814,8 +950,9 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Baggage Capacity ({ unit === 'Imperial Units' ?'cu ft': 'cu meters'}): {baggageCapacity[0]} -{" "}
-                    {baggageCapacity[1]}
+                    Baggage Capacity (
+                    {unit === "Imperial Units" ? "cu ft" : "cu meters"}):{" "}
+                    {baggageCapacity[0]} - {baggageCapacity[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -823,8 +960,16 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum baggage"}
                     value={baggageCapacity}
-                    max={unit === 'Imperial Units' ? baggage_capacity_CF : baggage_capacityCubicmeters}
-                    step={calculateStepper(unit === 'Imperial Units' ? baggage_capacity_CF : baggage_capacityCubicmeters)}
+                    max={
+                      unit === "Imperial Units"
+                        ? baggage_capacity_CF
+                        : baggage_capacityCubicmeters
+                    }
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? baggage_capacity_CF
+                        : baggage_capacityCubicmeters
+                    )}
                     onChange={handleBaggageCapacityChanged}
                     valueLabelDisplay="auto"
                     disableSwap
@@ -844,8 +989,9 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Take-Off Distance ({ unit === 'Imperial Units' ?'Feet': 'Meters'}): {takeOffDistance[0]} -{" "}
-                    {takeOffDistance[1]}
+                    Take-Off Distance (
+                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                    {takeOffDistance[0]} - {takeOffDistance[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -853,8 +999,16 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum takeoff"}
                     value={takeOffDistance}
-                    max={unit === 'Imperial Units' ? TO_distance_feet : TO_distance_meters}
-                    step={calculateStepper(unit === 'Imperial Units' ? TO_distance_feet : TO_distance_meters)}
+                    max={
+                      unit === "Imperial Units"
+                        ? TO_distance_feet
+                        : TO_distance_meters
+                    }
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? TO_distance_feet
+                        : TO_distance_meters
+                    )}
                     onChange={handleTakeOffChanged}
                     valueLabelDisplay="auto"
                     disableSwap
@@ -874,8 +1028,9 @@ export default function Search() {
                   id="panel4bh-header"
                 >
                   <div className={styles.label}>
-                    Landing Distance ({ unit === 'Imperial Units' ?'Feet': 'Meters'}): {landingDistance[0]} -{" "}
-                    {landingDistance[1]}
+                    Landing Distance (
+                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                    {landingDistance[0]} - {landingDistance[1]}
                   </div>
                 </AccordionSummary>
                 <div className={styles.range}>
@@ -883,8 +1038,16 @@ export default function Search() {
                     className={styles.slider_home}
                     getAriaLabel={() => "Minimum landing"}
                     value={landingDistance}
-                    max={unit === 'Imperial Units' ? landing_distance_feet : landing_distance_meters}
-                    step={calculateStepper(unit === 'Imperial Units' ? landing_distance_feet : landing_distance_meters)}
+                    max={
+                      unit === "Imperial Units"
+                        ? landing_distance_feet
+                        : landing_distance_meters
+                    }
+                    step={calculateStepper(
+                      unit === "Imperial Units"
+                        ? landing_distance_feet
+                        : landing_distance_meters
+                    )}
                     onChange={handleLandingDistanceChanged}
                     valueLabelDisplay="auto"
                     disableSwap
@@ -1056,11 +1219,36 @@ export default function Search() {
                 </div>
               )}
             </div>
-            <div style={{display:'flex',padding:'12px',justifyContent:'center',width:'100%'}}>
-                <Button style={{margin:'2px',}} disabled={pageNumber == 1} variant="outlined" onClick={()=>{pageNumber > 1 && setPageNumber((num)=> num - 1)}}>{'<'}</Button>
-                {paginationButtons()}
-                <Button style={{margin:'2px'}} disabled={pageNumber >= maxPage} variant="outlined" onClick={()=>{setPageNumber((num)=>num < maxPage ? num +1 : num)}}>{'>'}</Button>
-              </div>
+            <div
+              style={{
+                display: "flex",
+                padding: "12px",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Button
+                style={{ margin: "2px" }}
+                disabled={pageNumber == 1}
+                variant="outlined"
+                onClick={() => {
+                  pageNumber > 1 && setPageNumber((num) => num - 1);
+                }}
+              >
+                {"<"}
+              </Button>
+              {paginationButtons()}
+              <Button
+                style={{ margin: "2px" }}
+                disabled={pageNumber >= maxPage}
+                variant="outlined"
+                onClick={() => {
+                  setPageNumber((num) => (num < maxPage ? num + 1 : num));
+                }}
+              >
+                {">"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>

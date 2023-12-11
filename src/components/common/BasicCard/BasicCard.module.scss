@@ -1,0 +1,106 @@
+.container {
+  font-family: poppins;
+  padding: 35px 95px;
+}
+
+.flightStatus {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  p {
+    font-size: 32px;
+    margin: 0;
+    padding: 0;
+  }
+  span {
+    width: 62px;
+    height: 62px;
+    border-radius: 12px;
+    background-color: #f4f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 43px;
+      height: 43px;
+    }
+  }
+}
+
+.NoOfFlights {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+
+  h1 {
+    font-size: 62px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+
+  p {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+  }
+  span {
+    padding-inline: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    align-items: centre;
+  }
+}
+
+.NoOfHours {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  p {
+    font-size: 42px;
+    margin: 0;
+    padding: 0;
+  }
+
+  span {
+    padding-inline: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    align-items: centre;
+
+    p {
+      font-size: 28px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+span {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.flightPending {
+  border: 2px solid #70fd63;
+  background-color: #befdb8;
+  color: #00811c;
+}
+
+.flightPast {
+  border: 2px solid #fd6f6f;
+  background-color: #ffb1b1;
+}
+
+.flightPending p {
+  color: #00811c;
+}
+.flightPast p {
+  color: #aa0101;
+}

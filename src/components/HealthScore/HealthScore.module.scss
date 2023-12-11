@@ -1,0 +1,90 @@
+.healthScore h1 {
+  font-size: 30px;
+  color: #000;
+  font-weight: 500;
+  margin-top: 10px;
+  padding-right: 20px;
+}
+
+.healthScore button {
+  width: 83px;
+  height: 28px;
+  border-radius: 12px;
+  border: 2px solid #4c2fff;
+  background-color: #907eff;
+  font-size: 16px;
+  color: #1800ad;
+  margin-top: 18px;
+}
+
+.iconButton {
+  width: 112px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #ebecf2;
+  background-color: #fff;
+  margin-top: 18px;
+}
+
+.healthScoreContainer {
+  width: 806px;
+  height: 66px;
+  border-radius: 12px;
+  border: 1px solid #ebecf2;
+  background-color: #fff;
+  display: flex;
+  padding-left: 15px;
+  padding-top: 8px;
+  margin-bottom: 10px;
+}
+
+.healthScoreContainer .checkBox {
+  width: 52px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #70fd63;
+  background-color: #befdb8;
+  margin-right: 15px;
+  padding: 3px 2px 2px 10px;
+}
+
+.healthScoreContainer .checkmarkIcon {
+  width: 29px;
+  height: 39px;
+}
+
+.healthScoreContainer p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 13px;
+}
+
+.healthScoreContainer .exclaimBox {
+  width: 52px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #dfd14c;
+  background-color: #f6e653c4;
+  margin-right: 15px;
+  padding: 3px 2px 2px 10px;
+}
+
+.healthScoreContainer .exclaimIcon {
+  width: 29px;
+  height: 39px;
+}
+
+.healthScoreContainer .crossBox {
+  width: 52px;
+  height: 48px;
+  border-radius: 12px;
+  border: 2px solid #FD6F6F;
+  background-color: #FFB1B1;
+  margin-right: 15px;
+  padding: 3px 2px 2px 10px;
+}
+
+.healthScoreContainer .crossIcon {
+    width: 29px;
+    height: 39px;
+  }

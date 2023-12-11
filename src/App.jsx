@@ -5,12 +5,14 @@ import Header from "./components/common/header/index";
 import Footer from "./components/common/footer";
 import useUserAuthentication from "./custom-hooks/useUserAuthentication";
 import styles from "./styles/authentication.module.scss";
+import BasicCard from "./components/common/BasicCard";
+import Chart from "./components/pie/pie";
 
 function App() {
   // const location = useLocation();
   // const navigate = useNavigate();
   const { isAuthenticating, isAuthenticated } = useUserAuthentication();
-
+ 
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
   //   if (location.state !== null) {
@@ -27,11 +29,13 @@ function App() {
   return (
     <>
       <Header />
-      {isAuthenticating ? (
+      
+      {/* {/* {isAuthenticating ? (
         <div className={styles.mainwrapper}>Authenticating...</div>
       ) : (
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
-      )}
+      )} */}
+      <Home />
       <Footer />
     </>
   );

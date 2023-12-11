@@ -1,0 +1,30 @@
+.header {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 79px;
+
+  .nav_wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    margin-left: 10px;
+  }
+
+  .logo_img {
+    width: 80px;
+    height: auto;
+    margin-right: 5px;
+  }
+  .nav_link {
+    margin: 0px 22px 0px 10px;
+  }
+  .online_status {
+    width: 20px;
+    height: 20px;
+    background-color: #3ab18b;
+    border-radius: 50%;
+  }
+}

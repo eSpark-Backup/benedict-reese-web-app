@@ -11,6 +11,7 @@ import Chart from "../../components/pie/pie";
 import HealthScoreIndicator from "../../components/ScoreIndicator";
 import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
+import FlightDetails from "../../components/FlightDetails";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -150,7 +151,7 @@ const IndustryOverview = () => {
         backgroundColor={chart4BackgroundColor}
       />
       </div>
-      
+      <FlightDetails/>
       
       </div>
     </>

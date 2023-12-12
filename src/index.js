@@ -9,6 +9,7 @@ import NotFound from "./views/NotFound/NotFound";
 import NotAuthorized from "./views/NotAuthorized";
 import IndustryOverview from "./views/industryOverview";
 import Home from "./views/Home";
+import "./index.css";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);

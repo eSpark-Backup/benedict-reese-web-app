@@ -16,10 +16,11 @@ function App() {
   // const navigate = useNavigate();
   const { isAuthenticating, isAuthenticated } = useUserAuthentication();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const drawerWidth = 500;
+  const drawerWidth = 300;
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
       flexGrow: 1,
+      overflowX: "scroll",
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

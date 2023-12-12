@@ -54,7 +54,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
   return (
     <>
       <header className={styles.header}>
-        <div className={styles.nav_wrapper}>
+        <div className={`${styles.nav_wrapper} flex`}>
           <div className={styles.nav_link}>
             <GiHamburgerMenu
               style={{ cursor: "pointer" }}
@@ -79,7 +79,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
           </svg>
           <div className={styles.nav_link}>Live Flights</div>
         </div>
-        <div>
+        <div className="hidden sm:block">
           <a href="https://compareprivateplanes.com">
             <img
               src="https://compareprivateplanes.com/images/site/cropped-logo-blue-1536x997.png"
@@ -88,7 +88,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
             />
           </a>
         </div>
-        <div className={styles.nav_wrapper}>
+        <div className={`${styles.nav_wrapper} hidden sm:flex`}>
           <div className={styles.nav_link}>
             <a href="https://compareprivateplanes.com/register/your-membership">
               Account
@@ -109,16 +109,20 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
               <img
                 src="https://compareprivateplanes.com/images/site/cropped-logo-blue-1536x997.png"
                 alt="logo"
-                className={styles.logo_img_sidebar}
+                className="3xl:w-[200px] w-40 "
               />
             </a>
           </div>
-          <div className={styles.greetings}>Good Afternoon, User</div>
-          <div className={styles.sidebar_list_container}>
+          <div className="3xl:text-[26px] py-3 text-[16px]">
+            Good Afternoon, User
+          </div>
+          <div
+            className={`${styles.sidebar_list_container} text-sm 3xl:text-[26px]`}
+          >
             {sidebarMenu.map((val) => {
               return (
-                <div className={styles.sidebar_list}>
-                  <div className={styles.icon_box}>
+                <div className="flex justify-start items-center px-1 py-3 3xl:py-5">
+                  <div className={`${styles.icon_box} w-10 3xl:w-[60px]`}>
                     {<img src={val.icon} alt="icon" />}
                   </div>
                   <Link to={val.path}> {val.name}</Link>
@@ -128,11 +132,13 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
           </div>
           <div className={styles.sidebar_list_container_footer}>
             <Divider />
-            <div className={styles.sidebar_list_container}>
+            <div
+              className={`${styles.sidebar_list_container} text-sm 3xl:text-[26px]`}
+            >
               {sidebarFooterMenu.map((val) => {
                 return (
-                  <div className={styles.sidebar_list}>
-                    <div className={styles.icon_box}>
+                  <div className="flex justify-start items-center px-1 py-3 3xl:py-5">
+                    <div className={`${styles.icon_box} w-10 3xl:w-[60px]`}>
                       {<img src={val.icon} alt="icon" />}
                     </div>
                     <Link to={val.path}> {val.name}</Link>

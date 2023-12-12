@@ -168,8 +168,8 @@ const FlightDetails = () => {
           src={Map}
           alt="Map"
           width="1094px"
-          height="669px"
-          style={{ borderRadius: "12px" }}
+          height="671px"
+          className={styles.flightImage}
         />
       </div>
       <div className={styles.flightCard} style={{ flex: 1 }}>

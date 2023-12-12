@@ -147,6 +147,7 @@ const IndustryOverview = () => {
         <NewsEventCard />
 
         </div>
+        <FlightDetails/>
       </div>
     </>
   );

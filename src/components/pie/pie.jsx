@@ -2,6 +2,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import StandardCard from "../common/StandardCard";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import styles from "./Pie.module.scss";
 
 const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
   const data = {
@@ -49,37 +50,14 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <div >
-      <StandardCard style={{height:"525px"}} >
-        <h2 style={{paddingTop:"20px", paddingBottom:"20px", paddingLeft:"25px"}}>{heading}</h2>
-        <div
-          style={{
-            position: "relative",
-            width: "300px",
-            height: "300px",
-            marginLeft: "120px",
-            left: "-55px",
-          }}
-        >
+    <div>
+      <StandardCard style={{ height: "525px" }}>
+        <h2 className={styles.pieHeading}>{heading}</h2>
+        <div className={styles.doughnutChart}>
           <Doughnut data={data} options={options} plugins={[ChartDataLabels]} />
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          ></div>
+          <div className={styles.doughnutData}></div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "start",
-            marginTop: "10px",
-            marginLeft: "30px",
-            marginBottom: "20px",
-          }}
-        >
+        <div className={styles.labelSection}>
           {[...Array(columns)].map((_, colIndex) => (
             <div key={colIndex} style={{ flex: 1 }}>
               {[...Array(rows)].map((_, rowIndex) => {

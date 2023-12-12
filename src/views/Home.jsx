@@ -8,6 +8,7 @@ import { searchService } from "../utils/hooks/utils";
 import Card from "../components/common/Card";
 import Dropdown from "../components/common/Dropdown";
 import Accordion from "@mui/material/Accordion";
+import { styled, useTheme } from "@mui/material/styles";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import {
   CATEGORY_OPTIONS,
@@ -25,6 +26,7 @@ import axios from "axios";
 import { MdOutlineExpandMore } from "react-icons/md";
 import styles from "../styles/Search.module.scss";
 import { Button, Slider } from "@mui/material";
+import NewHeader from "../components/common/NewHeader/Header";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -683,575 +685,608 @@ export default function Search() {
     handleMaxAltitudeChanged();
     handleBaggageCapacityChanged();
   }, [unit]);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const drawerWidth = 500;
+  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    })
+  );
   return (
-    <div className={cn("section-pt80", styles.section)}>
-      <div className={cn(styles.container)}>
-        <div className={styles.row}>
-          <span className={styles.open_filter} onClick={() => openFilter()}>
-            <i className="fa-solid fa-sliders"></i>
-          </span>
-          <div className={"filters_target " + styles.filters}>
-            <div className={styles.top}>
-              <div className={styles.title}>Search Aircraft</div>
-            </div>
-            <div className={styles.form}>
-              <form className={styles.search} action="">
-                <input
-                  className={styles.input}
-                  type="text"
-                  value={search.aircraft_name}
-                  onChange={(e) =>
-                    handleSearchChanged("aircraft_name", e.target.value)
-                  }
-                  name="search"
-                  placeholder="Search Aircraft"
-                  required
-                />
-                <button className={styles.result}>
-                  <HiOutlineSearch name="search" size="16" />
-                </button>
-              </form>
-            </div>
-
-            <div className={styles.sorting}>
-              <div className={styles.dropdown}>
-                <div className={styles.label}>Category</div>
-                <Dropdown
-                  className={styles.dropdown}
-                  value={CATEGORY_OPTIONS_DIC[search.category]}
-                  setValue={(value) => handleSearchChanged("category", value)}
-                  options={CATEGORY_OPTIONS}
-                />
+    <Main open={!isSidebarOpen}>
+      <NewHeader
+        openSidebar={isSidebarOpen}
+        sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
+      <div className={cn("section-pt80", styles.section)}>
+        <div className={cn(styles.container)}>
+          <div className={styles.row}>
+            <span className={styles.open_filter} onClick={() => openFilter()}>
+              <i className="fa-solid fa-sliders"></i>
+            </span>
+            <div className={"filters_target " + styles.filters}>
+              <div className={styles.top}>
+                <div className={styles.title}>Search Aircraft</div>
               </div>
-            </div>
-            <div className={styles.sorting}>
-              <div className={styles.dropdown}>
-                <div className={styles.label}>Manufacturer</div>
-                <Dropdown
-                  className={styles.dropdown}
-                  value={MANUFACTURER_OPTIONS_DIC[search.aircraft_manufacturer]}
-                  setValue={(value) =>
-                    handleSearchChanged("aircraft_manufacturer", value)
-                  }
-                  options={MANUFACTURER_OPTIONS}
-                />
+              <div className={styles.form}>
+                <form className={styles.search} action="">
+                  <input
+                    className={styles.input}
+                    type="text"
+                    value={search.aircraft_name}
+                    onChange={(e) =>
+                      handleSearchChanged("aircraft_name", e.target.value)
+                    }
+                    name="search"
+                    placeholder="Search Aircraft"
+                    required
+                  />
+                  <button className={styles.result}>
+                    <HiOutlineSearch name="search" size="16" />
+                  </button>
+                </form>
               </div>
-            </div>
-            <div className={styles.sorting}>
-              <div className={styles.dropdown}>
-                <div className={styles.label}>In Production</div>{" "}
-                <Dropdown
-                  className={styles.dropdown}
-                  value={
-                    PRODUCTION_OPTIONS_DIC[
-                      search.in_production === true
-                        ? "Yes"
-                        : search.in_production === false
-                        ? "No"
-                        : "Select"
-                    ]
-                  }
-                  setValue={(value) =>
-                    handleSearchChanged(
-                      "in_production",
-                      value === "Yes" ? true : false
-                    )
-                  }
-                  options={PRODUCTION_OPTIONS}
-                />
+
+              <div className={styles.sorting}>
+                <div className={styles.dropdown}>
+                  <div className={styles.label}>Category</div>
+                  <Dropdown
+                    className={styles.dropdown}
+                    value={CATEGORY_OPTIONS_DIC[search.category]}
+                    setValue={(value) => handleSearchChanged("category", value)}
+                    options={CATEGORY_OPTIONS}
+                  />
+                </div>
               </div>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={passengerExpanded}
-                onChange={handlePassengerAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Max Passengers: {maxPax[0]} - {maxPax[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum passengers"}
-                    value={maxPax}
-                    max={max_pax}
-                    onChange={handlePaxChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                    step={calculateStepper(max_pax)}
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={rangeExpanded}
-                onChange={handleRangeAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Max Range ({unit === "Imperial Units" ? "NM" : "KM"}):{" "}
-                    {range[0]} - {range[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum distance"}
-                    value={range}
-                    max={unit === "Imperial Units" ? rangeNM : rangeKm}
-                    onChange={handleRangeChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                    step={calculateStepper(
-                      unit === "Imperial Units" ? rangeNM : rangeKm
-                    )}
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={cruiseExpanded}
-                onChange={handleCruiseAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Cruise Speed ({unit === "Imperial Units" ? "Knots" : "Kmh"}
-                    ): {cruiseSpeed[0]} - {cruiseSpeed[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum cruise"}
-                    value={cruiseSpeed}
-                    max={
-                      unit === "Imperial Units"
-                        ? high_cruise_knots
-                        : highCruiseKnotsKmh
+              <div className={styles.sorting}>
+                <div className={styles.dropdown}>
+                  <div className={styles.label}>Manufacturer</div>
+                  <Dropdown
+                    className={styles.dropdown}
+                    value={
+                      MANUFACTURER_OPTIONS_DIC[search.aircraft_manufacturer]
                     }
-                    onChange={handleCruiseChanged}
-                    valueLabelDisplay="auto"
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? high_cruise_knots
-                        : highCruiseKnotsKmh
-                    )}
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={altitudeExpanded}
-                onChange={handleAltitudeAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Max Altitude (
-                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
-                    {maxAltitude[0]} - {maxAltitude[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum altitude"}
-                    value={maxAltitude}
-                    max={
-                      unit === "Imperial Units"
-                        ? max_altitude_feet
-                        : maxAltitudeMeters
+                    setValue={(value) =>
+                      handleSearchChanged("aircraft_manufacturer", value)
                     }
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? max_altitude_feet
-                        : maxAltitudeMeters
-                    )}
-                    onChange={handleMaxAltitudeChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
+                    options={MANUFACTURER_OPTIONS}
                   />
                 </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={fuelBurnExpanded}
-                onChange={handleFuelAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Fuel Burn (
-                    {unit === "Imperial Units" ? "Gallons/Hour" : "Liters/Hour"}
-                    ): {fuelBurn[0]} - {fuelBurn[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum fuel"}
-                    value={fuelBurn}
-                    max={
-                      unit === "Imperial Units"
-                        ? hourly_fuel_burn_GPH
-                        : hourly_fuel_burn_LPH
+              </div>
+              <div className={styles.sorting}>
+                <div className={styles.dropdown}>
+                  <div className={styles.label}>In Production</div>{" "}
+                  <Dropdown
+                    className={styles.dropdown}
+                    value={
+                      PRODUCTION_OPTIONS_DIC[
+                        search.in_production === true
+                          ? "Yes"
+                          : search.in_production === false
+                          ? "No"
+                          : "Select"
+                      ]
                     }
-                    onChange={handleFuelBurnChanged}
-                    valueLabelDisplay="auto"
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? hourly_fuel_burn_GPH
-                        : hourly_fuel_burn_LPH
-                    )}
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={baggageExpanded}
-                onChange={handleBaggageAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Baggage Capacity (
-                    {unit === "Imperial Units" ? "cu ft" : "cu meters"}):{" "}
-                    {baggageCapacity[0]} - {baggageCapacity[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum baggage"}
-                    value={baggageCapacity}
-                    max={
-                      unit === "Imperial Units"
-                        ? baggage_capacity_CF
-                        : baggage_capacityCubicmeters
+                    setValue={(value) =>
+                      handleSearchChanged(
+                        "in_production",
+                        value === "Yes" ? true : false
+                      )
                     }
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? baggage_capacity_CF
-                        : baggage_capacityCubicmeters
-                    )}
-                    onChange={handleBaggageCapacityChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
+                    options={PRODUCTION_OPTIONS}
                   />
                 </div>
-              </Accordion>
-            </div>
+              </div>
 
-            <div>
-              <Accordion
-                expanded={takeOffExpanded}
-                onChange={handleTakeOffAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
+              <div>
+                <Accordion
+                  expanded={passengerExpanded}
+                  onChange={handlePassengerAccordion}
                 >
-                  <div className={styles.label}>
-                    Take-Off Distance (
-                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
-                    {takeOffDistance[0]} - {takeOffDistance[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum takeoff"}
-                    value={takeOffDistance}
-                    max={
-                      unit === "Imperial Units"
-                        ? TO_distance_feet
-                        : TO_distance_meters
-                    }
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? TO_distance_feet
-                        : TO_distance_meters
-                    )}
-                    onChange={handleTakeOffChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={landingDistanceExpanded}
-                onChange={handleLandingAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Landing Distance (
-                    {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
-                    {landingDistance[0]} - {landingDistance[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum landing"}
-                    value={landingDistance}
-                    max={
-                      unit === "Imperial Units"
-                        ? landing_distance_feet
-                        : landing_distance_meters
-                    }
-                    step={calculateStepper(
-                      unit === "Imperial Units"
-                        ? landing_distance_feet
-                        : landing_distance_meters
-                    )}
-                    onChange={handleLandingDistanceChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={annualPriceExpanded}
-                onChange={handleAnnualPriceAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Annual Fixed Cost ($): {annualFixedCost[0]} -{" "}
-                    {annualFixedCost[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum fixed cost"}
-                    value={annualFixedCost}
-                    max={annual_cost}
-                    step={calculateStepper(annual_cost)}
-                    onChange={handleAnnualFixedChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={hourlyPriceExpanded}
-                onChange={handleHourlyPriceAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Hourly Price ($): {hourlyprice[0]} - {hourlyprice[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum hourly price"}
-                    value={hourlyprice}
-                    max={estimated_hourly_charter}
-                    step={calculateStepper(estimated_hourly_charter)}
-                    onChange={handleHourlyPriceChange}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={purchasePriceAccordion}
-                onChange={handlePurchaseAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Purchase Price ($): {purchaseprice[0]} - {purchaseprice[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum purchase"}
-                    value={purchaseprice}
-                    max={new_purchase}
-                    min={100000}
-                    step={calculateStepper(new_purchase)}
-                    onChange={handlePurchasePriceChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-
-            <div>
-              <Accordion
-                expanded={preOwnedExpanded}
-                onChange={handlePreOwnedAccordion}
-              >
-                <AccordionSummary
-                  expandIcon={<MdOutlineExpandMore />}
-                  aria-controls="panel4bh-content"
-                  id="panel4bh-header"
-                >
-                  <div className={styles.label}>
-                    Pre-Owned ($ million): {preowned[0]} - {preowned[1]}
-                  </div>
-                </AccordionSummary>
-                <div className={styles.range}>
-                  <Slider
-                    className={styles.slider_home}
-                    getAriaLabel={() => "Minimum preowned"}
-                    value={preowned}
-                    max={average_pre_owned}
-                    min={100000}
-                    step={calculateStepper(average_pre_owned)}
-                    onChange={handlePreOwnedChanged}
-                    valueLabelDisplay="auto"
-                    disableSwap
-                  />
-                </div>
-              </Accordion>
-            </div>
-          </div>
-          <div className={styles.wrapper}>
-            <div className={styles.dropdown}>
-              <Dropdown
-                className={styles.dropdown}
-                headerDropdown={true}
-                value={unit}
-                setValue={(value) => onUnitChanged(value)}
-                options={UNIT_OPTIONS}
-              />
-              <Dropdown
-                headerDropdown={true}
-                className={styles.dropdown}
-                value={country}
-                setValue={(value) => onCountryChanged(value)}
-                options={COUNTRY_OPTIONS}
-              />
-              <Dropdown
-                className={styles.dropdown}
-                headerDropdown={true}
-                value={currency}
-                setValue={(value) => onCurrencyChanged(value)}
-                options={CURRENCY_OPTIONS}
-              />
-            </div>
-            <div className={styles.list}>
-              {currentPage?.length ? (
-                currentPage?.map((product) => (
-                  <>
-                    <Card
-                      className={styles.card}
-                      item={product}
-                      key={product.aircraft_id}
-                      unit={unit}
-                      currency={currency}
-                      country={country}
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Max Passengers: {maxPax[0]} - {maxPax[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum passengers"}
+                      value={maxPax}
+                      max={max_pax}
+                      onChange={handlePaxChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                      step={calculateStepper(max_pax)}
                     />
-                  </>
-                ))
-              ) : (
-                <div className={styles.spinner}>
-                  <BounceLoader color={"#81B8E1"} loading={true} size={50} />
-                </div>
-              )}
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={rangeExpanded}
+                  onChange={handleRangeAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Max Range ({unit === "Imperial Units" ? "NM" : "KM"}):{" "}
+                      {range[0]} - {range[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum distance"}
+                      value={range}
+                      max={unit === "Imperial Units" ? rangeNM : rangeKm}
+                      onChange={handleRangeChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                      step={calculateStepper(
+                        unit === "Imperial Units" ? rangeNM : rangeKm
+                      )}
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={cruiseExpanded}
+                  onChange={handleCruiseAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Cruise Speed (
+                      {unit === "Imperial Units" ? "Knots" : "Kmh"}
+                      ): {cruiseSpeed[0]} - {cruiseSpeed[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum cruise"}
+                      value={cruiseSpeed}
+                      max={
+                        unit === "Imperial Units"
+                          ? high_cruise_knots
+                          : highCruiseKnotsKmh
+                      }
+                      onChange={handleCruiseChanged}
+                      valueLabelDisplay="auto"
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? high_cruise_knots
+                          : highCruiseKnotsKmh
+                      )}
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={altitudeExpanded}
+                  onChange={handleAltitudeAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Max Altitude (
+                      {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                      {maxAltitude[0]} - {maxAltitude[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum altitude"}
+                      value={maxAltitude}
+                      max={
+                        unit === "Imperial Units"
+                          ? max_altitude_feet
+                          : maxAltitudeMeters
+                      }
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? max_altitude_feet
+                          : maxAltitudeMeters
+                      )}
+                      onChange={handleMaxAltitudeChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={fuelBurnExpanded}
+                  onChange={handleFuelAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Fuel Burn (
+                      {unit === "Imperial Units"
+                        ? "Gallons/Hour"
+                        : "Liters/Hour"}
+                      ): {fuelBurn[0]} - {fuelBurn[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum fuel"}
+                      value={fuelBurn}
+                      max={
+                        unit === "Imperial Units"
+                          ? hourly_fuel_burn_GPH
+                          : hourly_fuel_burn_LPH
+                      }
+                      onChange={handleFuelBurnChanged}
+                      valueLabelDisplay="auto"
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? hourly_fuel_burn_GPH
+                          : hourly_fuel_burn_LPH
+                      )}
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={baggageExpanded}
+                  onChange={handleBaggageAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Baggage Capacity (
+                      {unit === "Imperial Units" ? "cu ft" : "cu meters"}):{" "}
+                      {baggageCapacity[0]} - {baggageCapacity[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum baggage"}
+                      value={baggageCapacity}
+                      max={
+                        unit === "Imperial Units"
+                          ? baggage_capacity_CF
+                          : baggage_capacityCubicmeters
+                      }
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? baggage_capacity_CF
+                          : baggage_capacityCubicmeters
+                      )}
+                      onChange={handleBaggageCapacityChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={takeOffExpanded}
+                  onChange={handleTakeOffAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Take-Off Distance (
+                      {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                      {takeOffDistance[0]} - {takeOffDistance[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum takeoff"}
+                      value={takeOffDistance}
+                      max={
+                        unit === "Imperial Units"
+                          ? TO_distance_feet
+                          : TO_distance_meters
+                      }
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? TO_distance_feet
+                          : TO_distance_meters
+                      )}
+                      onChange={handleTakeOffChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={landingDistanceExpanded}
+                  onChange={handleLandingAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Landing Distance (
+                      {unit === "Imperial Units" ? "Feet" : "Meters"}):{" "}
+                      {landingDistance[0]} - {landingDistance[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum landing"}
+                      value={landingDistance}
+                      max={
+                        unit === "Imperial Units"
+                          ? landing_distance_feet
+                          : landing_distance_meters
+                      }
+                      step={calculateStepper(
+                        unit === "Imperial Units"
+                          ? landing_distance_feet
+                          : landing_distance_meters
+                      )}
+                      onChange={handleLandingDistanceChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={annualPriceExpanded}
+                  onChange={handleAnnualPriceAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Annual Fixed Cost ($): {annualFixedCost[0]} -{" "}
+                      {annualFixedCost[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum fixed cost"}
+                      value={annualFixedCost}
+                      max={annual_cost}
+                      step={calculateStepper(annual_cost)}
+                      onChange={handleAnnualFixedChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={hourlyPriceExpanded}
+                  onChange={handleHourlyPriceAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Hourly Price ($): {hourlyprice[0]} - {hourlyprice[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum hourly price"}
+                      value={hourlyprice}
+                      max={estimated_hourly_charter}
+                      step={calculateStepper(estimated_hourly_charter)}
+                      onChange={handleHourlyPriceChange}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={purchasePriceAccordion}
+                  onChange={handlePurchaseAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Purchase Price ($): {purchaseprice[0]} -{" "}
+                      {purchaseprice[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum purchase"}
+                      value={purchaseprice}
+                      max={new_purchase}
+                      min={100000}
+                      step={calculateStepper(new_purchase)}
+                      onChange={handlePurchasePriceChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
+
+              <div>
+                <Accordion
+                  expanded={preOwnedExpanded}
+                  onChange={handlePreOwnedAccordion}
+                >
+                  <AccordionSummary
+                    expandIcon={<MdOutlineExpandMore />}
+                    aria-controls="panel4bh-content"
+                    id="panel4bh-header"
+                  >
+                    <div className={styles.label}>
+                      Pre-Owned ($ million): {preowned[0]} - {preowned[1]}
+                    </div>
+                  </AccordionSummary>
+                  <div className={styles.range}>
+                    <Slider
+                      className={styles.slider_home}
+                      getAriaLabel={() => "Minimum preowned"}
+                      value={preowned}
+                      max={average_pre_owned}
+                      min={100000}
+                      step={calculateStepper(average_pre_owned)}
+                      onChange={handlePreOwnedChanged}
+                      valueLabelDisplay="auto"
+                      disableSwap
+                    />
+                  </div>
+                </Accordion>
+              </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                padding: "12px",
-                justifyContent: "center",
-                width: "100%",
-              }}
-            >
-              <Button
-                style={{ margin: "2px" }}
-                disabled={pageNumber == 1}
-                variant="outlined"
-                onClick={() => {
-                  pageNumber > 1 && setPageNumber((num) => num - 1);
+            <div className={styles.wrapper}>
+              <div className={styles.dropdown}>
+                <Dropdown
+                  className={styles.dropdown}
+                  headerDropdown={true}
+                  value={unit}
+                  setValue={(value) => onUnitChanged(value)}
+                  options={UNIT_OPTIONS}
+                />
+                <Dropdown
+                  headerDropdown={true}
+                  className={styles.dropdown}
+                  value={country}
+                  setValue={(value) => onCountryChanged(value)}
+                  options={COUNTRY_OPTIONS}
+                />
+                <Dropdown
+                  className={styles.dropdown}
+                  headerDropdown={true}
+                  value={currency}
+                  setValue={(value) => onCurrencyChanged(value)}
+                  options={CURRENCY_OPTIONS}
+                />
+              </div>
+              <div className={styles.list}>
+                {currentPage?.length ? (
+                  currentPage?.map((product) => (
+                    <>
+                      <Card
+                        className={styles.card}
+                        item={product}
+                        key={product.aircraft_id}
+                        unit={unit}
+                        currency={currency}
+                        country={country}
+                      />
+                    </>
+                  ))
+                ) : (
+                  <div className={styles.spinner}>
+                    <BounceLoader color={"#81B8E1"} loading={true} size={50} />
+                  </div>
+                )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  padding: "12px",
+                  justifyContent: "center",
+                  width: "100%",
                 }}
               >
-                {"<"}
-              </Button>
-              {paginationButtons()}
-              <Button
-                style={{ margin: "2px" }}
-                disabled={pageNumber >= maxPage}
-                variant="outlined"
-                onClick={() => {
-                  setPageNumber((num) => (num < maxPage ? num + 1 : num));
-                }}
-              >
-                {">"}
-              </Button>
+                <Button
+                  style={{ margin: "2px" }}
+                  disabled={pageNumber == 1}
+                  variant="outlined"
+                  onClick={() => {
+                    pageNumber > 1 && setPageNumber((num) => num - 1);
+                  }}
+                >
+                  {"<"}
+                </Button>
+                {paginationButtons()}
+                <Button
+                  style={{ margin: "2px" }}
+                  disabled={pageNumber >= maxPage}
+                  variant="outlined"
+                  onClick={() => {
+                    setPageNumber((num) => (num < maxPage ? num + 1 : num));
+                  }}
+                >
+                  {">"}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Main>
   );
 }

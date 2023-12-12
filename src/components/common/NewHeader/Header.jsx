@@ -1,12 +1,56 @@
 import React, { useState } from "react";
 import styles from "./Header.module.scss";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Box, Divider, Drawer } from "@mui/material";
+import { Divider, Drawer } from "@mui/material";
+import { Link } from "react-router-dom";
+import dashboard from "../../../images/dashboard.svg";
+import account from "../../../images/account.svg";
+import aircraftSearch from "../../../images/aircraftSearch.svg";
+import clientMatch from "../../../images/clientMatch.svg";
+import logout from "../../../images/logout.svg";
+import lookup from "../../../images/lookup.svg";
+import settings from "../../../images/settings.svg";
 
-const NewHeader = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+const NewHeader = ({ sidebarHandler, openSidebar }) => {
+  const sidebarMenu = [
+    {
+      name: "Dashboard",
+      icon: dashboard,
+      path: "/",
+    },
+    {
+      name: "Aircraft Lookup",
+      icon: lookup,
+      path: "/",
+    },
+    {
+      name: "Aircraft Search",
+      icon: aircraftSearch,
+      path: "/aircraft-search",
+    },
+    {
+      name: "Client Match",
+      icon: clientMatch,
+      path: "",
+    },
+  ];
+  const sidebarFooterMenu = [
+    {
+      name: "Settings",
+      icon: settings,
+      path: "",
+    },
+    {
+      name: "Account",
+      icon: account,
+      path: "register/your-membership",
+    },
+    {
+      name: "Logout",
+      icon: logout,
+      path: "",
+    },
+  ];
   return (
     <>
       <header className={styles.header}>
@@ -16,7 +60,7 @@ const NewHeader = () => {
               style={{ cursor: "pointer" }}
               size={30}
               fill="#C8C8C8"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              onClick={() => sidebarHandler()}
             />
           </div>
           <div className={styles.online_status}></div>
@@ -53,15 +97,52 @@ const NewHeader = () => {
           <div className={styles.nav_link}>Logout</div>
         </div>
       </header>
-      {/* <Drawer
+      <Drawer
         anchor={"left"}
-        open={isSidebarOpen}
+        open={openSidebar}
         variant="persistent"
-        // onClose={toggleDrawer(anchor, false)}
+        onClose={() => sidebarHandler()}
       >
-        <div style={{ width: 300 }}></div>
-        <Divider />
-      </Drawer> */}
+        <div className={styles.sidebar_container}>
+          <div>
+            <a href="https://compareprivateplanes.com">
+              <img
+                src="https://compareprivateplanes.com/images/site/cropped-logo-blue-1536x997.png"
+                alt="logo"
+                className={styles.logo_img_sidebar}
+              />
+            </a>
+          </div>
+          <div className={styles.greetings}>Good Afternoon, User</div>
+          <div className={styles.sidebar_list_container}>
+            {sidebarMenu.map((val) => {
+              return (
+                <div className={styles.sidebar_list}>
+                  <div className={styles.icon_box}>
+                    {<img src={val.icon} alt="icon" />}
+                  </div>
+                  <Link to={val.path}> {val.name}</Link>
+                </div>
+              );
+            })}
+          </div>
+          <div className={styles.sidebar_list_container_footer}>
+            <Divider />
+            <div className={styles.sidebar_list_container}>
+              {sidebarFooterMenu.map((val) => {
+                return (
+                  <div className={styles.sidebar_list}>
+                    <div className={styles.icon_box}>
+                      {<img src={val.icon} alt="icon" />}
+                    </div>
+                    <Link to={val.path}> {val.name}</Link>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </Drawer>
     </>
   );
 };

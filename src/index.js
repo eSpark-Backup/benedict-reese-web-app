@@ -8,6 +8,7 @@ import Sample from "./views/Sample/Sample";
 import NotFound from "./views/NotFound/NotFound";
 import NotAuthorized from "./views/NotAuthorized";
 import IndustryOverview from "./views/industryOverview";
+import Home from "./views/Home";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -16,6 +17,11 @@ const router = createBrowserRouter([
   {
     path: "/:aircraft_name/",
     element: <SingleAircraftDetails />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/aircraft-search",
+    element: <Home />,
     errorElement: <NotFound />,
   },
   {

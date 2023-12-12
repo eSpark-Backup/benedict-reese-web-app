@@ -12,6 +12,7 @@ import HealthScoreIndicator from "../../components/ScoreIndicator";
 import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
 import NewsEventCard from "../../components/common/NewsEventCard";
+import FlightDetails from "../../components/FlightDetails";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];

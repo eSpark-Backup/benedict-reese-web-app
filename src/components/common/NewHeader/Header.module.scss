@@ -20,11 +20,75 @@
   }
   .nav_link {
     margin: 0px 22px 0px 10px;
+    font-size: 18px;
   }
   .online_status {
     width: 20px;
     height: 20px;
     background-color: #3ab18b;
     border-radius: 50%;
+  }
+}
+
+.sidebar_container {
+  width: 500px;
+  padding: 30px;
+  position: relative;
+  height: 100vh;
+  padding-bottom: 50px;
+
+  .logo_img_sidebar {
+    width: 200px;
+    height: 103;
+    margin-top: 20px;
+  }
+
+  .sidebar_list_container {
+    text-decoration: none;
+    list-style: none;
+    font-size: 26px;
+    font-weight: 400;
+  }
+  .sidebar_list_container_footer {
+    position: absolute;
+    width: 87%;
+    bottom: 20px;
+  }
+  .sidebar_list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 5px;
+  }
+  .greetings {
+    font-size: 26px;
+    margin: 40px 0px;
+  }
+  .icon_box {
+    background-color: #f4f5f5;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 12px;
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 2000px) {
+  .sidebar_container {
+    .greetings {
+      font-size: 20px;
+      margin: 10px 0px;
+    }
+
+    .sidebar_list_container {
+      text-decoration: none;
+      list-style: none;
+      font-size: 19px;
+      font-weight: 400;
+    }
   }
 }

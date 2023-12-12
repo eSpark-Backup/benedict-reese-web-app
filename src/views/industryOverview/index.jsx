@@ -11,7 +11,9 @@ import Chart from "../../components/pie/pie";
 import HealthScoreIndicator from "../../components/ScoreIndicator";
 import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
+import NewsEventCard from "../../components/common/NewsEventCard";
 import FlightDetails from "../../components/FlightDetails";
+import styles from "./IndustryOverview.module.scss";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -36,14 +38,8 @@ const IndustryOverview = () => {
   ];
 
   const chart2Heading = ["Flights by Aircraft Class"];
-  const chart2Data = [15, 30, 5, 25, 25,];
-  const chart2Labels = [
-    "Prop",
-    "VLJ",
-    "Light Jet",
-    "Medium Jet",
-    "Large Jet",
-  ];
+  const chart2Data = [15, 30, 5, 25, 25];
+  const chart2Labels = ["Prop", "VLJ", "Light Jet", "Medium Jet", "Large Jet"];
   const chart2BackgroundColor = [
     "#FF0000",
     "#FFB800",
@@ -75,16 +71,8 @@ const IndustryOverview = () => {
 
   const chart4Heading = ["Domestic Vs International"];
   const chart4Data = [20, 80];
-  const chart4Labels = [
-    "Domestic",
-    "International",
-    
-  ];
-  const chart4BackgroundColor = [
-    "#FFB800",
-    "#FF0000",
-    
-  ];
+  const chart4Labels = ["Domestic", "International"];
+  const chart4BackgroundColor = ["#FFB800", "#FF0000"];
 
   const [data, setData] = useState([
     {
@@ -115,48 +103,55 @@ const IndustryOverview = () => {
 
   return (
     <>
-    <div style={{paddingLeft:"40px", paddingRight:"40px"}}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        {data.map((item) => (
-          <BasicCard item={item} />
-        ))}
-      </div>
-      <br />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Chart
-        heading={chart1Heading}
-        chartData={chart1Data}
-        chartLabels={chart1Labels}
-        backgroundColor={chart1BackgroundColor}
-      />
-      <Chart
-        heading={chart2Heading}
-        chartData={chart2Data}
-        chartLabels={chart2Labels}
-        backgroundColor={chart2BackgroundColor}
-      />
-      <HealthScore/>
-      </div>
-      <div style={{ display: "flex", justifyContent: "start", marginTop:"40px" }}>
-      <Chart
-        heading={chart3Heading}
-        chartData={chart3Data}
-        chartLabels={chart3Labels}
-        backgroundColor={chart3BackgroundColor}
-      />
-      <Chart
-        heading={chart4Heading}
-        chartData={chart4Data}
-        chartLabels={chart4Labels}
-        backgroundColor={chart4BackgroundColor}
-      />
-      </div>
-      <FlightDetails/>
-      
+      <div
+        className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
+      >
+        <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
+          {data.map((item, index) => (
+            <BasicCard item={item} key={index} />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+          <Chart
+            heading={chart1Heading}
+            chartData={chart1Data}
+            chartLabels={chart1Labels}
+            backgroundColor={chart1BackgroundColor}
+          />
+          <Chart
+            heading={chart2Heading}
+            chartData={chart2Data}
+            chartLabels={chart2Labels}
+            backgroundColor={chart2BackgroundColor}
+          />
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
+          <HealthScore />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+          <Chart
+            heading={chart3Heading}
+            chartData={chart3Data}
+            chartLabels={chart3Labels}
+            backgroundColor={chart3BackgroundColor}
+          />
+          <Chart
+            heading={chart4Heading}
+            chartData={chart4Data}
+            chartLabels={chart4Labels}
+            backgroundColor={chart4BackgroundColor}
+          />
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
+          <NewsEventCard />
+          </div>
+        </div>
+
+        <FlightDetails />
       </div>
     </>
   );
-  // return <BasicCard item={data[0]} />;
 };
 
 export default IndustryOverview;

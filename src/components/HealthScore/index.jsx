@@ -31,8 +31,8 @@ export const HealthScore = () => {
     <>
       <StandardCard
         style={{
-          height: "525px",
-          width: "892px",
+          // height: "525px",
+          // width: "892px",
           paddingLeft: "30px",
           paddingRight: "30px",
         }}
@@ -43,10 +43,17 @@ export const HealthScore = () => {
             <button> AI Beta </button>
           </div>
           <button className={styles.iconButton}>
-            <LuArrowLeftRight /> Ask
+            <LuArrowLeftRight className={styles.rightLeft}  /> <span className={styles.rightLeftText}>Ask</span>
           </button>
         </div>
-        <div style={{ marginLeft: "120px", marginBottom: "40px" }}>
+        <div
+          style={{
+            marginLeft: "50px",
+            marginTop: "40px",
+            marginBottom: "40px",
+          }}
+          className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 "
+        >
           <ScoreIndicator score={70} heading={"CURRENT HEALTH"} />
           <ScoreIndicator score={20} heading={"FUTURE OUTLOOK"} />
           <ScoreIndicator score={50} heading={"MARKET STABILITY"} />

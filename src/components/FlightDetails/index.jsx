@@ -156,13 +156,11 @@ const FlightDetails = () => {
 
   return (
     <div className={styles.flightSection}>
-      <div style={{ flex: 1 }}>
+      <div >
         <img
           src={Map}
           alt="Map"
-          width="1094px"
-          height="669px"
-          style={{ borderRadius: "12px" }}
+          className="w-full md:w-2/1 lg:w-1/2 xl:w-1/2"
         />
       </div>
       <div className={styles.flightCard}>

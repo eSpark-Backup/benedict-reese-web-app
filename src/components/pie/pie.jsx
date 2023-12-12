@@ -50,50 +50,48 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <div>
-      <StandardCard style={{ height: "525px" }}>
-        <h2 className={styles.pieHeading}>{heading}</h2>
-        <div className={styles.doughnutChart}>
-          <Doughnut data={data} options={options} plugins={[ChartDataLabels]} />
-          <div className={styles.doughnutData}></div>
-        </div>
-        <div className={styles.labelSection}>
-          {[...Array(columns)].map((_, colIndex) => (
-            <div key={colIndex} style={{ flex: 1 }}>
-              {[...Array(rows)].map((_, rowIndex) => {
-                const dataIndex = colIndex * rows + rowIndex;
-                if (dataIndex < chartLabels.length) {
-                  return (
+    <StandardCard >
+      <h2 className={styles.pieHeading}>{heading}</h2>
+      <div className={styles.doughnutChart}>
+        <Doughnut data={data} options={options} plugins={[ChartDataLabels]} />
+        <div className={styles.doughnutData}></div>
+      </div>
+      <div className={styles.labelSection}>
+        {[...Array(columns)].map((_, colIndex) => (
+          <div key={colIndex} style={{ flex: 1 }}>
+            {[...Array(rows)].map((_, rowIndex) => {
+              const dataIndex = colIndex * rows + rowIndex;
+              if (dataIndex < chartLabels.length) {
+                return (
+                  <div
+                    key={dataIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
                     <div
-                      key={dataIndex}
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: "10px",
+                        width: "31px",
+                        height: "18px",
+                        backgroundColor:
+                          data.datasets[0].backgroundColor[dataIndex],
+                        marginRight: "10px",
                       }}
-                    >
-                      <div
-                        style={{
-                          width: "31px",
-                          height: "18px",
-                          backgroundColor:
-                            data.datasets[0].backgroundColor[dataIndex],
-                          marginRight: "10px",
-                        }}
-                      ></div>
-                      <span style={{ fontSize: "12px" }}>
-                        {chartLabels[dataIndex]}
-                      </span>
-                    </div>
-                  );
-                }
-                return null;
-              })}
-            </div>
-          ))}
-        </div>
-      </StandardCard>
-    </div>
+                    ></div>
+                    <span style={{ fontSize: "12px" }}>
+                      {chartLabels[dataIndex]}
+                    </span>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+        ))}
+      </div>
+    </StandardCard>
   );
 };
 

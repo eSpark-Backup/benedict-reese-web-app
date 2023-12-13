@@ -155,15 +155,13 @@ const FlightDetails = () => {
   };
 
   return (
-    <div className={styles.flightSection}>
-      <div >
-        <img
-          src={Map}
-          alt="Map"
-          className="w-full md:w-2/1 lg:w-1/2 xl:w-1/2"
-        />
+    <div className={`${styles.flightSection} block md:flex md:h-[671px]`}>
+      <div className="h-full w-full md:w-7/12">
+        <img src={Map} alt="Map" className="w-full h-full" />
       </div>
-      <div className={styles.flightCard}>
+      <div
+        className={`${styles.flightCard} w-full md:w-5/12 md:-ml-5 -mt-5 md:mt-0 `}
+      >
         <div className={styles.flightCardHead}>
           <h2>Live Flights</h2>
           <Button

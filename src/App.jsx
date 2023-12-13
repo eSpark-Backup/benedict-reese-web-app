@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./views/Home";
 import Header from "./components/common/header/index";
@@ -20,7 +20,6 @@ function App() {
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
       flexGrow: 1,
-      overflowX: "scroll",
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -35,6 +34,15 @@ function App() {
       }),
     })
   );
+
+  useEffect(() => {
+    localStorage.setItem("isSidebarOpen", false);
+  }, []);
+
+  const sidebarOpenHandler = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    localStorage.setItem("isSidebarOpen", !isSidebarOpen);
+  };
 
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
@@ -55,7 +63,7 @@ function App() {
       <Main open={!isSidebarOpen}>
         <NewHeader
           openSidebar={isSidebarOpen}
-          sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+          sidebarHandler={() => sidebarOpenHandler()}
         />
         {/* {isAuthenticating ? (
         <div className={styles.mainwrapper}>Authenticating...</div>

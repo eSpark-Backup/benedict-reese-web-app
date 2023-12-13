@@ -16,7 +16,7 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
       },
     ],
   };
-
+  const isSidebarOpen = localStorage.getItem("isSidebarOpen");
   const options = {
     plugins: {
       legend: {
@@ -50,9 +50,13 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <StandardCard >
+    <StandardCard style={{ padding: "20px" }}>
       <h2 className={styles.pieHeading}>{heading}</h2>
-      <div className={styles.doughnutChart}>
+      <div
+        className={`m-auto ${isSidebarOpen ? "w-auto" : "lg:w-[300px]"} ${
+          isSidebarOpen ? "h-auto" : "lg:h-[300px]"
+        }  flex justify-center`}
+      >
         <Doughnut data={data} options={options} plugins={[ChartDataLabels]} />
         <div className={styles.doughnutData}></div>
       </div>

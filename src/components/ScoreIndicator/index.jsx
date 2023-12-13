@@ -19,7 +19,7 @@ const ScoreIndicator = ({ score, heading }) => {
   return (
     <>
       <div className={styles.healthScoreIndicator}>
-        <h2>{heading}</h2>
+        <h2 className="mb-5 text-center">{heading}</h2>
         <svg
           className={styles.circleChart}
           viewBox="0 0 33.83098862 33.83098862"

@@ -1,0 +1,102 @@
+import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import StandardCard from "../common/StandardCard";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import styles from "./Pie.module.scss";
+
+const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
+  const data = {
+    labels: chartLabels,
+    datasets: [
+      {
+        label: "Countries",
+        data: chartData,
+        backgroundColor: backgroundColor,
+        borderWidth: 0,
+      },
+    ],
+  };
+  const isSidebarOpen = localStorage.getItem("isSidebarOpen");
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      datalabels: {
+        color: "#fff",
+        formatter: (value, context) => {
+          const dataset = context.chart.data.datasets[context.datasetIndex];
+          const total = dataset.data.reduce((acc, val) => acc + val);
+          const percentage = Math.round((value / total) * 100);
+          return `${percentage}%`;
+        },
+        anchor: "end",
+        align: "start",
+        offset: 4,
+        font: {
+          weight: "700",
+          size: "14px",
+        },
+      },
+    },
+    layout: {
+      padding: {
+        bottom: 40, // Adjust bottom padding for legend
+      },
+    },
+  };
+
+  const columns = 3; // Number of columns
+  const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
+
+  return (
+    <StandardCard style={{ padding: "20px" }}>
+      <h2 className={styles.pieHeading}>{heading}</h2>
+      <div
+        className={`m-auto ${isSidebarOpen ? "w-auto" : "lg:w-[300px]"} ${
+          isSidebarOpen ? "h-auto" : "lg:h-[300px]"
+        }  flex justify-center`}
+      >
+        <Doughnut data={data} options={options} plugins={[ChartDataLabels]} />
+        <div className={styles.doughnutData}></div>
+      </div>
+      <div className={styles.labelSection}>
+        {[...Array(columns)].map((_, colIndex) => (
+          <div key={colIndex} style={{ flex: 1 }}>
+            {[...Array(rows)].map((_, rowIndex) => {
+              const dataIndex = colIndex * rows + rowIndex;
+              if (dataIndex < chartLabels.length) {
+                return (
+                  <div
+                    key={dataIndex}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "31px",
+                        height: "18px",
+                        backgroundColor:
+                          data.datasets[0].backgroundColor[dataIndex],
+                        marginRight: "10px",
+                      }}
+                    ></div>
+                    <span style={{ fontSize: "12px" }}>
+                      {chartLabels[dataIndex]}
+                    </span>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+        ))}
+      </div>
+    </StandardCard>
+  );
+};
+
+export default Chart;

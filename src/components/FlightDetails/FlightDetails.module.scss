@@ -30,9 +30,9 @@
 
 .flightSection {
   // display: flex;
-  align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
   // height: 671px;
 }
 
@@ -46,6 +46,48 @@
   border-radius: 12px;
   position: relative;
   z-index: 1;
-  // width: 1094px;
-  // height: 671px;
+  
+}
+
+.graphText {
+  width: 102px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #ebecf2;
+  background: #fff;
+  box-shadow: 0px 21px 19.7px -9px rgba(0, 0, 0, 0.05);
+  justify-content: center;
+}
+
+.greaterThanTen {
+  width: 87px;
+  height: 29px;
+  border-radius: 12px;
+  border: 2px solid #70fd63;
+  background: #befdb8;
+  display: flex;
+  justify-content: center;
+}
+
+.greaterThanTen .logo {
+  fill: #00811c;
+  margin-top: 7px;
+  margin-left: 3px;
+}
+
+.lessThanTen {
+  width: 87px;
+  height: 29px;
+  border-radius: 12px;
+  border: 2px solid #fd6f6f;
+  background: #ffb1b1;
+  display: flex;
+  justify-content: center;
+}
+
+.lessThanTen .logo {
+  fill: #aa0101;
+  margin-top: 7px;
+  margin-left: 3px;
+  transform: rotate(90deg);
 }

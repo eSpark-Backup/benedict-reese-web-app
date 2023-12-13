@@ -6,7 +6,6 @@ import Footer from "./components/common/footer";
 import useUserAuthentication from "./custom-hooks/useUserAuthentication";
 import styles from "./styles/authentication.module.scss";
 import BasicCard from "./components/common/BasicCard";
-import Chart from "./components/pie/pie";
 import NewHeader from "./components/common/NewHeader/Header";
 import { styled, useTheme } from "@mui/material/styles";
 import IndustryOverview from "./views/industryOverview";

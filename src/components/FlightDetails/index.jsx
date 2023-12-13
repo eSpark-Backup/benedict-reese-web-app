@@ -155,31 +155,16 @@ const FlightDetails = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginTop: "50px",
-        marginBottom: "50px",
-      }}
-    >
-      <div style={{ flex: 1 }}>
+    <div className={styles.flightSection}>
+      <div >
         <img
           src={Map}
           alt="Map"
-          width="1094px"
-          height="671px"
-          className={styles.flightImage}
+          className="w-full md:w-2/1 lg:w-1/2 xl:w-1/2"
         />
       </div>
-      <div className={styles.flightCard} style={{ flex: 1 }}>
-        <div
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+      <div className={styles.flightCard}>
+        <div className={styles.flightCardHead}>
           <h2>Live Flights</h2>
           <Button
             variant="contained"

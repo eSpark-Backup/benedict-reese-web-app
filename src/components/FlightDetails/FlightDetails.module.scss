@@ -7,8 +7,8 @@
   height: 671px;
   padding-left: 40px;
   padding-right: 20px;
+  flex: 1;
   margin-left: -19px;
-  margin-top: -5px;
 }
 
 .flightCard h2 {
@@ -17,6 +17,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  padding-top: 25px;
 }
 
 .filterButton {
@@ -27,8 +28,23 @@
   margin-left: -11px;
 }
 
-.flightImage{
+.flightSection {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.flightCardHead {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flightSection img {
   border-radius: 12px;
   position: relative;
   z-index: 1;
+  width: 1094px;
+  height: 671px;
 }

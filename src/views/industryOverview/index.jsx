@@ -13,6 +13,7 @@ import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
 import NewsEventCard from "../../components/common/NewsEventCard";
 import FlightDetails from "../../components/FlightDetails";
+import styles from "./IndustryOverview.module.scss";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -102,14 +103,16 @@ const IndustryOverview = () => {
 
   return (
     <>
-      <div style={{ paddingLeft: "40px", paddingRight: "40px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div
+        className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
+      >
+        <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
           {data.map((item, index) => (
-            <BasicCard item={item} key={index}/>
+            <BasicCard item={item} key={index} />
           ))}
         </div>
-        <br />
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
           <Chart
             heading={chart1Heading}
             chartData={chart1Data}
@@ -122,16 +125,12 @@ const IndustryOverview = () => {
             chartLabels={chart2Labels}
             backgroundColor={chart2BackgroundColor}
           />
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
           <HealthScore />
+          </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "40px",
-            paddingBottom: '40px'
-          }}
-        >
+
+        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
           <Chart
             heading={chart3Heading}
             chartData={chart3Data}
@@ -144,10 +143,12 @@ const IndustryOverview = () => {
             chartLabels={chart4Labels}
             backgroundColor={chart4BackgroundColor}
           />
-        <NewsEventCard />
-
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
+          <NewsEventCard />
+          </div>
         </div>
-        <FlightDetails/>
+
+        <FlightDetails />
       </div>
     </>
   );

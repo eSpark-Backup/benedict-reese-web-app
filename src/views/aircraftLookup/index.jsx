@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AircraftLookup.module.scss";
 import StandardCard from "../../components/common/StandardCard";
 import AircraftInfoCard from "../../components/common/AircraftInfoCard";
@@ -13,7 +13,7 @@ import AirportMap from "../../assets/airport map.png";
 import Chart from "../../components/charts/pie";
 
 const AircraftLookup = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const [data, setData] = useState(
     {
       regNo: "N898TS",
@@ -52,6 +52,7 @@ const AircraftLookup = () => {
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
           width: 386,
           height: 20,
+          height: 20,
         },
         totalFlightsHours: {
           value: "700 hours",
@@ -59,12 +60,14 @@ const AircraftLookup = () => {
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
           width: 509,
           height: 20,
+          height: 20,
         },
         averageMissionLength: {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
           width: 113,
+          height: 20,
           height: 20,
         },
       },
@@ -345,7 +348,7 @@ const AircraftLookup = () => {
     "#0400B8",
     "#B8B8B8",
   ];
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const drawerWidth = 300;
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
@@ -364,13 +367,23 @@ const AircraftLookup = () => {
       }),
     })
   );
+
+  useEffect(() => {
+    localStorage.setItem("isSidebarOpen", false);
+  }, []);
+
+  const sidebarOpenHandler = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    localStorage.setItem("isSidebarOpen", !isSidebarOpen);
+  };
+
   return (
     <>
-      {/* <NewHeader
-        openSidebar={isSidebarOpen}
-        sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
-      />
-      <Main> */}
+      <Main open={!isSidebarOpen}>
+        <NewHeader
+          openSidebar={isSidebarOpen}
+          sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
       <div className={styles.container}>
         <header className="flex flex-col items-center justify-center mb-32 mt-20">
           <h1 className="font-bold text-6xl text-center">
@@ -413,7 +426,7 @@ const AircraftLookup = () => {
           tableHeaders={flightVisitedHeaders}
         />
       </div>
-      {/* </Main> */}
+      </Main>
     </>
   );
 };

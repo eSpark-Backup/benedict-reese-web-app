@@ -9,6 +9,7 @@ import BasicCard from "./components/common/BasicCard";
 import NewHeader from "./components/common/NewHeader/Header";
 import { styled, useTheme } from "@mui/material/styles";
 import IndustryOverview from "./views/industryOverview";
+import AircraftLookup from "./views/aircraftLookup";
 
 function App() {
   // const location = useLocation();
@@ -70,6 +71,7 @@ function App() {
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
       )} */}
         <IndustryOverview />
+        <AircraftLookup/>
       </Main>
       <Footer />
     </>

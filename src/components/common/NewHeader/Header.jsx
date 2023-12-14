@@ -21,7 +21,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
     {
       name: "Aircraft Lookup",
       icon: lookup,
-      path: "/",
+      path: "/aircraftlookup",
     },
     {
       name: "Aircraft Search",

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styles from "./ProgressBar.module.scss";
 
-const ProgressBar = ({ done: { value, color, width } }) => {
+const ProgressBar = ({ data: { value, color, width, height } }) => {
   return (
     <div
       className={styles.ProgressBar}
       style={{
-        width: width,
+        width: `${width}px`,
+        height: `${height}px`,
         background: `${color}`,
         display: "flex",
         alignItems: "center",

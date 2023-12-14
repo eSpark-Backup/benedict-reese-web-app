@@ -3,8 +3,11 @@ import styles from "./AircraftLookup.module.scss";
 import StandardCard from "../../components/common/StandardCard";
 import AircraftInfoCard from "../../components/common/AircraftInfoCard";
 import TagIcon from "../../images/arrowPending.svg";
+import { styled } from "@mui/material";
+import NewHeader from "../../components/common/NewHeader/Header";
 
 const AircraftLookup = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [data, setData] = useState(
     {
       regNo: "N898TS",
@@ -18,19 +21,23 @@ const AircraftLookup = () => {
         totalMovements30: {
           value: "252 flights",
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
-          width: "391px",
+          width: 391,
+          height: 20
         },
         totalFlightsHours30: {
           value: "300 hours",
           color:
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
-          width: "277px",
+          width: 277,
+          height: 20
+
         },
         averageMissionLength30: {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
-          width: "113px",
+          width: 113,
+          height: 20
         },
       },
       activityThisYear: {
@@ -38,19 +45,22 @@ const AircraftLookup = () => {
         totalMovements: {
           value: "500 flights",
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
-          width: "386px",
+          width: 386,
+          height: 20
         },
         totalFlightsHours: {
           value: "700 hours",
           color:
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
-          width: "509px",
+          width: 509,
+          height: 20
         },
         averageMissionLength: {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
-          width: "113px",
+          width: 113,
+          height: 20
         },
       },
       charterAircraft: "Yes",
@@ -107,22 +117,49 @@ const AircraftLookup = () => {
       annualOperatingCost: 1200000,
     }
   );
-  return (
-    <div className={styles.container}>
-      <header className="flex flex-col items-center justify-center mb-32">
-        <h1 className="font-bold text-6xl text-center">
-          Enter registration number of <br />
-          aircraft
-        </h1>
 
-        <input
-          className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-          type="text"
-          placeholder="N898TS"
-        />
-      </header>
-      <AircraftInfoCard data={data} />
-    </div>
+  const drawerWidth = 300;
+  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    })
+  );
+  return (
+    <>
+      <NewHeader
+        openSidebar={isSidebarOpen}
+        sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
+      <Main>
+        <div className={styles.container}>
+          <header className="flex flex-col items-center justify-center mb-32 mt-20">
+            <h1 className="font-bold text-6xl text-center">
+              Enter registration number of <br />
+              aircraft
+            </h1>
+
+            <input
+              className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+              type="text"
+              placeholder="N898TS"
+            />
+          </header>
+          <AircraftInfoCard data={data} />
+        </div>
+      </Main>
+    </>
   );
 };
 

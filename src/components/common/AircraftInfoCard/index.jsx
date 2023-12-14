@@ -50,9 +50,9 @@ const AircraftInfoCard = ({
             </span>
           </div>
           <div className="mx-4 ">
-              <ProgressBar done={totalMovements30}/>
-              <ProgressBar done={totalFlightsHours30} />
-              <ProgressBar done={averageMissionLength30} />
+              <ProgressBar data={totalMovements30}/>
+              <ProgressBar data={totalFlightsHours30} />
+              <ProgressBar data={averageMissionLength30} />
           </div>
           <div className="flex justify-end items-center absolute left-[370px] top-[110px]">
             <div className="flex flex-col gap-2 px-2">
@@ -75,9 +75,9 @@ const AircraftInfoCard = ({
             </span>
           </div>
           <div className="mx-4">
-              <ProgressBar done={totalMovements}/>
-              <ProgressBar done={totalFlightsHours} />
-              <ProgressBar done={averageMissionLength} />
+              <ProgressBar data={totalMovements}/>
+              <ProgressBar data={totalFlightsHours} />
+              <ProgressBar data={averageMissionLength} />
           </div>
         </div>
         

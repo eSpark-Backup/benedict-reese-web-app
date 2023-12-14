@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import styles from "./Header.module.scss";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Divider, Drawer } from "@mui/material";
@@ -21,7 +21,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
     {
       name: "Aircraft Lookup",
       icon: lookup,
-      path: "/",
+      path: "/aircraftlookup",
     },
     {
       name: "Aircraft Search",
@@ -51,9 +51,49 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
       path: "",
     },
   ];
+
+  const prevScrollPos = useRef(window.pageYOffset);
+  const id = useRef(null);
+
+  const [isNavShowing, setIsNavShowing] = useState(true);
+  console.log(isNavShowing, "isansas");
+
+  useLayoutEffect(() => {
+    const handleScroll = () => {
+      // If the timeout is setup currently, don't handle scroll event.
+      if (id.current !== null) {
+        return;
+      }
+      // Only if no timeout is setup currently, handle scroll
+      const currentScrollPos = window.pageYOffset; // get curent y-position
+      const isScrolledDown = prevScrollPos.current < currentScrollPos;
+
+      if (isNavShowing && isScrolledDown) {
+        setIsNavShowing(false);
+      } else if (!isNavShowing && !isScrolledDown) {
+        // prevent needless render before the browser can re-paint (60fps ~ 16.7ms)
+        id.current = setTimeout(() => {
+          setIsNavShowing(true);
+          id.current = null;
+        }, 300);
+      }
+      prevScrollPos.current = currentScrollPos;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isNavShowing]);
+
   return (
     <>
-      <header className={styles.header}>
+      <header
+        className={`${styles.header} ${
+          !isNavShowing ? "-top-[80px]" : "top-0"
+        } `}
+      >
         <div className={`${styles.nav_wrapper} flex`}>
           <div className={styles.nav_link}>
             <GiHamburgerMenu

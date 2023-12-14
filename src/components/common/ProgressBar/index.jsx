@@ -1,26 +1,22 @@
-import React, { useState } from 'react'
-import styles from './ProgressBar.module.scss'
+import React, { useState } from "react";
+import styles from "./ProgressBar.module.scss";
 
-const ProgressBar = ({done, data:{value , color}}) => {
-    const [style, setStyle] = useState({});
-  
-    setTimeout(() => {
-      const newStyle = {
-        opacity: 1,
-        width: `${done}%`,
-      }
-  
-      setStyle(newStyle);
-    }, 200)
-  
-    return (
-          <div className={styles.progress}>
-              <div className={styles.progressDone} style={style}>
-                  {value}%
-                  {color}
-              </div>
-          </div>
-      )
-  }
+const ProgressBar = ({ data: { value, color, width, height } }) => {
+  return (
+    <div
+      className={styles.ProgressBar}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        background: `${color}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
+      }}
+    >
+      <p className="text-white pr-2 font-bold ">{value}</p>
+    </div>
+  );
+};
 
-export default ProgressBar
+export default ProgressBar;

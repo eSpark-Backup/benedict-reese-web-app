@@ -3,105 +3,418 @@ import styles from "./AircraftLookup.module.scss";
 import StandardCard from "../../components/common/StandardCard";
 import AircraftInfoCard from "../../components/common/AircraftInfoCard";
 import TagIcon from "../../images/arrowPending.svg";
-
+import { styled } from "@mui/material";
+import NewHeader from "../../components/common/NewHeader/Header";
+import VerticalProgressBars from "../../components/charts/bar";
+import { HealthScore } from "../../components/HealthScore";
+import FlightDetails from "../../components/FlightDetails";
+import RoutesMap from "../../assets/routes map.png";
+import AirportMap from "../../assets/airport map.png";
+import Chart from "../../components/charts/pie";
 
 const AircraftLookup = () => {
-  const [data, setData] = useState({
-    regNo: "N898TS",
-    TagIcon,
-    aircraftType: "Bombardier Global Express",
-    country: "United States of America",
-    serialNo: 95,
-    year: 2012,
-    activityPast30Days: {
-      perActivity30: 7.37,
-      totalMovements30: {value: 252, color:"linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)"},
-      totalFlightsHours30: {value : 300, color: "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)"}, 
-      averageMissionLength30: {value : 1.2 , color:"linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)" },
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [data, setData] = useState(
+    {
+      regNo: "N898TS",
+      TagIcon,
+      aircraftType: "Bombardier Global Express",
+      country: "United States of America",
+      serialNo: 95,
+      year: 2012,
+      activityPast30Days: {
+        perActivity30: 7.37,
+        totalMovements30: {
+          value: "252 flights",
+          color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
+          width: 391,
+          height: 20,
+        },
+        totalFlightsHours30: {
+          value: "300 hours",
+          color:
+            "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
+          width: 277,
+          height: 20,
+        },
+        averageMissionLength30: {
+          value: "1.2 hours",
+          color:
+            "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
+          width: 113,
+          height: 20,
+        },
+      },
+      activityThisYear: {
+        perActivity: 10.37,
+        totalMovements: {
+          value: "500 flights",
+          color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
+          width: 386,
+          height: 20,
+        },
+        totalFlightsHours: {
+          value: "700 hours",
+          color:
+            "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
+          width: 509,
+          height: 20,
+        },
+        averageMissionLength: {
+          value: "1.2 hours",
+          color:
+            "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
+          width: 113,
+          height: 20,
+        },
+      },
+      charterAircraft: "Yes",
+      annualEmissions: 3500,
+      marketValue: 21000000,
+      annualOperatingCost: 1200000,
     },
-    activityThisYear: {
-      perActivity: 10.37,
-      totalMovements: {value: 500, color:"linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)"},
-      totalFlightsHours: {value : 700, color: "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)"}, 
-      averageMissionLength: {value : 1.2 , color:"linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)" },
+    {
+      regNo: "M898TS",
+      TagIcon,
+      aircraftType: "Bombardier Global Express",
+      country: "United States of America",
+      serialNo: 95,
+      year: 2012,
+      activityPast30Days: {
+        perActivity: 7.37,
+        totalMovements: 252,
+        totalFlightsHours: 300,
+        averageMissionLength: 1.2,
+      },
+      ActivityThisYear: {
+        perActivity: 10.37,
+        totalMovements: 500,
+        totalFlightsHours: 700,
+        averageMissionLength: 1.2,
+      },
+      charterAircraft: "Yes",
+      annualEmissions: 3500,
+      marketValue: 21000000,
+      annualOperatingCost: 1200000,
     },
-    charterAircraft: "Yes",
-    annualEmissions: 3500,
-    marketValue: 21000000,
-    annualOperatingCost: 1200000,
-  },
-  {
-    regNo: "M898TS",
-    TagIcon,
-    aircraftType: "Bombardier Global Express",
-    country: "United States of America",
-    serialNo: 95,
-    year: 2012,
-    activityPast30Days: {
-      perActivity: 7.37,
-      totalMovements: 252,
-      totalFlightsHours: 300,
-      averageMissionLength: 1.2,
+    {
+      regNo: "L898TS",
+      TagIcon,
+      aircraftType: "Bombardier Global Express",
+      country: "United States of America",
+      serialNo: 95,
+      year: 2012,
+      activityPast30Days: {
+        perActivity: 7.37,
+        totalMovements: 252,
+        totalFlightsHours: 300,
+        averageMissionLength: 1.2,
+      },
+      ActivityThisYear: {
+        perActivity: 10.37,
+        totalMovements: 500,
+        totalFlightsHours: 700,
+        averageMissionLength: 1.2,
+      },
+      charterAircraft: "Yes",
+      annualEmissions: 3500,
+      marketValue: 21000000,
+      annualOperatingCost: 1200000,
+    }
+  );
+
+  const flightVisited = [
+    {
+      id: 1,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
     },
-    ActivityThisYear: {
-      perActivity: 10.37,
-      totalMovements: 500,
-      totalFlightsHours: 700,
-      averageMissionLength: 1.2,
+    {
+      id: 2,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
     },
-    charterAircraft: "Yes",
-    annualEmissions: 3500,
-    marketValue: 21000000,
-    annualOperatingCost: 1200000,
-  },
-  {
-    regNo: "L898TS",
-    TagIcon,
-    aircraftType: "Bombardier Global Express",
-    country: "United States of America",
-    serialNo: 95,
-    year: 2012,
-    activityPast30Days: {
-      perActivity: 7.37,
-      totalMovements: 252,
-      totalFlightsHours: 300,
-      averageMissionLength: 1.2,
+    {
+      id: 3,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
     },
-    ActivityThisYear: {
-      perActivity: 10.37,
-      totalMovements: 500,
-      totalFlightsHours: 700,
-      averageMissionLength: 1.2,
+    {
+      id: 4,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
     },
-    charterAircraft: "Yes",
-    annualEmissions: 3500,
-    marketValue: 21000000,
-    annualOperatingCost: 1200000,
-  }
-  
-  
-  
-  
-  
+    {
+      id: 5,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const flightVisitedHeaders = [
+    { label: "AIRPORT", key: "airport" },
+    { label: "COUNTRY", key: "country" },
+    { label: "TIMES VISITED", key: "times" },
+    { label: "DATE LAST FLOWN", key: "date" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const flightRoutes = [
+    {
+      id: 1,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const flightRoutesHeaders = [
+    { label: "ORIGIN", key: "origin" },
+    { label: "DESTINATION", key: "destination" },
+    { label: "TIMES VISITED", key: "times" },
+    { label: "DATE LAST FLOWN", key: "date" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const chart1Heading = ["Departures by Region"];
+  const chart1Data = [15, 30, 5, 5, 7, 25, 13];
+  const chart1Labels = [
+    "North America",
+    "South America",
+    "Middle East",
+    "Europe",
+    "Australia",
+    "Africa",
+    "Asia",
+  ];
+  const chart1BackgroundColor = [
+    "#FF0000",
+    "#FFB800",
+    "#4F0000",
+    "#63C700",
+    "#0097C7",
+    "#0400B8",
+    "#B8B8B8",
+  ];
+
+  const drawerWidth = 300;
+  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    })
   );
   return (
-    <div className={styles.container}>
+    <>
+      {/* <NewHeader
+        openSidebar={isSidebarOpen}
+        sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+      />
+      <Main> */}
+      <div className={styles.container}>
+        <header className="flex flex-col items-center justify-center mb-32 mt-20">
+          <h1 className="font-bold text-6xl text-center">
+            Enter registration number of <br />
+            aircraft
+          </h1>
 
-      <header className="flex flex-col items-center justify-center mb-32">
-        <h1 className="font-bold text-6xl text-center">
-          Enter registration number of <br />
-          aircraft
-        </h1>
-
-        <input
-          className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-          type="text"
-          placeholder="N898TS"
+          <input
+            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+            type="text"
+            placeholder="N898TS"
+          />
+        </header>
+        <AircraftInfoCard data={data} />
+        <div style={{ marginBottom: "50px" }}>
+          <HealthScore />
+        </div>
+        <div>
+          <VerticalProgressBars />
+          {/* <div>
+            <Chart
+              heading={chart1Heading}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+            />
+          </div> */}
+        </div>
+        <FlightDetails
+          flightData={flightRoutes}
+          image={RoutesMap}
+          detailsHeading={"Routes"}
+          tableHeaders={flightRoutesHeaders}
         />
-
-      </header>
-     <AircraftInfoCard data={data}/>
-    </div>
+        <StandardCard style={{ height: "150px" }} />
+        <FlightDetails
+          flightData={flightVisited}
+          image={AirportMap}
+          detailsHeading={"Airports Visited"}
+          tableHeaders={flightVisitedHeaders}
+        />
+      </div>
+      {/* </Main> */}
+    </>
   );
 };
 

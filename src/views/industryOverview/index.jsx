@@ -20,6 +20,7 @@ import AirportMap from "../../assets/airport map.png";
 import LineChart from "../../components/charts/line";
 import ChartTriBoxes from "../../components/ChartTriBoxes";
 import StandardCard from "../../components/common/StandardCard";
+import ActivityByType from "../../components/ActivityByType";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -539,7 +540,7 @@ const IndustryOverview = () => {
         <div className="block lg:flex w-full justify-between gap-10">
           <div className="flex flex-col w-full lg:w-[70%] gap-10">
             <LineChart />
-            <StandardCard className="p-20" />
+            <ActivityByType />
           </div>
           <ChartTriBoxes />
         </div>

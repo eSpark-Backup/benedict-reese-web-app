@@ -111,84 +111,82 @@ const LineChart = () => {
   ];
 
   return (
-    <div className=" sm:w-full">
-      <StandardCard style={{ padding: "40px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h2 className={styles.lineHeading}>Flight History</h2>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button
-              variant="contained"
-              sx={{
-                width: "112px",
-                height: "38px",
-                borderRadius: "12px",
-                border: "1px solid #EBECF2",
-                background: "#FFF",
-                boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-                color: "#000",
-                fontSize: "15px",
-                fontWeight: "500",
-                marginTop: "35px",
-                marginRight: "30px",
-              }}
-            >
-              <FaFilter className={styles.filterButton} />
-              Filter
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                width: "165px",
-                height: "38px",
-                borderRadius: "12px",
-                border: "1px solid #EBECF2",
-                background: "#FFF",
-                boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-                color: "#000",
-                fontSize: "15px",
-                fontWeight: "500",
-                marginTop: "35px",
-                marginRight: "30px",
-              }}
-            >
-              <BsGraphUpArrow className={styles.filterButton} />
-              Graph Type
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                width: "165px",
-                height: "38px",
-                borderRadius: "12px",
-                border: "1px solid #EBECF2",
-                background: "#FFF",
-                boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-                color: "#000",
-                fontSize: "15px",
-                fontWeight: "500",
-                marginTop: "35px",
-                marginRight: "30px",
-              }}
-            >
-              <TbReload className={styles.filterButton} />
-              Past 30 Days
-            </Button>
+    <StandardCard style={{ padding: "40px" }}>
+      <div className="block md:flex justify-between md:mb-0 mb-12">
+        <h2 className={`${styles.lineHeading} md:mb-[50px]`}>Flight History</h2>
+        <div className="block md:flex justify-between">
+          <Button
+            variant="contained"
+            sx={{
+              width: "112px",
+              height: "38px",
+              borderRadius: "12px",
+              border: "1px solid #EBECF2",
+              background: "#FFF",
+              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+              color: "#000",
+              fontSize: "15px",
+              fontWeight: "500",
+              marginTop: "35px",
+              marginRight: "30px",
+            }}
+          >
+            <FaFilter className={styles.filterButton} />
+            Filter
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              width: "165px",
+              height: "38px",
+              borderRadius: "12px",
+              border: "1px solid #EBECF2",
+              background: "#FFF",
+              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+              color: "#000",
+              fontSize: "15px",
+              fontWeight: "500",
+              marginTop: "35px",
+              marginRight: "30px",
+            }}
+          >
+            <BsGraphUpArrow className={styles.filterButton} />
+            Graph Type
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              width: "165px",
+              height: "38px",
+              borderRadius: "12px",
+              border: "1px solid #EBECF2",
+              background: "#FFF",
+              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+              color: "#000",
+              fontSize: "15px",
+              fontWeight: "500",
+              marginTop: "35px",
+              marginRight: "30px",
+            }}
+          >
+            <TbReload className={styles.filterButton} />
+            Past 30 Days
+          </Button>
+        </div>
+      </div>
+      <Line data={data} options={options} />
+      <div className={styles.yearRectangles}>
+        {years.map((item, index) => (
+          <div key={index} className={styles.yearBox}>
+            <div
+              className={styles.colorBox}
+              style={{ backgroundColor: item.bgColor }}
+            ></div>
+            <div className={styles.year}>{item.year}</div>
           </div>
-        </div>
-        <Line data={data} options={options} />
-        <div className={styles.yearRectangles}>
-          {years.map((item, index) => (
-            <div key={index} className={styles.yearBox}>
-              <div
-                className={styles.colorBox}
-                style={{ backgroundColor: item.bgColor }}
-              ></div>
-              <div className={styles.year}>{item.year}</div>
-            </div>
-          ))}
-        </div>
-      </StandardCard>
-    </div>
+        ))}
+      </div>
+    </StandardCard>
   );
 };
 

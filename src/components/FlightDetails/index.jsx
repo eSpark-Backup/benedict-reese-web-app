@@ -81,10 +81,18 @@ const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
             <TableCell key={index}>
               {header.key === "graph" && flight.customStyleKey === "graph" ? (
                 <span className={styles.graphText}>{flight[header.key]}</span>
-              ) : header.key === "change" && !isNaN(parseFloat(flight[header.key])) ? (
-                <div className={parseFloat(flight[header.key]) < 10 ? styles.lessThanTen : styles.greaterThanTen}>
+              ) : header.key === "change" &&
+                !isNaN(parseFloat(flight[header.key])) ? (
+                <div
+                  className={
+                    parseFloat(flight[header.key]) < 10
+                      ? styles.lessThanTen
+                      : styles.greaterThanTen
+                  }
+                >
                   <span>{flight[header.key]}</span>
-                  {parseFloat(flight[header.key]) > 0 && parseFloat(flight[header.key]) < 10 ? (
+                  {parseFloat(flight[header.key]) > 0 &&
+                  parseFloat(flight[header.key]) < 10 ? (
                     <MdOutlineArrowOutward className={styles.logo} />
                   ) : (
                     <MdOutlineArrowOutward className={styles.logo} />
@@ -99,18 +107,12 @@ const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
       );
     });
   };
-  
-  
 
   return (
-    <div className={styles.flightSection}>
-        <img
-          src={image}
-          alt="Map"
-          className="w-full md:w-2/1 lg:w-1/2 xl:w-1/2"
-        />
+    <div className={`${styles.flightSection} block md:flex md:h-[671px]`}>
+      <img src={image} alt="Map" className="w-full md:w-7/12" />
       <div
-        className={`${styles.flightCard} w-full  md:-ml-5 -mt-5 md:mt-0 `}
+        className={`${styles.flightCard} w-full md:w-[43%] md:-ml-5 -mt-5 md:mt-0 `}
       >
         <div className={styles.flightCardHead}>
           <h2>{detailsHeading}</h2>

@@ -138,11 +138,11 @@ const AircraftLookup = () => {
   );
   return (
     <>
-      <NewHeader
+      {/* <NewHeader
         openSidebar={isSidebarOpen}
         sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
       />
-      <Main>
+      <Main> */}
         <div className={styles.container}>
           <header className="flex flex-col items-center justify-center mb-32 mt-20">
             <h1 className="font-bold text-6xl text-center">
@@ -158,7 +158,7 @@ const AircraftLookup = () => {
           </header>
           <AircraftInfoCard data={data} />
         </div>
-      </Main>
+      {/* </Main> */}
     </>
   );
 };

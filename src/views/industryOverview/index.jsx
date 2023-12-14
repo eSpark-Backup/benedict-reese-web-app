@@ -18,6 +18,8 @@ import Map from "../../assets/map.png";
 import RoutesMap from "../../assets/routes map.png";
 import AirportMap from "../../assets/airport map.png";
 import LineChart from "../../components/charts/line";
+import ChartTriBoxes from "../../components/ChartTriBoxes";
+import StandardCard from "../../components/common/StandardCard";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -484,7 +486,9 @@ const IndustryOverview = () => {
       <div
         className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
       >
-        <div className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3`}>
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32`}
+        >
           {data.map((item, index) => (
             <BasicCard item={item} key={index} />
           ))}
@@ -504,7 +508,7 @@ const IndustryOverview = () => {
             backgroundColor={chart2BackgroundColor}
           />
           <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <HealthScore />
+            <HealthScore />
           </div>
         </div>
 
@@ -522,7 +526,7 @@ const IndustryOverview = () => {
             backgroundColor={chart4BackgroundColor}
           />
           <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <NewsEventCard />
+            <NewsEventCard />
           </div>
         </div>
 
@@ -532,11 +536,12 @@ const IndustryOverview = () => {
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="sm:col-span-2 lg:col-span-2 ">
+        <div className="block lg:flex w-full justify-between gap-10">
+          <div className="flex flex-col w-full lg:w-[70%] gap-10">
             <LineChart />
+            <StandardCard className="p-20" />
           </div>
-          
+          <ChartTriBoxes />
         </div>
         <FlightDetails
           flightData={flightRoute}

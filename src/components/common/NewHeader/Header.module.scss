@@ -5,6 +5,11 @@
   justify-content: space-between;
   align-items: center;
   height: 79px;
+  width: 100%;
+  background-color: white;
+  transition: 0.3s all ease-in-out;
+  z-index: 1111;
+  position: fixed;
 
   .nav_wrapper {
     align-items: center;

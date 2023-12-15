@@ -3,7 +3,7 @@ import styles from "./Bar.module.scss";
 import StandardCard from "../common/StandardCard";
 
 const ProgressBar = ({ progress, text, backgroundColor }) => {
-  const extraGapBars = ["150", "200"]; 
+  const extraGapBars = ["150", "200"];
   const fillStyles = {
     height: `${progress}%`,
     width: "25px",
@@ -16,7 +16,6 @@ const ProgressBar = ({ progress, text, backgroundColor }) => {
     alignItems: "flex-start",
     justifyContent: "center",
     marginLeft: extraGapBars.includes(text) ? "20px" : "0px",
-    
   };
 
   return (
@@ -102,23 +101,17 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard
-      style={{ width: "1070px", height: "710px", marginBottom: "20px" }}
-    >
+    <StandardCard className="w-full mx-auto mb-8 lg:mb-16 ">
       <div className={styles.barsHeading}>
         <h1>Flight Activity</h1>
         <h2>Number of Flights</h2>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          marginTop: "200px",
-        }}
-      >
+      <div className="flex flex-wrap items-end justify-center mt-12 lg:mt-20">
         {months.map((month, index) => (
-          <div key={index} style={{ textAlign: "center", margin: "0 40px" }}>
+          <div
+            key={index}
+            className="text-center lg:mx-8 xl:mx-16 mb-10 lg:mb-0"
+          >
             {progressBarsData[index].map((barData, barIndex) => (
               <ProgressBar
                 key={barIndex}
@@ -131,33 +124,15 @@ const VerticalProgressBars = () => {
           </div>
         ))}
       </div>
-      <div>
-        <div
-          style={{
-            marginTop: "30px",
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap", // Allow flex items to wrap
-          }}
-        >
-          {/* Render labels with colored boxes for the first row */}
-          {firstRowLabels.map((label, index) => (
-            <LabelBox key={index} label={label.label} color={label.color} />
-          ))}
-        </div>
-        <div
-          style={{
-            marginTop: "10px", // Adjust margin between rows if needed
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap", // Allow flex items to wrap
-          }}
-        >
-          {/* Render labels with colored boxes for the second row */}
-          {secondRowLabels.map((label, index) => (
-            <LabelBox key={index} label={label.label} color={label.color} />
-          ))}
-        </div>
+      <div className="mt-8 lg:mt-12 flex flex-wrap justify-center">
+        {firstRowLabels.map((label, index) => (
+          <LabelBox key={index} label={label.label} color={label.color} />
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap justify-center">
+        {secondRowLabels.map((label, index) => (
+          <LabelBox key={index} label={label.label} color={label.color} />
+        ))}
       </div>
     </StandardCard>
   );

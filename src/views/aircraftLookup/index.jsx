@@ -11,9 +11,9 @@ import FlightDetails from "../../components/FlightDetails";
 import RoutesMap from "../../assets/routes map.png";
 import AirportMap from "../../assets/airport map.png";
 import Chart from "../../components/charts/pie";
+import { Insights } from "../../components/Insights";
 
 const AircraftLookup = () => {
-
   const [data, setData] = useState(
     {
       regNo: "N898TS",
@@ -384,48 +384,58 @@ const AircraftLookup = () => {
           openSidebar={isSidebarOpen}
           sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-      <div className={styles.container}>
-        <header className="flex flex-col items-center justify-center mb-32 mt-20">
-          <h1 className="font-bold text-6xl text-center">
-            Enter registration number of <br />
-            aircraft
-          </h1>
+        <div className={styles.container}>
+          <header className="flex flex-col items-center justify-center mb-32 mt-20">
+            <h1 className="font-bold text-6xl text-center">
+              Enter registration number of <br />
+              aircraft
+            </h1>
 
-          <input
-            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-            type="text"
-            placeholder="N898TS"
-          />
-        </header>
-        <AircraftInfoCard data={data} />
-        <div style={{ marginBottom: "50px" }}>
-          <HealthScore />
-        </div>
-        <div>
-          <VerticalProgressBars />
-          {/* <div>
-            <Chart
-              heading={chart1Heading}
-              chartData={chart1Data}
-              chartLabels={chart1Labels}
-              backgroundColor={chart1BackgroundColor}
+            <input
+              className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+              type="text"
+              placeholder="N898TS"
             />
-          </div> */}
+          </header>
+          <AircraftInfoCard data={data} />
+          <div style={{ marginBottom: "50px" }}>
+            <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 ">
+              <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+                <HealthScore />
+              </div>
+              <div className="lg:col-span-1">
+                <Insights />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:space-x-8">
+            <div className="lg:w-4/4 ">
+              <VerticalProgressBars />
+            </div>
+            <div className="lg:w-1/4">
+              <Chart
+                heading={chart1Heading}
+                chartData={chart1Data}
+                chartLabels={chart1Labels}
+                backgroundColor={chart1BackgroundColor}
+                display={true}
+              />
+            </div>
+          </div>
+          <FlightDetails
+            flightData={flightRoutes}
+            image={RoutesMap}
+            detailsHeading={"Routes"}
+            tableHeaders={flightRoutesHeaders}
+          />
+          <StandardCard style={{ height: "150px" }} />
+          <FlightDetails
+            flightData={flightVisited}
+            image={AirportMap}
+            detailsHeading={"Airports Visited"}
+            tableHeaders={flightVisitedHeaders}
+          />
         </div>
-        <FlightDetails
-          flightData={flightRoutes}
-          image={RoutesMap}
-          detailsHeading={"Routes"}
-          tableHeaders={flightRoutesHeaders}
-        />
-        <StandardCard style={{ height: "150px" }} />
-        <FlightDetails
-          flightData={flightVisited}
-          image={AirportMap}
-          detailsHeading={"Airports Visited"}
-          tableHeaders={flightVisitedHeaders}
-        />
-      </div>
       </Main>
     </>
   );

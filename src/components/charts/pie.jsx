@@ -15,13 +15,13 @@ const Chart = ({
   const progressBarData1 = {
     value: "80%",
     color: "#5DC5C2",
-    width: 350,
+    width: 110,
     height: 20,
   };
   const progressBarData2 = {
     value: "20%",
     color: "#5247C6",
-    width: 120,
+    width: 30,
     height: 20,
   };
   const data = {
@@ -69,7 +69,7 @@ const Chart = ({
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <StandardCard style={{ padding: "20px" }}>
+    <StandardCard style={{ padding: "20px", width: "100%" }}>
       <h2 className={styles.pieHeading}>{heading}</h2>
       <div
         className={`m-auto ${isSidebarOpen ? "w-auto" : "lg:w-[300px]"} ${

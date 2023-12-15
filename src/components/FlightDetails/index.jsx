@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Map from "../../../src/assets/map.png";
 import styles from "./FlightDetails.module.scss";
 import { FaFilter } from "react-icons/fa";
+import { MdOutlineArrowOutward } from "react-icons/md";
 import {
   TextField,
   Button,
@@ -18,97 +18,19 @@ import {
   DialogActions,
 } from "@mui/material";
 
-const FlightDetails = () => {
+const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
   const [originFilter, setOriginFilter] = useState("");
   const [destinationFilter, setDestinationFilter] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
-  // Simulated flight data
-  const flightData = [
-    {
-      id: 1,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 2,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 3,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 4,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 5,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 6,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 7,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 8,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 9,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    {
-      id: 10,
-      origin: "Teterboro",
-      destination: "Las Vegas",
-      flightTime: "1 hr 52 min",
-      aircraft: "Cessna Citation XLS+",
-    },
-    // Add more flight data as needed
-  ];
-
   useEffect(() => {
-    // Fetch flight data from an API or source
-    // For this example, using the simulated flight data
     setFlights(flightData);
     setFilteredFlights(flightData);
-  }, []);
+  }, [flightData]);
 
   useEffect(() => {
-    // Filter flights based on origin and destination
     let filtered = flights.filter((flight) => {
       if (
         (!originFilter ||
@@ -134,10 +56,7 @@ const FlightDetails = () => {
   };
 
   const handleFilter = () => {
-    // Close modal and apply filters
     handleCloseModal();
-    // Perform filtering based on origin and destination
-    // You may implement additional filtering logic here if needed
     let filtered = flights.filter((flight) => {
       if (
         (!originFilter ||
@@ -154,18 +73,49 @@ const FlightDetails = () => {
     setFilteredFlights(filtered);
   };
 
+  const renderTableRows = () => {
+    return filteredFlights.map((flight, index) => {
+      return (
+        <TableRow key={flight.id}>
+          {tableHeaders.map((header, index) => (
+            <TableCell key={index}>
+              {header.key === "graph" && flight.customStyleKey === "graph" ? (
+                <span className={styles.graphText}>{flight[header.key]}</span>
+              ) : header.key === "change" &&
+                !isNaN(parseFloat(flight[header.key])) ? (
+                <div
+                  className={
+                    parseFloat(flight[header.key]) < 10
+                      ? styles.lessThanTen
+                      : styles.greaterThanTen
+                  }
+                >
+                  <span>{flight[header.key]}</span>
+                  {parseFloat(flight[header.key]) > 0 &&
+                  parseFloat(flight[header.key]) < 10 ? (
+                    <MdOutlineArrowOutward className={styles.logo} />
+                  ) : (
+                    <MdOutlineArrowOutward className={styles.logo} />
+                  )}
+                </div>
+              ) : (
+                flight[header.key]
+              )}
+            </TableCell>
+          ))}
+        </TableRow>
+      );
+    });
+  };
+
   return (
-    <div className={styles.flightSection}>
-      <div >
-        <img
-          src={Map}
-          alt="Map"
-          className="w-full md:w-2/1 lg:w-1/2 xl:w-1/2"
-        />
-      </div>
-      <div className={styles.flightCard}>
+    <div className={`${styles.flightSection} block md:flex md:h-[671px]`}>
+      <img src={image} alt="Map" className="w-full md:w-7/12" />
+      <div
+        className={`${styles.flightCard} w-full md:w-[43%] md:-ml-5 -mt-5 md:mt-0 `}
+      >
         <div className={styles.flightCardHead}>
-          <h2>Live Flights</h2>
+          <h2>{detailsHeading}</h2>
           <Button
             variant="contained"
             onClick={handleOpenModal}
@@ -198,61 +148,23 @@ const FlightDetails = () => {
           <Table>
             <TableHead>
               <TableRow sx={{ background: "#FAFAFC" }}>
-                <TableCell
-                  sx={{
-                    fontSize: "16px",
-                    color: " #B6B8BD",
-                    fontWeight: "700",
-                    border: "none",
-                  }}
-                >
-                  Origin
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontSize: "16px",
-                    color: " #B6B8BD",
-                    fontWeight: "700",
-                    border: "none",
-                  }}
-                >
-                  Destination
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontSize: "16px",
-                    color: " #B6B8BD",
-                    fontWeight: "700",
-                    border: "none",
-                  }}
-                >
-                  Flight Time
-                </TableCell>
-                <TableCell
-                  sx={{
-                    fontSize: "16px",
-                    color: " #B6B8BD",
-                    fontWeight: "700",
-                    border: "none",
-                  }}
-                >
-                  Aircraft
-                </TableCell>
+                {tableHeaders.map((header, index) => (
+                  <TableCell
+                    key={index}
+                    sx={{
+                      fontSize: "16px",
+                      color: "#B6B8BD",
+                      fontWeight: "700",
+                      border: "none",
+                    }}
+                  >
+                    {header.label}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
-            <TableBody
-              sx={{
-                borderBottom: "1px solid #F3F5F9",
-              }}
-            >
-              {filteredFlights.map((flight) => (
-                <TableRow key={flight.id}>
-                  <TableCell>{flight.origin}</TableCell>
-                  <TableCell>{flight.destination}</TableCell>
-                  <TableCell>{flight.flightTime}</TableCell>
-                  <TableCell>{flight.aircraft}</TableCell>
-                </TableRow>
-              ))}
+            <TableBody sx={{ borderBottom: "1px solid #F3F5F9" }}>
+              {renderTableRows()}
             </TableBody>
           </Table>
         </TableContainer>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./views/Home";
 import Header from "./components/common/header/index";
@@ -6,10 +6,10 @@ import Footer from "./components/common/footer";
 import useUserAuthentication from "./custom-hooks/useUserAuthentication";
 import styles from "./styles/authentication.module.scss";
 import BasicCard from "./components/common/BasicCard";
-import Chart from "./components/pie/pie";
 import NewHeader from "./components/common/NewHeader/Header";
 import { styled, useTheme } from "@mui/material/styles";
 import IndustryOverview from "./views/industryOverview";
+import AircraftLookup from "./views/aircraftLookup";
 
 function App() {
   // const location = useLocation();
@@ -20,7 +20,6 @@ function App() {
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({
       flexGrow: 1,
-      overflowX: "scroll",
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -35,6 +34,15 @@ function App() {
       }),
     })
   );
+
+  useEffect(() => {
+    localStorage.setItem("isSidebarOpen", false);
+  }, []);
+
+  const sidebarOpenHandler = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    localStorage.setItem("isSidebarOpen", !isSidebarOpen);
+  };
 
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
@@ -55,7 +63,7 @@ function App() {
       <Main open={!isSidebarOpen}>
         <NewHeader
           openSidebar={isSidebarOpen}
-          sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
+          sidebarHandler={() => sidebarOpenHandler()}
         />
         {/* {isAuthenticating ? (
         <div className={styles.mainwrapper}>Authenticating...</div>
@@ -63,6 +71,7 @@ function App() {
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
       )} */}
         <IndustryOverview />
+        {/* <AircraftLookup/> */}
       </Main>
       <Footer />
     </>

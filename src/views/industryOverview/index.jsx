@@ -7,13 +7,20 @@ import flightsMonthly from "../../images/flights_monthly.svg";
 import flightsPast30 from "../../images/flights_past30.svg";
 import flightPending from "../../images/arrowPending.svg";
 import flightPast from "../../images/arrowPast.svg";
-import Chart from "../../components/pie/pie";
+import Chart from "../../components/charts/pie";
 import HealthScoreIndicator from "../../components/ScoreIndicator";
 import ScoreIndicator from "../../components/ScoreIndicator";
 import { HealthScore } from "../../components/HealthScore";
 import NewsEventCard from "../../components/common/NewsEventCard";
 import FlightDetails from "../../components/FlightDetails";
 import styles from "./IndustryOverview.module.scss";
+import Map from "../../assets/map.png";
+import RoutesMap from "../../assets/routes map.png";
+import AirportMap from "../../assets/airport map.png";
+import LineChart from "../../components/charts/line";
+import ChartTriBoxes from "../../components/ChartTriBoxes";
+import StandardCard from "../../components/common/StandardCard";
+import ActivityByType from "../../components/ActivityByType";
 
 const IndustryOverview = () => {
   const chart1Heading = ["Departures by Region"];
@@ -101,18 +108,394 @@ const IndustryOverview = () => {
     },
   ]);
 
+  const liveFlightData = [
+    {
+      id: 1,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 2,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 3,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 4,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 5,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 6,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 7,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 8,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 9,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+    {
+      id: 10,
+      origin: "Teterboro",
+      destination: "Las Vegas",
+      flightTime: "1 hr 52 min",
+      aircraft: "Cessna Citation XLS+",
+    },
+  ];
+
+  // const liveFlightHeaders = ["Origin", "Destination", "Flight Time", "Aircraft"];
+
+  const liveFlightHeaders = [
+    { label: "Origin", key: "origin" },
+    { label: "Destination", key: "destination" },
+    { label: "Flight Time", key: "flightTime" },
+    { label: "Aircraft", key: "aircraft" },
+  ];
+
+  const flightRoute = [
+    {
+      id: 1,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const flightRouteHeaders = [
+    { label: "ORIGIN", key: "origin" },
+    { label: "DESTINATION", key: "destination" },
+    { label: "MOVEMENTS", key: "movements" },
+    { label: "CHANGE", key: "change" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const topAirports = [
+    {
+      id: 1,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const topAirportsHeaders = [
+    { label: "AIRPORT", key: "airport" },
+    { label: "COUNTRY", key: "country" },
+    { label: "MOVEMENTS", key: "movements" },
+    { label: "CHANGE", key: "change" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const toplocationsHeaders = [
+    { label: "COUNTRY", key: "country" },
+    { label: "MOVEMENTS", key: "movements" },
+    { label: "CHANGE", key: "change" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const toplocations = [
+    {
+      id: 1,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "12.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      country: "United Kingdom",
+      movements: "654,555",
+      change: "1.7%",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
   return (
     <>
       <div
         className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
       >
-        <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
+        <div
+          className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32`}
+        >
           {data.map((item, index) => (
             <BasicCard item={item} key={index} />
           ))}
         </div>
 
-        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
           <Chart
             heading={chart1Heading}
             chartData={chart1Data}
@@ -125,12 +508,12 @@ const IndustryOverview = () => {
             chartLabels={chart2Labels}
             backgroundColor={chart2BackgroundColor}
           />
-          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
-          <HealthScore />
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+            <HealthScore />
           </div>
         </div>
 
-        <div className="grid grid-cols-4 sm:grid-cols-4 gap-4">
+        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
           <Chart
             heading={chart3Heading}
             chartData={chart3Data}
@@ -143,12 +526,42 @@ const IndustryOverview = () => {
             chartLabels={chart4Labels}
             backgroundColor={chart4BackgroundColor}
           />
-          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 gap-4">
-          <NewsEventCard />
+          <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+            <NewsEventCard />
           </div>
         </div>
 
-        <FlightDetails />
+        <FlightDetails
+          flightData={liveFlightData}
+          image={Map}
+          detailsHeading={"Live Flights"}
+          tableHeaders={liveFlightHeaders}
+        />
+        <div className="block lg:flex w-full justify-between gap-10">
+          <div className="flex flex-col w-full lg:w-[70%] gap-10">
+            <LineChart />
+            <ActivityByType />
+          </div>
+          <ChartTriBoxes />
+        </div>
+        <FlightDetails
+          flightData={flightRoute}
+          image={RoutesMap}
+          detailsHeading={"Top Routes"}
+          tableHeaders={flightRouteHeaders}
+        />
+        <FlightDetails
+          flightData={topAirports}
+          image={AirportMap}
+          detailsHeading={"Top Airports"}
+          tableHeaders={topAirportsHeaders}
+        />
+        <FlightDetails
+          flightData={toplocations}
+          image={AirportMap}
+          detailsHeading={"Top Locations"}
+          tableHeaders={toplocationsHeaders}
+        />
       </div>
     </>
   );

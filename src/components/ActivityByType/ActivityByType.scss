@@ -1,0 +1,83 @@
+.chart{
+    .chart-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h3{
+        color: #000;
+        font-family: poppins;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        @media only screen and (max-width: 1536px){
+            font-size: 28px;
+        }
+    }
+
+    .chart-header {
+        margin-bottom: 50px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .calendar{
+        margin-right: 15px;
+        margin-left: 20px;
+    }
+
+    .switch{
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+
+
+    button{
+        border-radius: 12px;
+        border: 1px solid #EBECF2;
+        background: #FFF;
+        box-shadow: 0px 21px 19.7px -9px rgba(0, 0, 0, 0.05);
+        justify-content: start;
+        text-transform: initial;
+        color: #000;
+        font-family: poppins;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .year-button{
+        width: 128px;
+        height: 38px;
+        margin-right: 23px;
+
+        @media only screen and (max-width: 1536px) {
+            width: 120px;
+            height: 36px;
+            margin-right: 20px;
+        }
+    }
+
+    .switch-button{
+        width: 146px;
+        height: 38px;
+
+        @media only screen and (max-width: 1536px) {
+            width: 136px;
+            height: 36px;
+        }
+    }
+
+    .container-bar{
+
+        .container-body-bar {
+            .w-full {
+                width: 100% !important;
+            }
+        }
+    }
+}

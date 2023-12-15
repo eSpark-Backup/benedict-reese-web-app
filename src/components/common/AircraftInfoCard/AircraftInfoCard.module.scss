@@ -1,0 +1,21 @@
+
+.tag {
+    width: 83px;
+    height: 28px;
+    background-color: #BEFDB8;
+    border: 2px solid #70FD63;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    
+    p{
+        color: #00811C;
+    }
+
+    img {
+        width: 12px;
+    }
+  }
+

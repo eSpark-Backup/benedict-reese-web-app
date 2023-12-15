@@ -10,6 +10,7 @@ import NotAuthorized from "./views/NotAuthorized";
 import IndustryOverview from "./views/industryOverview";
 import Home from "./views/Home";
 import "./index.css";
+import AircraftLookup from "./views/aircraftLookup";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
   {
     path: "/industryOverview/",
     element: <IndustryOverview />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/aircraftlookup/",
+    element: <AircraftLookup />,
     errorElement: <NotFound />,
   },
   { path: "/sample", element: <Sample /> },

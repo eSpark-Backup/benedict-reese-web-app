@@ -43,16 +43,16 @@ export const HealthScore = () => {
             <button> AI Beta </button>
           </div>
           <button className={styles.iconButton}>
-            <LuArrowLeftRight className={styles.rightLeft}  /> <span className={styles.rightLeftText}>Ask</span>
+            <LuArrowLeftRight className={styles.rightLeft} />{" "}
+            <span className={styles.rightLeftText}>Ask</span>
           </button>
         </div>
         <div
           style={{
-            marginLeft: "50px",
             marginTop: "40px",
             marginBottom: "40px",
           }}
-          className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 "
+          className=" grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-10"
         >
           <ScoreIndicator score={70} heading={"CURRENT HEALTH"} />
           <ScoreIndicator score={20} heading={"FUTURE OUTLOOK"} />

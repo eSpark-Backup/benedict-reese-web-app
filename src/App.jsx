@@ -71,7 +71,7 @@ function App() {
         <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
       )} */}
         <IndustryOverview />
-        <AircraftLookup/>
+        {/* <AircraftLookup/> */}
       </Main>
       <Footer />
     </>

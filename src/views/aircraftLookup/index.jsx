@@ -5,6 +5,12 @@ import AircraftInfoCard from "../../components/common/AircraftInfoCard";
 import TagIcon from "../../images/arrowPending.svg";
 import { styled } from "@mui/material";
 import NewHeader from "../../components/common/NewHeader/Header";
+import VerticalProgressBars from "../../components/charts/bar";
+import { HealthScore } from "../../components/HealthScore";
+import FlightDetails from "../../components/FlightDetails";
+import RoutesMap from "../../assets/routes map.png";
+import AirportMap from "../../assets/airport map.png";
+import Chart from "../../components/charts/pie";
 
 const AircraftLookup = () => {
 
@@ -46,6 +52,7 @@ const AircraftLookup = () => {
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
           width: 386,
           height: 20,
+          height: 20,
         },
         totalFlightsHours: {
           value: "700 hours",
@@ -53,12 +60,14 @@ const AircraftLookup = () => {
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
           width: 509,
           height: 20,
+          height: 20,
         },
         averageMissionLength: {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
           width: 113,
+          height: 20,
           height: 20,
         },
       },
@@ -116,6 +125,229 @@ const AircraftLookup = () => {
       annualOperatingCost: 1200000,
     }
   );
+
+  const flightVisited = [
+    {
+      id: 1,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      airport: "London Biggin Hill",
+      country: "United Kingdom",
+      times: "270",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const flightVisitedHeaders = [
+    { label: "AIRPORT", key: "airport" },
+    { label: "COUNTRY", key: "country" },
+    { label: "TIMES VISITED", key: "times" },
+    { label: "DATE LAST FLOWN", key: "date" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const flightRoutes = [
+    {
+      id: 1,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 2,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 3,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 4,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 5,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 6,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 7,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 8,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 9,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+    {
+      id: 10,
+      origin: "London Biggin Hill",
+      destination: "Teterboro",
+      times: "654,555",
+      date: "21st January 2023",
+      graph: "View",
+      customStyleKey: "graph",
+    },
+  ];
+
+  const flightRoutesHeaders = [
+    { label: "ORIGIN", key: "origin" },
+    { label: "DESTINATION", key: "destination" },
+    { label: "TIMES VISITED", key: "times" },
+    { label: "DATE LAST FLOWN", key: "date" },
+    { label: "GRAPH", key: "graph" },
+  ];
+
+  const chart1Heading = ["Departures by Region"];
+  const chart1Data = [15, 30, 5, 5, 7, 25, 13];
+  const chart1Labels = [
+    "North America",
+    "South America",
+    "Middle East",
+    "Europe",
+    "Australia",
+    "Africa",
+    "Asia",
+  ];
+  const chart1BackgroundColor = [
+    "#FF0000",
+    "#FFB800",
+    "#4F0000",
+    "#63C700",
+    "#0097C7",
+    "#0400B8",
+    "#B8B8B8",
+  ];
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const drawerWidth = 300;
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -152,21 +384,48 @@ const AircraftLookup = () => {
           openSidebar={isSidebarOpen}
           sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-        <div className={styles.container}>
-          <header className="flex flex-col items-center justify-center mb-32 mt-20">
-            <h1 className="font-bold text-6xl text-center">
-              Enter registration number of <br />
-              aircraft
-            </h1>
+      <div className={styles.container}>
+        <header className="flex flex-col items-center justify-center mb-32 mt-20">
+          <h1 className="font-bold text-6xl text-center">
+            Enter registration number of <br />
+            aircraft
+          </h1>
 
-            <input
-              className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-              type="text"
-              placeholder="N898TS"
-            />
-          </header>
-          <AircraftInfoCard data={data} />
+          <input
+            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+            type="text"
+            placeholder="N898TS"
+          />
+        </header>
+        <AircraftInfoCard data={data} />
+        <div style={{ marginBottom: "50px" }}>
+          <HealthScore />
         </div>
+        <div>
+          <VerticalProgressBars />
+          {/* <div>
+            <Chart
+              heading={chart1Heading}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+            />
+          </div> */}
+        </div>
+        <FlightDetails
+          flightData={flightRoutes}
+          image={RoutesMap}
+          detailsHeading={"Routes"}
+          tableHeaders={flightRoutesHeaders}
+        />
+        <StandardCard style={{ height: "150px" }} />
+        <FlightDetails
+          flightData={flightVisited}
+          image={AirportMap}
+          detailsHeading={"Airports Visited"}
+          tableHeaders={flightVisitedHeaders}
+        />
+      </div>
       </Main>
     </>
   );

@@ -16,11 +16,20 @@ const AircraftInfoCard = ({
     annualEmissions,
     marketValue,
     annualOperatingCost,
-  }
+  },
 }) => {
-
-    const {perActivity30, totalMovements30, totalFlightsHours30, averageMissionLength30} = activityPast30Days;
-    const {perActivity, totalMovements, totalFlightsHours, averageMissionLength} = activityThisYear;
+  const {
+    perActivity30,
+    totalMovements30,
+    totalFlightsHours30,
+    averageMissionLength30,
+  } = activityPast30Days;
+  const {
+    perActivity,
+    totalMovements,
+    totalFlightsHours,
+    averageMissionLength,
+  } = activityThisYear;
 
   return (
     <section className="flex justify-between flex-wrap mb-10">
@@ -50,16 +59,33 @@ const AircraftInfoCard = ({
             </span>
           </div>
           <div className="mx-4 ">
-              <ProgressBar data={totalMovements30}/>
-              <ProgressBar data={totalFlightsHours30} />
-              <ProgressBar data={averageMissionLength30} />
+            <ProgressBar data={totalMovements30} />
+            <ProgressBar data={totalFlightsHours30} />
+            <ProgressBar data={averageMissionLength30} />
           </div>
           <div className="flex justify-end items-center absolute left-[370px] top-[110px]">
             <div className="flex flex-col gap-2 px-2">
-
-              <div style={{background:`${totalMovements30.color}`, width:'17px', height:'13px'}}/>
-              <div style={{background:`${totalFlightsHours30.color}`, width:'17px', height:'13px'}}/>
-              <div style={{background:`${averageMissionLength30.color}`, width:'17px', height:'13px'}}/>
+              <div
+                style={{
+                  background: `${totalMovements30.color}`,
+                  width: "17px",
+                  height: "13px",
+                }}
+              />
+              <div
+                style={{
+                  background: `${totalFlightsHours30.color}`,
+                  width: "17px",
+                  height: "13px",
+                }}
+              />
+              <div
+                style={{
+                  background: `${averageMissionLength30.color}`,
+                  width: "17px",
+                  height: "13px",
+                }}
+              />
             </div>
             <div>
               <p className="text-[14px]">Total Movements</p>
@@ -75,12 +101,11 @@ const AircraftInfoCard = ({
             </span>
           </div>
           <div className="mx-4">
-              <ProgressBar data={totalMovements}/>
-              <ProgressBar data={totalFlightsHours} />
-              <ProgressBar data={averageMissionLength} />
+            <ProgressBar data={totalMovements} />
+            <ProgressBar data={totalFlightsHours} />
+            <ProgressBar data={averageMissionLength} />
           </div>
         </div>
-        
       </StandardCard>
       <StandardCard>
         <div className="flex gap-20 py-8 px-5 w-[571px] h-[293px] ">

@@ -496,36 +496,44 @@ const IndustryOverview = () => {
         </div>
 
         <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <Chart
-            heading={chart1Heading}
-            chartData={chart1Data}
-            chartLabels={chart1Labels}
-            backgroundColor={chart1BackgroundColor}
-          />
-          <Chart
-            heading={chart2Heading}
-            chartData={chart2Data}
-            chartLabels={chart2Labels}
-            backgroundColor={chart2BackgroundColor}
-          />
+          <StandardCard>
+            <Chart
+              heading={chart1Heading}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+            />
+          </StandardCard>
+          <StandardCard>
+            <Chart
+              heading={chart2Heading}
+              chartData={chart2Data}
+              chartLabels={chart2Labels}
+              backgroundColor={chart2BackgroundColor}
+            />
+          </StandardCard>
           <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
             <HealthScore />
           </div>
         </div>
 
         <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <Chart
-            heading={chart3Heading}
-            chartData={chart3Data}
-            chartLabels={chart3Labels}
-            backgroundColor={chart3BackgroundColor}
-          />
-          <Chart
-            heading={chart4Heading}
-            chartData={chart4Data}
-            chartLabels={chart4Labels}
-            backgroundColor={chart4BackgroundColor}
-          />
+          <StandardCard>
+            <Chart
+              heading={chart3Heading}
+              chartData={chart3Data}
+              chartLabels={chart3Labels}
+              backgroundColor={chart3BackgroundColor}
+            />
+          </StandardCard>
+          <StandardCard>
+            <Chart
+              heading={chart4Heading}
+              chartData={chart4Data}
+              chartLabels={chart4Labels}
+              backgroundColor={chart4BackgroundColor}
+            />
+          </StandardCard>
           <div className="col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
             <NewsEventCard />
           </div>

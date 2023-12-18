@@ -11,6 +11,7 @@ const Chart = ({
   backgroundColor,
   heading,
   display = false,
+  cost,
 }) => {
   const progressBarData1 = {
     value: "80%",
@@ -69,8 +70,9 @@ const Chart = ({
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <StandardCard style={{ padding: "20px", width: "100%" }}>
+    <div style={{ padding: "20px", width: "100%" }}>
       <h2 className={styles.pieHeading}>{heading}</h2>
+      <p className={styles.pieCost}>{cost}</p>
       <div
         className={`m-auto ${isSidebarOpen ? "w-auto" : "lg:w-[300px]"} ${
           isSidebarOpen ? "h-auto" : "lg:h-[300px]"
@@ -126,7 +128,7 @@ const Chart = ({
           </div>
         </div>
       )}
-    </StandardCard>
+    </div>
   );
 };
 

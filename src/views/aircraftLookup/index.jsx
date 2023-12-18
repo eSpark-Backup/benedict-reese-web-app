@@ -12,6 +12,7 @@ import AirportMap from "../../assets/airport map.png";
 import Chart from "../../components/charts/pie";
 import { Insights } from "../../components/Insights";
 import HistoryCards from "../../components/historyCards";
+import StandardCard from "../../components/common/StandardCard";
 
 const AircraftLookup = () => {
   const [data, setData] = useState(
@@ -433,64 +434,73 @@ const AircraftLookup = () => {
             aircraft
           </h1>
 
-          <input
-            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-            type="text"
-            placeholder="N898TS"
+            <input
+              className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+              type="text"
+              placeholder="N898TS"
+            />
+          </header>
+          <AircraftInfoCard data={data} />
+          <div style={{ marginBottom: "50px" }}>
+            <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
+              <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+                <HealthScore />
+              </div>
+              <div className="lg:col-span-1">
+                <Insights
+                  mainParagraph="What are some anomalies with the flight activity of this aircraft? Is it a good investment? Should I be concerned about anything I see about it?"
+                  secondaryParagraphs={[
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:space-x-8">
+            <div className="lg:w-3/4 ">
+              <VerticalProgressBars />
+            </div>
+            <div className="lg:w-1/4">
+              <StandardCard>
+              <Chart
+                heading={chart1Heading}
+                chartData={chart1Data}
+                chartLabels={chart1Labels}
+                backgroundColor={chart1BackgroundColor}
+                display={true}
+              />
+              </StandardCard>
+            </div>
+          </div>
+          <FlightDetails
+            flightData={flightRoutes}
+            image={RoutesMap}
+            detailsHeading={"Routes"}
+            tableHeaders={flightRoutesHeaders}
           />
-        </header>
-        <AircraftInfoCard data={data} />
-        <div style={{ marginBottom: "50px" }}>
-          <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
-            <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <HealthScore />
-            </div>
-            <div className="lg:col-span-1">
-              <Insights />
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col lg:flex-row lg:space-x-8">
-          <div className="lg:w-3/4 ">
-            <VerticalProgressBars />
-          </div>
-          <div className="lg:w-1/4">
-            <Chart
-              heading={chart1Heading}
-              chartData={chart1Data}
-              chartLabels={chart1Labels}
-              backgroundColor={chart1BackgroundColor}
-              display={true}
+          <div className="block md:flex gap-4 my-10">
+            <HistoryCards
+              title="Transaction History"
+              className="w-full xl:w-4/12"
+              tableHeader={transHistoryHeaders}
+              tableData={transHistoryData}
+            />
+            <HistoryCards
+              title="Accident History"
+              className="w-full xl:w-8/12"
+              tableHeader={accidentHeaders}
+              tableData={accidentData}
             />
           </div>
-        </div>
-        <FlightDetails
-          flightData={flightRoutes}
-          image={RoutesMap}
-          detailsHeading={"Routes"}
-          tableHeaders={flightRoutesHeaders}
-        />
-        <div className="block md:flex gap-4 my-10">
-          <HistoryCards
-            title="Transaction History"
-            className="w-full xl:w-4/12"
-            tableHeader={transHistoryHeaders}
-            tableData={transHistoryData}
-          />
-          <HistoryCards
-            title="Accident History"
-            className="w-full xl:w-8/12"
-            tableHeader={accidentHeaders}
-            tableData={accidentData}
+          <FlightDetails
+            flightData={flightVisited}
+            image={AirportMap}
+            detailsHeading={"Airports Visited"}
+            tableHeaders={flightVisitedHeaders}
           />
         </div>
-        <FlightDetails
-          flightData={flightVisited}
-          image={AirportMap}
-          detailsHeading={"Airports Visited"}
-          tableHeaders={flightVisitedHeaders}
-        />
-      </div>
+      
     </>
   );
 };

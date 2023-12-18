@@ -1,52 +1,13 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import SingleAircraftDetails from "./views/SingleAircraft/SingleAircraftDetails";
-import CompareAircrafts from "./views/compareAircrafts/CompareAircrafts";
-import Sample from "./views/Sample/Sample";
-import NotFound from "./views/NotFound/NotFound";
-import NotAuthorized from "./views/NotAuthorized";
-import IndustryOverview from "./views/industryOverview";
-import Home from "./views/Home";
 import "./index.css";
-import AircraftLookup from "./views/aircraftLookup";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
-const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  {
-    path: "/:aircraft_name/",
-    element: <SingleAircraftDetails />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/aircraft-search",
-    element: <Home />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/compare/",
-    element: <CompareAircrafts />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/industryOverview/",
-    element: <IndustryOverview />,
-    errorElement: <NotFound />,
-  },
-  {
-    path: "/aircraftlookup/",
-    element: <AircraftLookup />,
-    errorElement: <NotFound />,
-  },
-  { path: "/sample", element: <Sample /> },
-  { path: "/not-found", element: <NotFound />, errorElement: <NotFound /> },
-  {
-    path: "/not-authorized",
-    element: <NotAuthorized />,
-    errorElement: <NotFound />,
-  },
-]);
-root.render(<RouterProvider router={router} />);
+
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);

@@ -3,7 +3,7 @@ import styles from "./Bar.module.scss";
 import StandardCard from "../common/StandardCard";
 
 const ProgressBar = ({ progress, text, backgroundColor }) => {
-  const extraGapBars = ["150", "200"]; 
+  const extraGapBars = ["150", "200"];
   const fillStyles = {
     height: `${progress}%`,
     width: "25px",
@@ -16,7 +16,6 @@ const ProgressBar = ({ progress, text, backgroundColor }) => {
     alignItems: "flex-start",
     justifyContent: "center",
     marginLeft: extraGapBars.includes(text) ? "20px" : "0px",
-    
   };
 
   return (
@@ -102,35 +101,30 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard
-      style={{ width: "1070px", height: "710px", marginBottom: "20px" }}
-    >
+    <StandardCard className="w-full" style={{ marginBottom: "20px" }}>
       <div className={styles.barsHeading}>
         <h1>Flight Activity</h1>
         <h2>Number of Flights</h2>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          marginTop: "200px",
-        }}
-      >
-        {months.map((month, index) => (
-          <div key={index} style={{ textAlign: "center", margin: "0 40px" }}>
-            {progressBarsData[index].map((barData, barIndex) => (
-              <ProgressBar
-                key={barIndex}
-                progress={barData.progress}
-                text={barData.text}
-                backgroundColor={barData.backgroundColor}
-              />
-            ))}
-            <div>{month}</div>
-          </div>
-        ))}
+
+      <div className="w-full overflow-x-auto">
+        <div className="flex justify-center mt-80 w-[1070px]">
+          {months.map((month, index) => (
+            <div key={index} style={{ textAlign: "center", margin: "0 40px" }}>
+              {progressBarsData[index].map((barData, barIndex) => (
+                <ProgressBar
+                  key={barIndex}
+                  progress={barData.progress}
+                  text={barData.text}
+                  backgroundColor={barData.backgroundColor}
+                />
+              ))}
+              <div>{month}</div>
+            </div>
+          ))}
+        </div>
       </div>
+
       <div>
         <div
           style={{

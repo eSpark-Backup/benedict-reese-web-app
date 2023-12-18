@@ -419,108 +419,78 @@ const AircraftLookup = () => {
       date: "18 October 2014",
     },
   ];
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const drawerWidth = 300;
-  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create("margin", {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    })
-  );
 
   useEffect(() => {
     localStorage.setItem("isSidebarOpen", false);
   }, []);
 
-  const sidebarOpenHandler = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    localStorage.setItem("isSidebarOpen", !isSidebarOpen);
-  };
-
   return (
     <>
-      <Main open={!isSidebarOpen}>
-        <NewHeader
-          openSidebar={isSidebarOpen}
-          sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
-        />
-          <div className={styles.container}>
-            <header className="flex flex-col items-center justify-center mb-24 xl:mb-32 mt-20">
-              <h1 className="font-semibold xl:font-bold text-4xl xl:text-6xl text-center">
-                Enter registration number of <br />
-                aircraft
-              </h1>
+      <div className={styles.container}>
+        <header className="flex flex-col items-center justify-center mb-24 xl:mb-32 mt-20">
+          <h1 className="font-semibold xl:font-bold text-4xl xl:text-6xl text-center">
+            Enter registration number of <br />
+            aircraft
+          </h1>
 
-              <input
-                className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-                type="text"
-                placeholder="N898TS"
-              />
-            </header>
-            <AircraftInfoCard data={data} />
-            <div style={{ marginBottom: "50px" }}>
-            <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
-              <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-                  <HealthScore />
-                </div>
-              <div className="lg:col-span-1">
-                <Insights />
-              </div>
+          <input
+            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+            type="text"
+            placeholder="N898TS"
+          />
+        </header>
+        <AircraftInfoCard data={data} />
+        <div style={{ marginBottom: "50px" }}>
+          <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
+            <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+              <HealthScore />
+            </div>
+            <div className="lg:col-span-1">
+              <Insights />
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-8">
-              <div className="lg:w-3/4 ">
-                <VerticalProgressBars />
-              </div>
-            <div className="lg:w-1/4">
-              <Chart
-                heading={chart1Heading}
-                chartData={chart1Data}
-                chartLabels={chart1Labels}
-                backgroundColor={chart1BackgroundColor}
-                display={true}
-              />
-            </div>
-            </div>
-            <FlightDetails
-              flightData={flightRoutes}
-              image={RoutesMap}
-              detailsHeading={"Routes"}
-              tableHeaders={flightRoutesHeaders}
-            />
-            <div className="block md:flex gap-4 my-10">
-            <HistoryCards
-              title="Transaction History"
-              className="w-full xl:w-4/12"
-              tableHeader={transHistoryHeaders}
-              tableData={transHistoryData}
-            />
-            <HistoryCards
-              title="Accident History"
-              className="w-full xl:w-8/12"
-              tableHeader={accidentHeaders}
-              tableData={accidentData}
+        </div>
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          <div className="lg:w-3/4 ">
+            <VerticalProgressBars />
+          </div>
+          <div className="lg:w-1/4">
+            <Chart
+              heading={chart1Heading}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+              display={true}
             />
           </div>
-            <FlightDetails
-              flightData={flightVisited}
-              image={AirportMap}
-              detailsHeading={"Airports Visited"}
-              tableHeaders={flightVisitedHeaders}
-            />
-          </div>
-      </Main>
+        </div>
+        <FlightDetails
+          flightData={flightRoutes}
+          image={RoutesMap}
+          detailsHeading={"Routes"}
+          tableHeaders={flightRoutesHeaders}
+        />
+        <div className="block md:flex gap-4 my-10">
+          <HistoryCards
+            title="Transaction History"
+            className="w-full xl:w-4/12"
+            tableHeader={transHistoryHeaders}
+            tableData={transHistoryData}
+          />
+          <HistoryCards
+            title="Accident History"
+            className="w-full xl:w-8/12"
+            tableHeader={accidentHeaders}
+            tableData={accidentData}
+          />
+        </div>
+        <FlightDetails
+          flightData={flightVisited}
+          image={AirportMap}
+          detailsHeading={"Airports Visited"}
+          tableHeaders={flightVisitedHeaders}
+        />
+      </div>
     </>
   );
 };

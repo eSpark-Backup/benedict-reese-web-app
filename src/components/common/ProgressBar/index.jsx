@@ -6,7 +6,7 @@ const ProgressBar = ({ data: { value, color, width, height } }) => {
     <div
       className={styles.ProgressBar}
       style={{
-        width: `${width}px`,
+        width: `${width}%`,
         height: `${height}px`,
         background: `${color}`,
         display: "flex",
@@ -14,7 +14,9 @@ const ProgressBar = ({ data: { value, color, width, height } }) => {
         justifyContent: "flex-end",
       }}
     >
-      <p className="text-white pr-2 font-bold ">{value}</p>
+      <p className="text-white text-sm xl:text-lg pr-1 xl:pr-2 xl:font-bold ">
+        {value}
+      </p>
     </div>
   );
 };

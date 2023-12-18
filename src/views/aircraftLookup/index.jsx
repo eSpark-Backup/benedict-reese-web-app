@@ -421,48 +421,18 @@ const AircraftLookup = () => {
     },
   ];
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const drawerWidth = 300;
-  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create("margin", {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    })
-  );
-
   useEffect(() => {
     localStorage.setItem("isSidebarOpen", false);
   }, []);
 
-  const sidebarOpenHandler = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    localStorage.setItem("isSidebarOpen", !isSidebarOpen);
-  };
-
   return (
     <>
-      <Main open={!isSidebarOpen}>
-        <NewHeader
-          openSidebar={isSidebarOpen}
-          sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
-        />
-        <div className={styles.container}>
-          <header className="flex flex-col items-center justify-center mb-24 xl:mb-32 mt-20">
-            <h1 className="font-semibold xl:font-bold text-4xl xl:text-6xl text-center">
-              Enter registration number of <br />
-              aircraft
-            </h1>
+      <div className={styles.container}>
+        <header className="flex flex-col items-center justify-center mb-24 xl:mb-32 mt-20">
+          <h1 className="font-semibold xl:font-bold text-4xl xl:text-6xl text-center">
+            Enter registration number of <br />
+            aircraft
+          </h1>
 
             <input
               className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
@@ -530,7 +500,7 @@ const AircraftLookup = () => {
             tableHeaders={flightVisitedHeaders}
           />
         </div>
-      </Main>
+      
     </>
   );
 };

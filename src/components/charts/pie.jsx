@@ -16,7 +16,7 @@ const Chart = ({
   const progressBarData1 = {
     value: "80%",
     color: "#5DC5C2",
-    width: 110,
+    width: 80,
     height: 20,
   };
   const progressBarData2 = {

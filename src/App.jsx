@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import Home from "./views/Home";
 import Header from "./components/common/header/index";
 import Footer from "./components/common/footer";
@@ -10,6 +10,11 @@ import NewHeader from "./components/common/NewHeader/Header";
 import { styled, useTheme } from "@mui/material/styles";
 import IndustryOverview from "./views/industryOverview";
 import AircraftLookup from "./views/aircraftLookup";
+import NotFound from "./views/NotFound/NotFound";
+import SingleAircraftDetails from "./views/SingleAircraft/SingleAircraftDetails";
+import CompareAircrafts from "./views/compareAircrafts/CompareAircrafts";
+import Sample from "./views/Sample/Sample";
+import NotAuthorized from "./views/NotAuthorized";
 
 function App() {
   // const location = useLocation();
@@ -57,23 +62,65 @@ function App() {
   //   }
   // }, []);
 
+  const routes = [
+    { path: "/", element: <IndustryOverview /> },
+    {
+      path: "/:aircraft_name/",
+      element: <SingleAircraftDetails />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/aircraft-search",
+      element: <Home />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/compare/",
+      element: <CompareAircrafts />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/industryOverview/",
+      element: <IndustryOverview />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/aircraftlookup/",
+      element: <AircraftLookup />,
+      errorElement: <NotFound />,
+    },
+    { path: "/sample", element: <Sample /> },
+    { path: "/not-found", element: <NotFound />, errorElement: <NotFound /> },
+    {
+      path: "/not-authorized",
+      element: <NotAuthorized />,
+      errorElement: <NotFound />,
+    },
+  ];
+
   return (
     <>
       {/* <Header /> */}
-      <Main open={!isSidebarOpen}>
-        <NewHeader
-          openSidebar={isSidebarOpen}
-          sidebarHandler={() => sidebarOpenHandler()}
-        />
-        {/* {isAuthenticating ? (
-        <div className={styles.mainwrapper}>Authenticating...</div>
-      ) : (
-        <>{isAuthenticated ? <Home /> : <Navigate to="/not-authorized" />}</>
-      )} */}
-        <IndustryOverview />
-        {/* <AircraftLookup/> */}
-      </Main>
-      <Footer />
+      <BrowserRouter>
+        <Main open={!isSidebarOpen}>
+          <NewHeader
+            openSidebar={isSidebarOpen}
+            sidebarHandler={() => sidebarOpenHandler()}
+          />
+          <Routes>
+            {routes.map((route) => {
+              return (
+                <Route
+                  path={route.path}
+                  element={route.element}
+                  errorElement={route.errorElement}
+                />
+              );
+            })}
+          </Routes>
+        </Main>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }

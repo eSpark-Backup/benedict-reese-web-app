@@ -103,49 +103,50 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard className="w-full mx-auto mb-8 lg:mb-16 ">
-      <div className="flex justify-between">
-      <div className={styles.barsHeading}>
-        <h1>Flight Activity</h1>
+    <StandardCard className="w-full mx-auto mb-8 lg:mb-16 relative ">
+      <div className={`${styles.barsHeading} absolute top-[50%]`}>
         <h2>Number of Flights</h2>
       </div>
-      <Button
-            variant="contained"
-            sx={{
-              width: "165px",
-              height: "38px",
-              borderRadius: "12px",
-              border: "1px solid #EBECF2",
-              background: "#FFF",
-              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-              color: "#000",
-              fontSize: "15px",
-              fontWeight: "500",
-              marginTop: "35px",
-              marginRight: "30px",
-            }}
-          >
-            <BsGraphUpArrow className={styles.filterButton} />
-            Graph Type
-          </Button>
+      <div className="flex justify-between">
+        <div className={styles.barsHeading}>
+          <h1>Flight Activity</h1>
+        </div>
+        <Button
+          variant="contained"
+          sx={{
+            width: "165px",
+            height: "38px",
+            borderRadius: "12px",
+            border: "1px solid #EBECF2",
+            background: "#FFF",
+            boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+            color: "#000",
+            fontSize: "15px",
+            fontWeight: "500",
+            marginTop: "35px",
+            marginRight: "30px",
+          }}
+        >
+          <BsGraphUpArrow className={`${styles.filterButton} mr-2`} />
+          Graph Type
+        </Button>
       </div>
-      <div className="flex flex-wrap items-end justify-center mt-12 lg:mt-20">
-        {months.map((month, index) => (
-          <div
-            key={index}
-            className="text-center lg:mx-8 xl:mx-16 mb-10 lg:mb-0"
-          >
-            {progressBarsData[index].map((barData, barIndex) => (
-              <ProgressBar
-                key={barIndex}
-                progress={barData.progress}
-                text={barData.text}
-                backgroundColor={barData.backgroundColor}
-              />
-            ))}
-            <div>{month}</div>
-          </div>
-        ))}
+      <div className="overflow-x-auto ml-14">
+        <div className="flex items-end justify-center mt-12 lg:mt-20 w-[1300px] h-[600px]">
+          {months.map((month, index) => (
+            <div key={index} className="text-center mx-16 mb-10 lg:mb-0">
+              {progressBarsData[index].map((barData, barIndex) => (
+                <ProgressBar
+                  key={barIndex}
+                  progress={barData.progress}
+                  text={barData.text}
+                  backgroundColor={barData.backgroundColor}
+                />
+              ))}
+              <div>{month}</div>
+            </div>
+          ))}
+        </div>
       </div>
       <div className="mt-8 lg:mt-12 flex flex-wrap justify-center">
         {firstRowLabels.map((label, index) => (

@@ -3,7 +3,7 @@ import StandardCard from "../common/StandardCard";
 import { Button } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 
-export const Insights = () => {
+export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
   return (
     <StandardCard className="p-5 w-full ">
       <div className="flex justify-between mb-10">
@@ -45,32 +45,13 @@ export const Insights = () => {
       </div>
       <div>
         <StandardCard className="border py-5 px-2 rounded-lg">
-          What are some anomalies with the flight activity of this aircraft? Is
-          it a good investment? Should I be concerned about anything I see about
-          it?
+          {mainParagraph}
         </StandardCard>
-        <p className="py-5 px-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris
-          condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis
-          mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et
-          est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum
-          efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer
-          lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris
-          laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus
-          sed, rutrum tempus dolor.
-        </p>
-        <p className="py-5 px-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris
-          condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis
-          mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et
-          est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum
-          efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer
-          lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris
-          laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus
-          sed, rutrum tempus dolor.
-        </p>
+        {secondaryParagraphs.map((paragraph, index) => (
+          <p key={index} className="py-5 px-2">
+            {paragraph}
+          </p>
+        ))}
       </div>
     </StandardCard>
   );

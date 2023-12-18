@@ -7,6 +7,8 @@ import SectionHeader from "../../shared/SectionHeader";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import numeral from "numeral";
+import StandardCard from "../../common/StandardCard";
+import Chart from "../../charts/pie";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const OwnershipCosts = ({ params, currency, country }) => {
@@ -16,29 +18,158 @@ const OwnershipCosts = ({ params, currency, country }) => {
   const [nbHours, setNbHours] = useState(0);
   const [annualBudget, setAnnualBudget] = useState(0);
   const [conversionRate, setConversionRate] = useState(0);
-  const [currencyFrom, setCurrencyFrom] = useState(currency.toLowerCase())
-  const [reset, setReset] = useState(false)
+  const [currencyFrom, setCurrencyFrom] = useState(currency.toLowerCase());
+  const [reset, setReset] = useState(false);
 
   const [annualTotal, setAnnualTotal] = useState(0);
   const [hourlyTotal, setHourlyTotal] = useState(0);
   const [crewSalary, setCrewSalary] = useState(
-    Math.round((
-      (country === "North America" ? params.NA_annual_employee_benefits : country === "South America" ? params.SA_annual_employee_benefits : country === "Europe" ? params.EU_annual_employee_benefits : params.AS_annual_employee_benefits?? 0) +
-      (country === "North America" ? params.NA_annual_captain : country === "South America" ? params.SA_annual_captain : country === "Europe" ? params.EU_annual_captain : params.AS_annual_captain?? 0) +
-      (country === "North America" ? params.NA_annual_first_office : country === "South America" ? params.SA_annual_first_office : country === "Europe" ? params.EU_annual_first_office : params.AS_annual_first_office?? 0)
-    )*conversionRate).toLocaleString()
+    Math.round(
+      ((country === "North America"
+        ? params.NA_annual_employee_benefits
+        : country === "South America"
+        ? params.SA_annual_employee_benefits
+        : country === "Europe"
+        ? params.EU_annual_employee_benefits
+        : params.AS_annual_employee_benefits ?? 0) +
+        (country === "North America"
+          ? params.NA_annual_captain
+          : country === "South America"
+          ? params.SA_annual_captain
+          : country === "Europe"
+          ? params.EU_annual_captain
+          : params.AS_annual_captain ?? 0) +
+        (country === "North America"
+          ? params.NA_annual_first_office
+          : country === "South America"
+          ? params.SA_annual_first_office
+          : country === "Europe"
+          ? params.EU_annual_first_office
+          : params.AS_annual_first_office ?? 0)) *
+        conversionRate
+    ).toLocaleString()
   );
-  const [crewTrain, setCrewTrain] = useState(Math.round((country === "North America" ? params.NA_annual_crew_training : country === "South America" ? params.SA_annual_crew_training : country === "Europe" ? params.EU_annual_crew_training : params.AS_annual_crew_training?? 0)*conversionRate).toLocaleString());
-  const [hanger, setHanger] = useState(Math.round((country === "North America" ? params.NA_annual_hangar : country === "South America" ? params.SA_annual_hangar : country === "Europe" ? params.EU_annual_hangar : params.AS_annual_hangar?? 0)*conversionRate).toLocaleString());
-  const [insurranceHull, setInsurranceHull] = useState(Math.round((country === "North America" ? params.NA_annual_insurance_hull : country === "South America" ? params.SA_annual_insurance_hull : country === "Europe" ? params.EU_annual_insurance_hull : params.AS_annual_insurance_hull?? 0)*conversionRate).toLocaleString());
-  const [insurranceLiability, setInsurranceLiability] = useState(Math.round((country === "North America" ? params.NA_annual_insurance_liability : country === "South America" ? params.SA_annual_insurance_liability : country === "Europe" ? params.EU_annual_insurance_liability : params.AS_annual_insurance_liability?? 0)*conversionRate).toLocaleString());
-  const [management, setManagement] = useState(Math.round((country === "North America" ? params.NA_annual_management : country === "South America" ? params.SA_annual_management : country === "Europe" ? params.EU_annual_management : params.AS_annual_management?? 0)*conversionRate).toLocaleString());
-  const [miscFixed, setMiscFixed] = useState(Math.round((country === "North America" ? params.NA_annual_misc : country === "South America" ? params.SA_annual_misc : country === "Europe" ? params.EU_annual_misc : params.AS_annual_misc?? 0)*conversionRate).toLocaleString());
-  const [fuelCost, setFuelCost] = useState(Math.round((country === "North America" ? params.NA_hourly_fuel : country === "South America" ? params.SA_hourly_fuel : country === "Europe" ? params.EU_hourly_fuel : params.AS_hourly_fuel?? 0)*conversionRate).toLocaleString());
-  const [maintenance, setMaintenance] = useState(Math.round((country === "North America" ? params.NA_hourly_maintenance : country === "South America" ? params.SA_hourly_maintenance : country === "Europe" ? params.EU_hourly_maintenance : params.AS_hourly_maintenance?? 0)*conversionRate).toLocaleString());
-  const [engOverhaul, setEngOverhaul] = useState(Math.round((country === "North America" ? params.NA_hourly_engine_overhaul : country === "South America" ? params.SA_hourly_engine_overhaul : country === "Europe" ? params.EU_hourly_engine_overhaul : params.AS_hourly_engine_overhaul?? 0)*conversionRate).toLocaleString());
-  const [groundFees, setGroundFees] = useState(Math.round((country === "North America" ? params.NA_hourly_ground_fees : country === "South America" ? params.SA_hourly_ground_fees : country === "Europe" ? params.EU_hourly_ground_fees : params.AS_hourly_ground_fees?? 0)*conversionRate).toLocaleString());
-  const [miscVar, setMiscVar] = useState(Math.round((country === "North America" ? params.NA_hourly_misc : country === "South America" ? params.SA_hourly_misc : country === "Europe" ? params.EU_hourly_misc : params.AS_hourly_misc?? 0)*conversionRate).toLocaleString());
+  const [crewTrain, setCrewTrain] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_crew_training
+        : country === "South America"
+        ? params.SA_annual_crew_training
+        : country === "Europe"
+        ? params.EU_annual_crew_training
+        : params.AS_annual_crew_training ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [hanger, setHanger] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_hangar
+        : country === "South America"
+        ? params.SA_annual_hangar
+        : country === "Europe"
+        ? params.EU_annual_hangar
+        : params.AS_annual_hangar ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [insurranceHull, setInsurranceHull] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_insurance_hull
+        : country === "South America"
+        ? params.SA_annual_insurance_hull
+        : country === "Europe"
+        ? params.EU_annual_insurance_hull
+        : params.AS_annual_insurance_hull ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [insurranceLiability, setInsurranceLiability] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_insurance_liability
+        : country === "South America"
+        ? params.SA_annual_insurance_liability
+        : country === "Europe"
+        ? params.EU_annual_insurance_liability
+        : params.AS_annual_insurance_liability ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [management, setManagement] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_management
+        : country === "South America"
+        ? params.SA_annual_management
+        : country === "Europe"
+        ? params.EU_annual_management
+        : params.AS_annual_management ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [miscFixed, setMiscFixed] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_annual_misc
+        : country === "South America"
+        ? params.SA_annual_misc
+        : country === "Europe"
+        ? params.EU_annual_misc
+        : params.AS_annual_misc ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [fuelCost, setFuelCost] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_hourly_fuel
+        : country === "South America"
+        ? params.SA_hourly_fuel
+        : country === "Europe"
+        ? params.EU_hourly_fuel
+        : params.AS_hourly_fuel ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [maintenance, setMaintenance] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_hourly_maintenance
+        : country === "South America"
+        ? params.SA_hourly_maintenance
+        : country === "Europe"
+        ? params.EU_hourly_maintenance
+        : params.AS_hourly_maintenance ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [engOverhaul, setEngOverhaul] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_hourly_engine_overhaul
+        : country === "South America"
+        ? params.SA_hourly_engine_overhaul
+        : country === "Europe"
+        ? params.EU_hourly_engine_overhaul
+        : params.AS_hourly_engine_overhaul ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [groundFees, setGroundFees] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_hourly_ground_fees
+        : country === "South America"
+        ? params.SA_hourly_ground_fees
+        : country === "Europe"
+        ? params.EU_hourly_ground_fees
+        : params.AS_hourly_ground_fees ?? 0) * conversionRate
+    ).toLocaleString()
+  );
+  const [miscVar, setMiscVar] = useState(
+    Math.round(
+      (country === "North America"
+        ? params.NA_hourly_misc
+        : country === "South America"
+        ? params.SA_hourly_misc
+        : country === "Europe"
+        ? params.EU_hourly_misc
+        : params.AS_hourly_misc ?? 0) * conversionRate
+    ).toLocaleString()
+  );
 
   const [annualData, setAnnualData] = useState({
     labels: [
@@ -359,7 +490,7 @@ const OwnershipCosts = ({ params, currency, country }) => {
             Math.round(Number(hanger.split(",").join(""))),
             Math.round(
               Number(insurranceHull.split(",").join("")) +
-              Number(insurranceLiability.split(",").join(""))
+                Number(insurranceLiability.split(",").join(""))
             ),
             Math.round(Number(management.split(",").join(""))),
             Math.round(Number(miscFixed.split(",").join(""))),
@@ -401,7 +532,7 @@ const OwnershipCosts = ({ params, currency, country }) => {
             Number(engOverhaul.split(",").join("")),
             Number(groundFees.split(",").join("")),
             Number(miscVar.split(",").join("")),
-            ],
+          ],
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
             "rgba(54, 162, 235, 0.2)",
@@ -421,10 +552,37 @@ const OwnershipCosts = ({ params, currency, country }) => {
       ],
     });
 
-    setAnnualTotal((Number(crewSalary.split(",").join("")) + Number(crewTrain.split(",").join("")) + Number(hanger.split(",").join("")) + Number(insurranceHull.split(",").join("")) + Number(insurranceLiability.split(",").join("")) + Number(management.split(",").join("")) + Number(miscFixed.split(",").join(""))))
-    setHourlyTotal((Number(fuelCost.split(",").join("")) + Number(maintenance.split(",").join("")) + Number(engOverhaul.split(",").join("")) + Number(groundFees.split(",").join("")) + Number(miscVar.split(",").join(""))))
-
-  }, [params, crewSalary, crewTrain, hanger, insurranceHull, insurranceLiability, management, miscFixed, fuelCost, maintenance, engOverhaul, groundFees, miscVar])
+    setAnnualTotal(
+      Number(crewSalary.split(",").join("")) +
+        Number(crewTrain.split(",").join("")) +
+        Number(hanger.split(",").join("")) +
+        Number(insurranceHull.split(",").join("")) +
+        Number(insurranceLiability.split(",").join("")) +
+        Number(management.split(",").join("")) +
+        Number(miscFixed.split(",").join(""))
+    );
+    setHourlyTotal(
+      Number(fuelCost.split(",").join("")) +
+        Number(maintenance.split(",").join("")) +
+        Number(engOverhaul.split(",").join("")) +
+        Number(groundFees.split(",").join("")) +
+        Number(miscVar.split(",").join(""))
+    );
+  }, [
+    params,
+    crewSalary,
+    crewTrain,
+    hanger,
+    insurranceHull,
+    insurranceLiability,
+    management,
+    miscFixed,
+    fuelCost,
+    maintenance,
+    engOverhaul,
+    groundFees,
+    miscVar,
+  ]);
 
   const onHoursChanged = (e) => {
     setNbHours(e.target.value);
@@ -454,43 +612,218 @@ const OwnershipCosts = ({ params, currency, country }) => {
 
   useEffect(() => {
     setCrewSalary(
-      Math.round((
-        (country === "North America" ? params.NA_annual_employee_benefits : country === "South America" ? params.SA_annual_employee_benefits : country === "Europe" ? params.EU_annual_employee_benefits : params.AS_annual_employee_benefits?? 0) +
-        (country === "North America" ? params.NA_annual_captain : country === "South America" ? params.SA_annual_captain : country === "Europe" ? params.EU_annual_captain : params.AS_annual_captain?? 0) +
-        (country === "North America" ? params.NA_annual_first_office : country === "South America" ? params.SA_annual_first_office : country === "Europe" ? params.EU_annual_first_office : params.AS_annual_first_office?? 0)
-      )*conversionRate).toLocaleString()
+      Math.round(
+        ((country === "North America"
+          ? params.NA_annual_employee_benefits
+          : country === "South America"
+          ? params.SA_annual_employee_benefits
+          : country === "Europe"
+          ? params.EU_annual_employee_benefits
+          : params.AS_annual_employee_benefits ?? 0) +
+          (country === "North America"
+            ? params.NA_annual_captain
+            : country === "South America"
+            ? params.SA_annual_captain
+            : country === "Europe"
+            ? params.EU_annual_captain
+            : params.AS_annual_captain ?? 0) +
+          (country === "North America"
+            ? params.NA_annual_first_office
+            : country === "South America"
+            ? params.SA_annual_first_office
+            : country === "Europe"
+            ? params.EU_annual_first_office
+            : params.AS_annual_first_office ?? 0)) *
+          conversionRate
+      ).toLocaleString()
     );
-    setCrewTrain(Math.round((country === "North America" ? params.NA_annual_crew_training : country === "South America" ? params.SA_annual_crew_training : country === "Europe" ? params.EU_annual_crew_training : params.AS_annual_crew_training?? 0)*conversionRate).toLocaleString());
-    setHanger(Math.round((country === "North America" ? params.NA_annual_hangar : country === "South America" ? params.SA_annual_hangar : country === "Europe" ? params.EU_annual_hangar : params.AS_annual_hangar?? 0)*conversionRate).toLocaleString());
-    setInsurranceHull(Math.round((country === "North America" ? params.NA_annual_insurance_hull : country === "South America" ? params.SA_annual_insurance_hull : country === "Europe" ? params.EU_annual_insurance_hull : params.AS_annual_insurance_hull?? 0)*conversionRate).toLocaleString());
-    setInsurranceLiability(Math.round((country === "North America" ? params.NA_annual_insurance_liability : country === "South America" ? params.SA_annual_insurance_liability : country === "Europe" ? params.EU_annual_insurance_liability : params.AS_annual_insurance_liability?? 0)*conversionRate).toLocaleString());
-    setManagement(Math.round((country === "North America" ? params.NA_annual_management : country === "South America" ? params.SA_annual_management : country === "Europe" ? params.EU_annual_management : params.AS_annual_management?? 0)*conversionRate).toLocaleString());
-    setMiscFixed(Math.round((country === "North America" ? params.NA_annual_misc : country === "South America" ? params.SA_annual_misc : country === "Europe" ? params.EU_annual_misc : params.AS_annual_misc?? 0)*conversionRate).toLocaleString());
-    setFuelCost(Math.round((country === "North America" ? params.NA_hourly_fuel : country === "South America" ? params.SA_hourly_fuel : country === "Europe" ? params.EU_hourly_fuel : params.AS_hourly_fuel?? 0)*conversionRate).toLocaleString());
-    setMaintenance(Math.round((country === "North America" ? params.NA_hourly_maintenance : country === "South America" ? params.SA_hourly_maintenance : country === "Europe" ? params.EU_hourly_maintenance : params.AS_hourly_maintenance?? 0)*conversionRate).toLocaleString());
-    setEngOverhaul(Math.round((country === "North America" ? params.NA_hourly_engine_overhaul : country === "South America" ? params.SA_hourly_engine_overhaul : country === "Europe" ? params.EU_hourly_engine_overhaul : params.AS_hourly_engine_overhaul?? 0)*conversionRate).toLocaleString());
-    setGroundFees(Math.round((country === "North America" ? params.NA_hourly_ground_fees : country === "South America" ? params.SA_hourly_ground_fees : country === "Europe" ? params.EU_hourly_ground_fees : params.AS_hourly_ground_fees?? 0)*conversionRate).toLocaleString());
-    setMiscVar(Math.round((country === "North America" ? params.NA_hourly_misc : country === "South America" ? params.SA_hourly_misc : country === "Europe" ? params.EU_hourly_misc : params.AS_hourly_misc?? 0)*conversionRate).toLocaleString());
-  }, [params, country, reset])
-
+    setCrewTrain(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_crew_training
+          : country === "South America"
+          ? params.SA_annual_crew_training
+          : country === "Europe"
+          ? params.EU_annual_crew_training
+          : params.AS_annual_crew_training ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setHanger(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_hangar
+          : country === "South America"
+          ? params.SA_annual_hangar
+          : country === "Europe"
+          ? params.EU_annual_hangar
+          : params.AS_annual_hangar ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setInsurranceHull(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_insurance_hull
+          : country === "South America"
+          ? params.SA_annual_insurance_hull
+          : country === "Europe"
+          ? params.EU_annual_insurance_hull
+          : params.AS_annual_insurance_hull ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setInsurranceLiability(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_insurance_liability
+          : country === "South America"
+          ? params.SA_annual_insurance_liability
+          : country === "Europe"
+          ? params.EU_annual_insurance_liability
+          : params.AS_annual_insurance_liability ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setManagement(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_management
+          : country === "South America"
+          ? params.SA_annual_management
+          : country === "Europe"
+          ? params.EU_annual_management
+          : params.AS_annual_management ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setMiscFixed(
+      Math.round(
+        (country === "North America"
+          ? params.NA_annual_misc
+          : country === "South America"
+          ? params.SA_annual_misc
+          : country === "Europe"
+          ? params.EU_annual_misc
+          : params.AS_annual_misc ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setFuelCost(
+      Math.round(
+        (country === "North America"
+          ? params.NA_hourly_fuel
+          : country === "South America"
+          ? params.SA_hourly_fuel
+          : country === "Europe"
+          ? params.EU_hourly_fuel
+          : params.AS_hourly_fuel ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setMaintenance(
+      Math.round(
+        (country === "North America"
+          ? params.NA_hourly_maintenance
+          : country === "South America"
+          ? params.SA_hourly_maintenance
+          : country === "Europe"
+          ? params.EU_hourly_maintenance
+          : params.AS_hourly_maintenance ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setEngOverhaul(
+      Math.round(
+        (country === "North America"
+          ? params.NA_hourly_engine_overhaul
+          : country === "South America"
+          ? params.SA_hourly_engine_overhaul
+          : country === "Europe"
+          ? params.EU_hourly_engine_overhaul
+          : params.AS_hourly_engine_overhaul ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setGroundFees(
+      Math.round(
+        (country === "North America"
+          ? params.NA_hourly_ground_fees
+          : country === "South America"
+          ? params.SA_hourly_ground_fees
+          : country === "Europe"
+          ? params.EU_hourly_ground_fees
+          : params.AS_hourly_ground_fees ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+    setMiscVar(
+      Math.round(
+        (country === "North America"
+          ? params.NA_hourly_misc
+          : country === "South America"
+          ? params.SA_hourly_misc
+          : country === "Europe"
+          ? params.EU_hourly_misc
+          : params.AS_hourly_misc ?? 0) * conversionRate
+      ).toLocaleString()
+    );
+  }, [params, country, reset]);
 
   useEffect(() => {
-    let currencyConversionRate = info[to] / info[currencyFrom]
-    setCurrencyFrom(to)
-    setCrewSalary(Math.round(Number(crewSalary.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setCrewTrain(Math.round(Number(crewTrain.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setHanger(Math.round(Number(hanger.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setInsurranceHull(Math.round(Number(insurranceHull.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setInsurranceLiability(Math.round(Number(insurranceLiability.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setManagement(Math.round(Number(management.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setMiscFixed(Math.round(Number(miscFixed.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setFuelCost(Math.round(Number(fuelCost.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setMaintenance(Math.round(Number(maintenance.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setEngOverhaul(Math.round(Number(engOverhaul.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setGroundFees(Math.round(Number(groundFees.split(",").join(""))*currencyConversionRate).toLocaleString());
-    setMiscVar(Math.round(Number(miscVar.split(",").join(""))*currencyConversionRate).toLocaleString());
-  }, [info, to])
-
+    let currencyConversionRate = info[to] / info[currencyFrom];
+    setCurrencyFrom(to);
+    setCrewSalary(
+      Math.round(
+        Number(crewSalary.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setCrewTrain(
+      Math.round(
+        Number(crewTrain.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setHanger(
+      Math.round(
+        Number(hanger.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setInsurranceHull(
+      Math.round(
+        Number(insurranceHull.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setInsurranceLiability(
+      Math.round(
+        Number(insurranceLiability.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setManagement(
+      Math.round(
+        Number(management.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setMiscFixed(
+      Math.round(
+        Number(miscFixed.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setFuelCost(
+      Math.round(
+        Number(fuelCost.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setMaintenance(
+      Math.round(
+        Number(maintenance.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setEngOverhaul(
+      Math.round(
+        Number(engOverhaul.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setGroundFees(
+      Math.round(
+        Number(groundFees.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+    setMiscVar(
+      Math.round(
+        Number(miscVar.split(",").join("")) * currencyConversionRate
+      ).toLocaleString()
+    );
+  }, [info, to]);
 
   const wholeNumberKeyValidation = (event) => {
     const key = event.key;
@@ -507,71 +840,111 @@ const OwnershipCosts = ({ params, currency, country }) => {
     ) {
       event.preventDefault();
     }
-  }
+  };
 
   const removeNonNumeric = (num) => num.toString().replace(/[^0-9]/g, "");
-  const formatting = (event) =>  {
+  const formatting = (event) => {
     const inputValue = removeNonNumeric(event.target.value);
     const formattedValue = Number(inputValue).toLocaleString();
-    return formattedValue
-  }
+    return formattedValue;
+  };
 
   const crewChange = (event) => {
     setCrewSalary(formatting(event));
-  }
+  };
 
   const crewTrainChange = (event) => {
     setCrewTrain(formatting(event));
-  }
+  };
 
   const hangerChange = (event) => {
     setHanger(formatting(event));
-  }
+  };
 
   const insHullChange = (event) => {
     setInsurranceHull(formatting(event));
-  }
+  };
 
   const insLiabilityChange = (event) => {
     setInsurranceLiability(formatting(event));
-  }
+  };
 
   const managementChange = (event) => {
     setManagement(formatting(event));
-  }
+  };
 
   const miscFixedChange = (event) => {
     setMiscFixed(formatting(event));
-  }
+  };
 
   const fuelCostChange = (event) => {
     setFuelCost(formatting(event));
-  }
+  };
 
   const maintenanceChange = (event) => {
     setMaintenance(formatting(event));
-  }
+  };
 
   const engOverhaulChange = (event) => {
     setEngOverhaul(formatting(event));
-  }
+  };
 
   const groundFeesChange = (event) => {
     setGroundFees(formatting(event));
-  }
+  };
 
   const miscVarChange = (event) => {
     setMiscVar(formatting(event));
-  }
+  };
 
+  const chart1Data = [15, 30, 5, 5, 7, 25, 13];
+  const chart1Labels = [
+    "North America",
+    "South America",
+    "Middle East",
+    "Europe",
+    "Australia",
+    "Africa",
+    "Asia",
+  ];
+  const chart1BackgroundColor = [
+    "#FF0000",
+    "#FFB800",
+    "#4F0000",
+    "#63C700",
+    "#0097C7",
+    "#0400B8",
+    "#B8B8B8",
+  ];
+
+  const chart1Heading = ["Fixed Costs"];
+  const chart1Cost = ["$21,000,000"];
 
   return (
-    <section className={cn(global.section, global.page_break, global.ownership_topRelated)}>
-      <div className={global.pizza_header_bars}>
-      <SectionHeader title="Ownership Costs" />
-      </div>
-      <main className={styles.ownership_main}>
-        <header className={cn(styles.os_header, global.bar_form)}>
+    <div className="flex p-20">
+    <StandardCard style={{ display: "flex" }}>
+      <Chart
+        heading={chart1Heading}
+        cost={chart1Cost}
+        chartData={chart1Data}
+        chartLabels={chart1Labels}
+        backgroundColor={chart1BackgroundColor}
+      />
+      <Chart
+        heading={chart1Heading}
+        cost={chart1Cost}
+        chartData={chart1Data}
+        chartLabels={chart1Labels}
+        backgroundColor={chart1BackgroundColor}
+      />
+    </StandardCard>
+    <StandardCard style={{ width: "100%", padding: "21px" }}>
+      <section>
+        <div className={global.pizza_header_bars}>
+          <SectionHeader title="Ownership Costs" />
+        </div>
+        <main className={styles.ownership_main}>
+          {/* <header className={cn(styles.os_header, global.bar_form)}>
           <h2 className={global.pdf_hidden}>
             Estimated annual flight hours:{" "}
             <div className={styles.form + " " + global.pdf_hidden}>
@@ -639,18 +1012,28 @@ const OwnershipCosts = ({ params, currency, country }) => {
               />
             </div>
           </div>
-        </div>
-        <div className={cn(styles.f_v_costs, global.breakdown_bars)}>
-          <div className={cn(styles.costs_container)}>
-            <h3>Annual Fixed Costs Breakdown</h3>
-            <div className={cn(styles.costs)}>
-              <div className={cn(styles.keys_values_container)}>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Crew Salary</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
+        </div> */}
+          <div className={cn(styles.f_v_costs, global.breakdown_bars)}>
+            <div className={cn(styles.costs_container)}>
+              <h3>Annual Fixed Costs Breakdown</h3>
+              <div className={cn(styles.costs)}>
+                <div className={cn(styles.keys_values_container)}>
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Crew Salary
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
                           className={styles.input}
                           type="text"
                           name="crew_salary"
@@ -659,168 +1042,221 @@ const OwnershipCosts = ({ params, currency, country }) => {
                           onKeyDown={wholeNumberKeyValidation}
                           onInput={crewChange}
                         />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill1)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(crewSalary.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
+                  <div className={styles.key_value_bar}>
                     <div
-                      className={cn(styles.bar__fill1)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(crewSalary.split(",").join("")) / maximumAnnualValue) * 100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Crew Training</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="crew_training"
-                        placeholder="Crew Training"
-                        value={crewTrain}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={crewTrainChange}
-                      />
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Crew Training
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="crew_training"
+                          placeholder="Crew Training"
+                          value={crewTrain}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={crewTrainChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill2)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(crewTrain.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
+                  <div className={styles.key_value_bar}>
                     <div
-                      className={cn(styles.bar__fill2)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(crewTrain.split(",").join("")) /
-                            maximumAnnualValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Hangar</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="hangar"
-                        placeholder="Hangar"
-                        value={hanger}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={hangerChange}
-                      />
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>Hangar</span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="hangar"
+                          placeholder="Hangar"
+                          value={hanger}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={hangerChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill3)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(hanger.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                  </div>{" "}
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Insurrance Hull
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="insurrance_hull"
+                          placeholder="Insurrance Hull"
+                          value={insurranceHull}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={insHullChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill4)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(insurranceHull.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
+                  <div className={styles.key_value_bar}>
                     <div
-                      className={cn(styles.bar__fill3)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(hanger.split(",").join("")) / maximumAnnualValue) * 100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>{" "}
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Insurrance Hull</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="insurrance_hull"
-                        placeholder="Insurrance Hull"
-                        value={insurranceHull}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={insHullChange}
-                      />
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Insurrance Liability
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="insurrance_liability"
+                          placeholder="Insurrance Liability"
+                          value={insurranceLiability}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={insLiabilityChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill5)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(insurranceLiability.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
+                  <div className={styles.key_value_bar}>
                     <div
-                      className={cn(styles.bar__fill4)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(insurranceHull.split(",").join("")) /
-                            maximumAnnualValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Insurrance Liability</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="insurrance_liability"
-                        placeholder="Insurrance Liability"
-                        value={insurranceLiability}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={insLiabilityChange}
-                      />
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Managment
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="management"
+                          placeholder="Management"
+                          value={management}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={managementChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill6)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(management.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill5)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(insurranceLiability.split(",").join("")) /
-                            maximumAnnualValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Managment</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="management"
-                        placeholder="Management"
-                        value={management}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={managementChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill6)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(management.split(",").join("")) / maximumAnnualValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                {/* <div className={styles.key_value_bar}>
+                  {/* <div className={styles.key_value_bar}>
                   <div className={cn(styles.key_value) + " " + cn(global.row)}>
                     <span className={styles.fixed_span_medium}>Deprication Rate</span>
                     <span className={styles.fixed_span_short}>
@@ -889,200 +1325,269 @@ const OwnershipCosts = ({ params, currency, country }) => {
                     ></div>
                   </div>
                 </div> */}
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Misc Fixed</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="misc_fixed"
-                        placeholder="Misc Fixed"
-                        value={miscFixed}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={miscFixedChange}
-                      />
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Misc Fixed
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="misc_fixed"
+                          placeholder="Misc Fixed"
+                          value={miscFixed}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={miscFixedChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill7)}
+                        style={{
+                          width:
+                            (Number(miscFixed.split(",").join("")) /
+                              maximumAnnualValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
                     </div>
                   </div>
-                  <div className={cn(styles.bar)}>
+                </div>
+              </div>
+            </div>
+            <div className={cn(styles.costs_container)}>
+              <h3>Variable Cost Breakdown (per flight hour)</h3>
+              <div className={cn(styles.costs)}>
+                <div className={cn(styles.keys_values_container)}>
+                  <div className={styles.key_value_bar}>
                     <div
-                      className={cn(styles.bar__fill7)}
-                      style={{
-                        width:
-                          (Number(miscFixed.split(",").join("")) / maximumAnnualValue) * 100 +
-                          "%",
-                      }}
-                    ></div>
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Fuel Cost
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="fuel_cost"
+                          placeholder="Fuel Cost"
+                          value={fuelCost}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={fuelCostChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill1)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(fuelCost.split(",").join("")) /
+                              maximumVariableValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Maintenance
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="maintenance"
+                          placeholder="Maintenance"
+                          value={maintenance}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={maintenanceChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill2)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(maintenance.split(",").join("")) /
+                              maximumVariableValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Engine Overhaul
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="engine_overhaul"
+                          placeholder="Engine Overhaul"
+                          value={engOverhaul}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={engOverhaulChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill3)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(engOverhaul.split(",").join("")) /
+                              maximumVariableValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Ground Fees
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="ground_fees"
+                          placeholder="Ground Fees"
+                          value={groundFees}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={groundFeesChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill4)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(groundFees.split(",").join("")) /
+                              maximumVariableValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className={styles.key_value_bar}>
+                    <div
+                      className={cn(styles.key_value) + " " + cn(global.row)}
+                    >
+                      <span className={styles.fixed_span_medium}>
+                        Misc Variable
+                      </span>
+                      <div>
+                        <span>
+                          {currency === "USD"
+                            ? "$ "
+                            : currency === "EUR"
+                            ? "€ "
+                            : "£ "}
+                        </span>
+                        <input
+                          className={styles.input}
+                          type="text"
+                          name="misc_variable"
+                          placeholder="Misc Variable"
+                          value={miscVar}
+                          onKeyDown={wholeNumberKeyValidation}
+                          onInput={miscVarChange}
+                        />
+                      </div>
+                    </div>
+                    <div className={cn(styles.bar)}>
+                      <div
+                        className={cn(styles.bar__fill6)}
+                        style={{
+                          maxWidth: "101%",
+                          width:
+                            (Number(miscVar.split(",").join("")) /
+                              maximumVariableValue) *
+                              100 +
+                            "%",
+                        }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className={cn(styles.costs_container)}>
-            <h3>Variable Cost Breakdown (per flight hour)</h3>
-            <div className={cn(styles.costs)}>
-              <div className={cn(styles.keys_values_container)}>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Fuel Cost</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="fuel_cost"
-                        placeholder="Fuel Cost"
-                        value={fuelCost}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={fuelCostChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill1)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(fuelCost.split(",").join("")) / maximumVariableValue) * 100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Maintenance</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="maintenance"
-                        placeholder="Maintenance"
-                        value={maintenance}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={maintenanceChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill2)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(maintenance.split(",").join("")) /
-                            maximumVariableValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Engine Overhaul</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="engine_overhaul"
-                        placeholder="Engine Overhaul"
-                        value={engOverhaul}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={engOverhaulChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill3)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(engOverhaul.split(",").join("")) /
-                            maximumVariableValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Ground Fees</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="ground_fees"
-                        placeholder="Ground Fees"
-                        value={groundFees}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={groundFeesChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill4)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(groundFees.split(",").join("")) /
-                            maximumVariableValue) *
-                            100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-                <div className={styles.key_value_bar}>
-                  <div className={cn(styles.key_value) + " " + cn(global.row)}>
-                    <span className={styles.fixed_span_medium}>Misc Variable</span>
-                    <div>
-                      <span>{currency === "USD" ? "$ " : currency === "EUR" ? "€ " : "£ "}</span>
-                      <input
-                        className={styles.input}
-                        type="text"
-                        name="misc_variable"
-                        placeholder="Misc Variable"
-                        value={miscVar}
-                        onKeyDown={wholeNumberKeyValidation}
-                        onInput={miscVarChange}
-                      />
-                    </div>
-                  </div>
-                  <div className={cn(styles.bar)}>
-                    <div
-                      className={cn(styles.bar__fill6)}
-                      style={{
-                        maxWidth: "101%",
-                        width:
-                          (Number(miscVar.split(",").join("")) / maximumVariableValue) * 100 +
-                          "%",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className={styles.reset_values}>
+            <button
+              className={styles.reset_button}
+              onClick={() => setReset(!reset)}
+            >
+              Reset Values
+            </button>
           </div>
-        </div>
-        <div className={styles.reset_values}>
-          <button
-            className={styles.reset_button}
-            onClick={() => setReset(!reset)}
-          >
-            Reset Values
-          </button>
-        </div>
-      </main>
-    </section>
+        </main>
+      </section>
+    </StandardCard>
+  </div>
+    
   );
 };
 

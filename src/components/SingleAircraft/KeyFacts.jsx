@@ -5,9 +5,13 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import axios from "axios";
 import numeral from "numeral";
-import SectionHeader from "../shared/SectionHeader";
+// import SectionHeader from "../shared/SectionHeader";
 import { useEffect, useState } from "react";
 import StandardCard from "../common/StandardCard";
+import LineChart from "../charts/line";
+import { Insights } from "../Insights";
+import Chart from "../charts/pie";
+import OwnershipCosts from "./OwnershipCosts/OwnershipCosts";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -104,9 +108,11 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     ],
   };
 
+
+
   return (
-    <>
-      <div className=" w-screen mx-8 my-8 sm:flex sm:gap-10 sm:items-center sm:max-h-[718px]"> 
+    <div className="p-20">
+      <div className=" w-screen mx-8 my-8 sm:flex sm:gap-10 sm:items-center sm:max-h-[718px]">
         <StandardCard>
           <div className="py-16 px-8">
             <h1 className="font-bold text-4xl">
@@ -131,16 +137,231 @@ const KeyFacts = ({ params, currency, country, unit }) => {
         <StandardCard>
           <div className="">
             <img src={`${params?.image_name}`} className="w-2/5" />
-            <img src={`${params?.floorplan_drawing}`} className="w-2/5"/>
+            <img src={`${params?.floorplan_drawing}`} className="w-2/5" />
           </div>
         </StandardCard>
       </div>
 
+      <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
+        <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+          <LineChart />
+        </div>
+        <div className="lg:col-span-1">
+          <Insights
+            mainParagraph="Explain all the costs to me if I were to buy a 2012 example of this aircraft, fly it a total of 300 hours per year and then sell it in 3 years."
+            secondaryParagraphs={[
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
+            ]}
+          />
+          <StandardCard
+            style={{
+              padding: "30px 20px 30px 20px",
+              width: "100%",
+              marginTop: "40px",
+            }}
+          >
+            <div className={cn(styles.main_print_section, styles.pdf_hidden)}>
+              <section>
+                <span className={cn(styles.line)}></span>
+                <div className={cn(styles.doughnut_charts_wrapper)}>
+                  <div
+                    style={{
+                      width: "130px",
+                    }}
+                    className={cn(styles.chart_container)}
+                  >
+                    <span>Passengers</span>
+                    <Doughnut
+                      data={data_passengers}
+                      options={{
+                        responsive: true,
+                        cutout: 50,
+                        plugins: {
+                          tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                          },
+                        },
+                      }}
+                    />
+                    <span className={styles.chart_label_passengers}>
+                      {params.max_pax}
+                      <br></br>
+                      <span className={styles.chart_label_description}>
+                        Pax
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      width: "130px",
+                    }}
+                    className={cn(styles.chart_container)}
+                  >
+                    <span>Range</span>
+                    <Doughnut
+                      data={data_range}
+                      options={{
+                        responsive: true,
+                        cutout: 50,
+                        plugins: {
+                          tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                          },
+                        },
+                      }}
+                    />
+                    <span className={styles.chart_label_range}>
+                      {unit === "Imperial Units"
+                        ? numeral(params.range_NM).format("0,0")
+                        : numeral(params.range_km).format("0,0")}{" "}
+                      <br></br>
+                      <span className={styles.chart_label_description}>
+                        {unit === "Imperial Units" ? "NM" : "KM"}
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      width: "130px",
+                    }}
+                    className={cn(styles.chart_container)}
+                  >
+                    <span>Cruise Speed</span>
+                    <Doughnut
+                      data={data_cruise}
+                      options={{
+                        responsive: true,
+                        cutout: 50,
+                        plugins: {
+                          tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                          },
+                        },
+                      }}
+                    />
+                    <span className={styles.chart_label_cruise}>
+                      {unit === "Imperial Units"
+                        ? numeral(params.high_cruise_knots).format("0,0")
+                        : numeral(params.high_speed_cruise_kmh).format(
+                            "0,0"
+                          )}{" "}
+                      <br></br>
+                      <span className={styles.chart_label_description}>
+                        {" "}
+                        {unit === "Imperial Units" ? "Knots" : "Kmh"}
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      width: "130px",
+                    }}
+                    className={cn(styles.chart_container)}
+                  >
+                    <span>Cost per Hour</span>
+                    <Doughnut
+                      data={data_cost}
+                      options={{
+                        responsive: true,
+                        cutout: 50,
+                        plugins: {
+                          tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                          },
+                        },
+                      }}
+                    />
+                    <span className={styles.chart_label_cost}>
+                      {currency === "USD"
+                        ? "$"
+                        : currency === "EUR"
+                        ? "€"
+                        : "£"}
+                      {currency === "USD"
+                        ? country === "North America"
+                          ? numeral(params.NA_hourly_total).format("0,0") !== 0
+                            ? numeral(params.NA_hourly_total).format("0,0")
+                            : "-"
+                          : country === "Europe"
+                          ? numeral(params.EU_hourly_total).format("0,0") !== 0
+                            ? numeral(params.EU_hourly_total).format("0,0")
+                            : "-"
+                          : country === "South America"
+                          ? numeral(params.SA_hourly_total).format("0,0") !== 0
+                            ? numeral(params.SA_hourly_total).format("0,0")
+                            : "-"
+                          : numeral(params.AS_hourly_total).format("0,0") !== 0
+                          ? numeral(params.AS_hourly_total).format("0,0")
+                          : "-"
+                        : country === "North America"
+                        ? numeral(params.NA_hourly_total).format("0,0") !== 0
+                          ? numeral(
+                              params.NA_hourly_total * conversionRate
+                            ).format("0,0")
+                          : "-"
+                        : country === "Europe"
+                        ? numeral(params.EU_hourly_total).format("0,0") !== 0
+                          ? numeral(
+                              params.EU_hourly_total * conversionRate
+                            ).format("0,0")
+                          : "-"
+                        : country === "South America"
+                        ? params.SA_hourly_total !== 0
+                          ? numeral(
+                              params.SA_hourly_total * conversionRate
+                            ).format("0,0")
+                          : "-"
+                        : params.AS_hourly_total !== 0
+                        ? numeral(
+                            params.AS_hourly_total * conversionRate
+                          ).format("0,0")
+                        : "-"}{" "}
+                      <br></br>
+                      <span className={styles.chart_label_description}>
+                        per hour
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      width: "130px",
+                    }}
+                    className={cn(styles.chart_container)}
+                  >
+                    <span>Fuel Burn</span>
+                    <Doughnut
+                      data={data_fuel}
+                      options={{
+                        responsive: true,
+                        cutout: 50,
+                        plugins: {
+                          tooltip: {
+                            enabled: false, // <-- this option disables tooltips
+                          },
+                        },
+                      }}
+                    />
+                    <span className={styles.chart_label_fuel}>
+                      {unit === "Imperial Units"
+                        ? numeral(params.hourly_fuel_burn_GPH).format("0,0")
+                        : numeral(params.hourly_fuel_burn_LPH).format(
+                            "0,0"
+                          )}{" "}
+                      <br></br>
+                      <span className={styles.chart_label_description}>
+                        {unit === "Imperial Units" ? "GPH" : "LPH"}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </StandardCard>
+        </div>
+      </div>
+ 
 
-
-
-{/* 
-        <ul className={cn(styles.facts)}>
+      {/* <ul className={cn(styles.facts)}>
           <div>
             {keyFacts.map((fact, index) => {
               return <li key={index}> * {fact}</li>;
@@ -151,8 +372,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             <p style={{ fontWeight: "bold" }}>Cruise</p>
             <p style={{ fontWeight: "bold" }}>Passangers</p>
           </div>
-        </ul>
-
+        </ul> */}
+      {/* 
         <div className={cn(styles.img_container)}>
           <img
             src={`${params?.image_name}`}
@@ -164,193 +385,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             className={cn(styles.single_image)}
             alt=""
           />
-        </div>
-
-      <div className={cn(styles.main_print_section, styles.pdf_hidden)}>
-        <section className={cn(global.section)}>
-          <span className={cn(styles.line)}></span>
-          <div className={cn(styles.doughnut_charts_wrapper)}>
-            <div
-              style={{
-                width: "130px",
-              }}
-              className={cn(styles.chart_container)}
-            >
-              <span>Passengers</span>
-              <Doughnut
-                data={data_passengers}
-                options={{
-                  responsive: true,
-                  cutout: 50,
-                  plugins: {
-                    tooltip: {
-                      enabled: false, // <-- this option disables tooltips
-                    },
-                  },
-                }}
-              />
-              <span className={styles.chart_label_passengers}>
-                {params.max_pax}
-                <br></br>
-                <span className={styles.chart_label_description}>Pax</span>
-              </span>
-            </div>
-            <div
-              style={{
-                width: "130px",
-              }}
-              className={cn(styles.chart_container)}
-            >
-              <span>Range</span>
-              <Doughnut
-                data={data_range}
-                options={{
-                  responsive: true,
-                  cutout: 50,
-                  plugins: {
-                    tooltip: {
-                      enabled: false, // <-- this option disables tooltips
-                    },
-                  },
-                }}
-              />
-              <span className={styles.chart_label_range}>
-                {unit === "Imperial Units"
-                  ? numeral(params.range_NM).format("0,0")
-                  : numeral(params.range_km).format("0,0")}{" "}
-                <br></br>
-                <span className={styles.chart_label_description}>
-                  {unit === "Imperial Units" ? "NM" : "KM"}
-                </span>
-              </span>
-            </div>
-            <div
-              style={{
-                width: "130px",
-              }}
-              className={cn(styles.chart_container)}
-            >
-              <span>Cruise Speed</span>
-              <Doughnut
-                data={data_cruise}
-                options={{
-                  responsive: true,
-                  cutout: 50,
-                  plugins: {
-                    tooltip: {
-                      enabled: false, // <-- this option disables tooltips
-                    },
-                  },
-                }}
-              />
-              <span className={styles.chart_label_cruise}>
-                {unit === "Imperial Units"
-                  ? numeral(params.high_cruise_knots).format("0,0")
-                  : numeral(params.high_speed_cruise_kmh).format("0,0")}{" "}
-                <br></br>
-                <span className={styles.chart_label_description}>
-                  {" "}
-                  {unit === "Imperial Units" ? "Knots" : "Kmh"}
-                </span>
-              </span>
-            </div>
-            <div
-              style={{
-                width: "130px",
-              }}
-              className={cn(styles.chart_container)}
-            >
-              <span>Cost per Hour</span>
-              <Doughnut
-                data={data_cost}
-                options={{
-                  responsive: true,
-                  cutout: 50,
-                  plugins: {
-                    tooltip: {
-                      enabled: false, // <-- this option disables tooltips
-                    },
-                  },
-                }}
-              />
-              <span className={styles.chart_label_cost}>
-                {currency === "USD" ? "$" : currency === "EUR" ? "€" : "£"}
-                {currency === "USD"
-                  ? country === "North America"
-                    ? numeral(params.NA_hourly_total).format("0,0") !== 0
-                      ? numeral(params.NA_hourly_total).format("0,0")
-                      : "-"
-                    : country === "Europe"
-                    ? numeral(params.EU_hourly_total).format("0,0") !== 0
-                      ? numeral(params.EU_hourly_total).format("0,0")
-                      : "-"
-                    : country === "South America"
-                    ? numeral(params.SA_hourly_total).format("0,0") !== 0
-                      ? numeral(params.SA_hourly_total).format("0,0")
-                      : "-"
-                    : numeral(params.AS_hourly_total).format("0,0") !== 0
-                    ? numeral(params.AS_hourly_total).format("0,0")
-                    : "-"
-                  : country === "North America"
-                  ? numeral(params.NA_hourly_total).format("0,0") !== 0
-                    ? numeral(params.NA_hourly_total * conversionRate).format(
-                        "0,0"
-                      )
-                    : "-"
-                  : country === "Europe"
-                  ? numeral(params.EU_hourly_total).format("0,0") !== 0
-                    ? numeral(params.EU_hourly_total * conversionRate).format(
-                        "0,0"
-                      )
-                    : "-"
-                  : country === "South America"
-                  ? params.SA_hourly_total !== 0
-                    ? numeral(params.SA_hourly_total * conversionRate).format(
-                        "0,0"
-                      )
-                    : "-"
-                  : params.AS_hourly_total !== 0
-                  ? numeral(params.AS_hourly_total * conversionRate).format(
-                      "0,0"
-                    )
-                  : "-"}{" "}
-                <br></br>
-                <span className={styles.chart_label_description}>per hour</span>
-              </span>
-            </div>
-            <div
-              style={{
-                width: "130px",
-              }}
-              className={cn(styles.chart_container)}
-            >
-              <span>Fuel Burn</span>
-              <Doughnut
-                data={data_fuel}
-                options={{
-                  responsive: true,
-                  cutout: 50,
-                  plugins: {
-                    tooltip: {
-                      enabled: false, // <-- this option disables tooltips
-                    },
-                  },
-                }}
-              />
-              <span className={styles.chart_label_fuel}>
-                {unit === "Imperial Units"
-                  ? numeral(params.hourly_fuel_burn_GPH).format("0,0")
-                  : numeral(params.hourly_fuel_burn_LPH).format("0,0")}{" "}
-                <br></br>
-                <span className={styles.chart_label_description}>
-                  {unit === "Imperial Units" ? "GPH" : "LPH"}
-                </span>
-              </span>
-            </div>
-          </div>
-        </section>
-      </div> */}
-    </>
+        </div> */}
+    </div>
   );
 };
 

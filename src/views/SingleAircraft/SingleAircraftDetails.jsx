@@ -110,12 +110,12 @@ export default function SingleAircraftDetails({
     setCountry(val);
   };
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token === null && !byPassAuth) {
-      navigate("not-found");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("token");
+  //   if (token === null && !byPassAuth) {
+  //     navigate("not-found");
+  //   }
+  // }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -245,8 +245,7 @@ export default function SingleAircraftDetails({
   // checkIfPathnameExists(JSON.parse(localStorage.getItem('aircrafts')) , propertyToMatch, location.pathname);
 
   return (
-    <>
-      <Header />
+    <div className="mt-32">
       {showExport && (
         <div className={cn(pdf.pdf_window)}>
           <div>
@@ -402,7 +401,7 @@ export default function SingleAircraftDetails({
         </div>
       </div>
       <main className={cn(global.wrapper)}>
-        <div className={styles.sorting + " " + global.pdf_hidden}>
+        {/* <div className={styles.sorting + " " + global.pdf_hidden}>
           <div className={styles.dropdown}>
             <Dropdown
               className={styles.dropdown}
@@ -452,7 +451,7 @@ export default function SingleAircraftDetails({
               onClick={() => setShowExport(true)}
             />{" "}
           </div>
-        </div>
+        </div> */}
 
         <KeyFacts
           params={aircraftData}
@@ -621,6 +620,6 @@ export default function SingleAircraftDetails({
         </Modal>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

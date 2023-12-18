@@ -308,10 +308,10 @@ const ActivityByType = () => {
       scrollWheel(e, chartInstance);
     };
 
-    chartInstance.ctx.canvas.addEventListener("wheel", handleWheel);
+    chartInstance.ctx?.canvas.addEventListener("wheel", handleWheel);
 
     return () => {
-      chartInstance.ctx.canvas.removeEventListener("wheel", handleWheel);
+      chartInstance.ctx?.canvas.removeEventListener("wheel", handleWheel);
     };
   }, [chartRef]);
 

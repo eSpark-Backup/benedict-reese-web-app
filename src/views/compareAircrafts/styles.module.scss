@@ -40,7 +40,6 @@
       img {
         filter: brightness(30%);
       }
-
     }
 
     input[type="checkbox"] {
@@ -51,7 +50,7 @@
       width: 0;
       height: 0;
 
-      &:checked+.checkmark {
+      &:checked + .checkmark {
         display: block;
       }
     }
@@ -104,7 +103,7 @@
   }
 }
 
-@media(hover: none) and (pointer: coarse) {
+@media (hover: none) and (pointer: coarse) {
   .options {
     display: flex;
     gap: 10px;
@@ -125,12 +124,9 @@
         display: block;
         position: relative;
         color: #1c1d42;
-
       }
     }
   }
-
-
 }
 
 .form {
@@ -191,6 +187,7 @@
   }
 }
 
+
 @media screen and (max-width: 1130px) {
   .sorting {
     max-width: 70%;
@@ -202,5 +199,4 @@
       gap: 0;
     }
   }
-
 }

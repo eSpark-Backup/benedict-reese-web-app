@@ -122,7 +122,7 @@ const CompareAircrafts = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       {showExport && <div className={cn(pdf.pdf_window)}>
         <div>
           <div className={cn(pdf.export_names)}>

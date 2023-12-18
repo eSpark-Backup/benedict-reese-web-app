@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AircraftLookup.module.scss";
-import StandardCard from "../../components/common/StandardCard";
 import AircraftInfoCard from "../../components/common/AircraftInfoCard";
 import TagIcon from "../../images/arrowPending.svg";
 import { styled } from "@mui/material";
@@ -11,9 +10,10 @@ import FlightDetails from "../../components/FlightDetails";
 import RoutesMap from "../../assets/routes map.png";
 import AirportMap from "../../assets/airport map.png";
 import Chart from "../../components/charts/pie";
+import { Insights } from "../../components/Insights";
+import HistoryCards from "../../components/historyCards";
 
 const AircraftLookup = () => {
-
   const [data, setData] = useState(
     {
       regNo: "N898TS",
@@ -27,21 +27,21 @@ const AircraftLookup = () => {
         totalMovements30: {
           value: "252 flights",
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
-          width: 391,
+          width: 80,
           height: 20,
         },
         totalFlightsHours30: {
           value: "300 hours",
           color:
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
-          width: 277,
+          width: 50,
           height: 20,
         },
         averageMissionLength30: {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
-          width: 113,
+          width: 30,
           height: 20,
         },
       },
@@ -50,7 +50,7 @@ const AircraftLookup = () => {
         totalMovements: {
           value: "500 flights",
           color: "linear-gradient(90deg, #8A7DE4 0%, #8FCDF5 100%)",
-          width: 386,
+          width: 50,
           height: 20,
           height: 20,
         },
@@ -58,7 +58,7 @@ const AircraftLookup = () => {
           value: "700 hours",
           color:
             "linear-gradient(269.98deg, #FF8A00 -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(82, 71, 198, 0) 163.5%)",
-          width: 509,
+          width: 90,
           height: 20,
           height: 20,
         },
@@ -66,7 +66,7 @@ const AircraftLookup = () => {
           value: "1.2 hours",
           color:
             "linear-gradient(269.98deg, #03B15E -18.57%, rgba(135, 73, 0, 0.58) 163.48%, rgba(3, 177, 94, 0) 163.5%)",
-          width: 113,
+          width: 30,
           height: 20,
           height: 20,
         },
@@ -348,6 +348,77 @@ const AircraftLookup = () => {
     "#0400B8",
     "#B8B8B8",
   ];
+
+  const transHistoryHeaders = [
+    { label: "PREVIOUS REG", key: "preReg" },
+    { label: "NEW REG", key: "newReg" },
+    { label: "DATE", key: "date" },
+  ];
+  const accidentHeaders = [
+    { label: "DATE", key: "date" },
+    { label: "SEVERITY", key: "severity" },
+    { label: "INCIDENT DESCRIPTION", key: "incidentDescription" },
+    { label: "RATING", key: "rating" },
+  ];
+
+  const accidentData = [
+    {
+      id: 1,
+      date: "20th November 2023",
+      severity: "Total Loss",
+      incidentDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+      rating: "7",
+    },
+    {
+      id: 1,
+      date: "20th November 2023",
+      severity: "Total Loss",
+      incidentDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+      rating: "7",
+    },
+    {
+      id: 1,
+      date: "20th November 2023",
+      severity: "Total Loss",
+      incidentDescription:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+      rating: "7",
+    },
+  ];
+  const transHistoryData = [
+    {
+      id: 1,
+      preReg: "N7777S",
+      newReg: "N898TS",
+      date: "18 October 2014",
+    },
+    {
+      id: 2,
+      preReg: "N7777S",
+      newReg: "N898TS",
+      date: "18 October 2014",
+    },
+    {
+      id: 3,
+      preReg: "N7777S",
+      newReg: "N898TS",
+      date: "18 October 2014",
+    },
+    {
+      id: 4,
+      preReg: "N7777S",
+      newReg: "N898TS",
+      date: "18 October 2014",
+    },
+    {
+      id: 5,
+      preReg: "N7777S",
+      newReg: "N898TS",
+      date: "18 October 2014",
+    },
+  ];
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const drawerWidth = 300;
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -384,48 +455,71 @@ const AircraftLookup = () => {
           openSidebar={isSidebarOpen}
           sidebarHandler={() => setIsSidebarOpen(!isSidebarOpen)}
         />
-      <div className={styles.container}>
-        <header className="flex flex-col items-center justify-center mb-32 mt-20">
-          <h1 className="font-bold text-6xl text-center">
-            Enter registration number of <br />
-            aircraft
-          </h1>
+          <div className={styles.container}>
+            <header className="flex flex-col items-center justify-center mb-24 xl:mb-32 mt-20">
+              <h1 className="font-semibold xl:font-bold text-4xl xl:text-6xl text-center">
+                Enter registration number of <br />
+                aircraft
+              </h1>
 
-          <input
-            className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
-            type="text"
-            placeholder="N898TS"
-          />
-        </header>
-        <AircraftInfoCard data={data} />
-        <div style={{ marginBottom: "50px" }}>
-          <HealthScore />
-        </div>
-        <div>
-          <VerticalProgressBars />
-          {/* <div>
-            <Chart
-              heading={chart1Heading}
-              chartData={chart1Data}
-              chartLabels={chart1Labels}
-              backgroundColor={chart1BackgroundColor}
+              <input
+                className="w-[535px] h-20 rounded-xl text-center font-bold text-5xl mt-8"
+                type="text"
+                placeholder="N898TS"
+              />
+            </header>
+            <AircraftInfoCard data={data} />
+            <div style={{ marginBottom: "50px" }}>
+            <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
+              <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+                  <HealthScore />
+                </div>
+              <div className="lg:col-span-1">
+                <Insights />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:space-x-8">
+              <div className="lg:w-3/4 ">
+                <VerticalProgressBars />
+              </div>
+            <div className="lg:w-1/4">
+              <Chart
+                heading={chart1Heading}
+                chartData={chart1Data}
+                chartLabels={chart1Labels}
+                backgroundColor={chart1BackgroundColor}
+                display={true}
+              />
+            </div>
+            </div>
+            <FlightDetails
+              flightData={flightRoutes}
+              image={RoutesMap}
+              detailsHeading={"Routes"}
+              tableHeaders={flightRoutesHeaders}
             />
-          </div> */}
-        </div>
-        <FlightDetails
-          flightData={flightRoutes}
-          image={RoutesMap}
-          detailsHeading={"Routes"}
-          tableHeaders={flightRoutesHeaders}
-        />
-        <StandardCard style={{ height: "150px" }} />
-        <FlightDetails
-          flightData={flightVisited}
-          image={AirportMap}
-          detailsHeading={"Airports Visited"}
-          tableHeaders={flightVisitedHeaders}
-        />
-      </div>
+            <div className="block md:flex gap-4 my-10">
+            <HistoryCards
+              title="Transaction History"
+              className="w-full xl:w-4/12"
+              tableHeader={transHistoryHeaders}
+              tableData={transHistoryData}
+            />
+            <HistoryCards
+              title="Accident History"
+              className="w-full xl:w-8/12"
+              tableHeader={accidentHeaders}
+              tableData={accidentData}
+            />
+          </div>
+            <FlightDetails
+              flightData={flightVisited}
+              image={AirportMap}
+              detailsHeading={"Airports Visited"}
+              tableHeaders={flightVisitedHeaders}
+            />
+          </div>
       </Main>
     </>
   );

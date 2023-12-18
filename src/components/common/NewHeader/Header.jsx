@@ -117,9 +117,9 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
               fill="#C8C8C8"
             />
           </svg>
-          <div className={styles.nav_link}>Live Flights</div>
+          <div className={`${styles.nav_link} w-[88px]`}>Live Flights</div>
         </div>
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <a href="https://compareprivateplanes.com">
             <img
               src="https://compareprivateplanes.com/images/site/cropped-logo-blue-1536x997.png"
@@ -128,7 +128,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
             />
           </a>
         </div>
-        <div className={`${styles.nav_wrapper} hidden sm:flex`}>
+        <div className={`${styles.nav_wrapper} hidden md:flex`}>
           <div className={styles.nav_link}>
             <a href="https://compareprivateplanes.com/register/your-membership">
               Account

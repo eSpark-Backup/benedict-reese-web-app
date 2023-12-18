@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./Bar.module.scss";
 import StandardCard from "../common/StandardCard";
+import { Button } from "@mui/material";
+import { BsGraphUpArrow } from "react-icons/bs";
 
 const ProgressBar = ({ progress, text, backgroundColor }) => {
-  const extraGapBars = ["150", "200"]; 
+  const extraGapBars = ["150", "200"];
   const fillStyles = {
     height: `${progress}%`,
     width: "25px",
@@ -16,7 +18,6 @@ const ProgressBar = ({ progress, text, backgroundColor }) => {
     alignItems: "flex-start",
     justifyContent: "center",
     marginLeft: extraGapBars.includes(text) ? "20px" : "0px",
-    
   };
 
   return (
@@ -29,7 +30,7 @@ const ProgressBar = ({ progress, text, backgroundColor }) => {
 };
 
 const VerticalProgressBars = () => {
-  const months = ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5"];
+  const months = ["July", "August", "September", "October", "November"];
 
   const labels = [
     { label: "Fleet Average Movements", color: "#5DC5C2" },
@@ -102,23 +103,38 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard
-      style={{ width: "1070px", height: "710px", marginBottom: "20px" }}
-    >
+    <StandardCard className="w-full mx-auto mb-8 lg:mb-16 ">
+      <div className="flex justify-between">
       <div className={styles.barsHeading}>
         <h1>Flight Activity</h1>
         <h2>Number of Flights</h2>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "center",
-          marginTop: "200px",
-        }}
-      >
+      <Button
+            variant="contained"
+            sx={{
+              width: "165px",
+              height: "38px",
+              borderRadius: "12px",
+              border: "1px solid #EBECF2",
+              background: "#FFF",
+              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+              color: "#000",
+              fontSize: "15px",
+              fontWeight: "500",
+              marginTop: "35px",
+              marginRight: "30px",
+            }}
+          >
+            <BsGraphUpArrow className={styles.filterButton} />
+            Graph Type
+          </Button>
+      </div>
+      <div className="flex flex-wrap items-end justify-center mt-12 lg:mt-20">
         {months.map((month, index) => (
-          <div key={index} style={{ textAlign: "center", margin: "0 40px" }}>
+          <div
+            key={index}
+            className="text-center lg:mx-8 xl:mx-16 mb-10 lg:mb-0"
+          >
             {progressBarsData[index].map((barData, barIndex) => (
               <ProgressBar
                 key={barIndex}
@@ -131,33 +147,15 @@ const VerticalProgressBars = () => {
           </div>
         ))}
       </div>
-      <div>
-        <div
-          style={{
-            marginTop: "30px",
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap", // Allow flex items to wrap
-          }}
-        >
-          {/* Render labels with colored boxes for the first row */}
-          {firstRowLabels.map((label, index) => (
-            <LabelBox key={index} label={label.label} color={label.color} />
-          ))}
-        </div>
-        <div
-          style={{
-            marginTop: "10px", // Adjust margin between rows if needed
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap", // Allow flex items to wrap
-          }}
-        >
-          {/* Render labels with colored boxes for the second row */}
-          {secondRowLabels.map((label, index) => (
-            <LabelBox key={index} label={label.label} color={label.color} />
-          ))}
-        </div>
+      <div className="mt-8 lg:mt-12 flex flex-wrap justify-center">
+        {firstRowLabels.map((label, index) => (
+          <LabelBox key={index} label={label.label} color={label.color} />
+        ))}
+      </div>
+      <div className="mt-4 flex flex-wrap justify-center">
+        {secondRowLabels.map((label, index) => (
+          <LabelBox key={index} label={label.label} color={label.color} />
+        ))}
       </div>
     </StandardCard>
   );

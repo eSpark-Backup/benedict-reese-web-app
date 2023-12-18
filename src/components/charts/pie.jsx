@@ -3,8 +3,27 @@ import { Doughnut } from "react-chartjs-2";
 import StandardCard from "../common/StandardCard";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import styles from "./Pie.module.scss";
+import ProgressBar from "../common/ProgressBar";
 
-const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
+const Chart = ({
+  chartData,
+  chartLabels,
+  backgroundColor,
+  heading,
+  display = false,
+}) => {
+  const progressBarData1 = {
+    value: "80%",
+    color: "#5DC5C2",
+    width: 110,
+    height: 20,
+  };
+  const progressBarData2 = {
+    value: "20%",
+    color: "#5247C6",
+    width: 30,
+    height: 20,
+  };
   const data = {
     labels: chartLabels,
     datasets: [
@@ -50,7 +69,7 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <StandardCard style={{ padding: "20px" }}>
+    <StandardCard style={{ padding: "20px", width: "100%" }}>
       <h2 className={styles.pieHeading}>{heading}</h2>
       <div
         className={`m-auto ${isSidebarOpen ? "w-auto" : "lg:w-[300px]"} ${
@@ -95,6 +114,18 @@ const Chart = ({ chartData, chartLabels, backgroundColor, heading }) => {
           </div>
         ))}
       </div>
+      {display && (
+        <div className={styles.pieProgressBar}>
+          <ProgressBar data={progressBarData1} />
+          <ProgressBar data={progressBarData2} />
+          <div className={styles.pieColor}>
+            <div className={styles.pieColorBoxInternational}></div>
+            <span className={styles.pielabelText}>International</span>
+            <div className={styles.pieColorBoxDomestic}></div>
+            <span className={styles.pielabelText}>Domestic</span>
+          </div>
+        </div>
+      )}
     </StandardCard>
   );
 };

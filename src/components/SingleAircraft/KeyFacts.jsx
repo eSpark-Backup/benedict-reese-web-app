@@ -106,18 +106,18 @@ const KeyFacts = ({ params, currency, country, unit }) => {
 
   return (
     <>
-      <div className=" w-screen mx-8 my-8 sm:flex sm:gap-10 sm:items-center sm:max-h-[718px]"> 
+      <div className="px-10 my-10 flex items-between justify-between gap-4">
         <StandardCard>
-          <div className="py-16 px-8">
-            <h1 className="font-bold text-4xl">
-              Cessna Citation Mustang 2008 - 2012
+          <div className="py-20 px-8">
+            <h1 className="font-bold text-6xl w-[779px]">
+              {params.aircraft_name}
             </h1>
             <div className="mt-4 px-12">
               <ul>
                 {keyFacts.map((fact, index) => {
                   return (
                     <li
-                      className="text-2xl text-start list-outside list-disc"
+                      className="text-3xl text-start list-outside list-disc"
                       key={index}
                     >
                       {fact}
@@ -129,17 +129,71 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
         <StandardCard>
-          <div className="">
-            <img src={`${params?.image_name}`} className="w-2/5" />
-            <img src={`${params?.floorplan_drawing}`} className="w-2/5"/>
+          <div className="flex items-center flex-col justify-center overflow-auto p-8 h-full ">
+            <img src={`${params?.image_name}`} className="w-[40vw]" />
+            <img src={`${params?.floorplan_drawing}`} className="w-[40vw] " />
           </div>
         </StandardCard>
       </div>
+      <div className="flex justify-between px-10 my-10">
+        <StandardCard>
+          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production Start</p>
+              <p className="text-2xl font-bold">{params.production_start}</p>
+            </div>
+            <div className="flex justify-between gap-12 ">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold">{params.production_end}</p>
+            </div>
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold">{params.production_end}</p>
+            </div>
+          </div>
+        </StandardCard>
+        <StandardCard>
+          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production Start</p>
+              <p className="text-2xl font-bold"> {params.number_in_service}</p>
+            </div>
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold"> {params.number_made}</p>
+            </div>
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold"> {params.number_in_service}</p>
+            </div>
+          </div>
+        </StandardCard>
+        <StandardCard>
+          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production Start</p>
+              <p className="text-2xl font-bold">
+                {" "}
+                {params.average_mission_length}
+              </p>
+            </div>
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold">
+                {params.average_mission_length}
+              </p>
+            </div>
+            <div className="flex justify-between gap-12">
+              <p className="text-2xl">Production End</p>
+              <p className="text-2xl font-bold"> {params.TO_distance_meters}</p>
+            </div>
+          </div>
+        </StandardCard>
 
+      </div>
 
+      {/* 
 
-
-{/* 
         <ul className={cn(styles.facts)}>
           <div>
             {keyFacts.map((fact, index) => {

@@ -33,6 +33,7 @@ import {
 } from "../../utils/constants/app-constants";
 import Dropdown from "../../components/common/Dropdown";
 import Footer from "../../components/common/footer";
+// import Cruise from "../../components/SingleAircraft/Cruise";
 
 export default function SingleAircraftDetails({
   byPassAuth = false,
@@ -473,11 +474,21 @@ export default function SingleAircraftDetails({
           currency={currency}
         />
         <RangeMap params={aircraftData} />
-        <Interior params={aircraftData} unit={unit} />
-        <Features params={aircraftData} />
-        <Powerplant params={aircraftData} unit={unit} />
-        <Weights params={aircraftData} unit={unit} />
-        <Dimensions params={aircraftData} unit={unit} />
+
+        <div className="grid grid-cols-12">
+          <div className="col-span-5">
+            {/* <Cruise params={aircraftData} /> */}
+            <Features params={aircraftData} />
+            <Interior params={aircraftData} unit={unit} />
+          </div>
+
+          <div className="col-span-7">
+            <Powerplant params={aircraftData} unit={unit} />
+            <Weights params={aircraftData} unit={unit} />
+            <Dimensions params={aircraftData} unit={unit} />
+          </div>
+        </div>
+
         <section
           className={cn(pdf.for_pdf, global.section)}
           style={{ textAlign: "center" }}

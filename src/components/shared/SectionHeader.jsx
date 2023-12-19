@@ -3,12 +3,12 @@ import global from "../styles/global.module.scss";
 
 const SectionHeader = ({ title }) => {
   return (
-    <header className={cn(global.section_header)}>
-      <h3>{title}</h3>
-      <span className={cn(global.line)}></span>
+    <header>
+      <h3 className="text-[#000000] font-[Inter] font-normal text-[32px] leading-normal">
+        {title}
+      </h3>
     </header>
   );
 };
 
 export default SectionHeader;
-  

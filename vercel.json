@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "compareprivateplanes_backend/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "compareprivateplanes_backend/wsgi.py"
+      }
+    ]
+}

@@ -167,51 +167,10 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     { year: 2023, bgColor: "#04BF00" },
   ];
 
-  const line2Data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        label: "Number of Flights 1",
-        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
-        borderColor: "#FF8660",
-        backgroundColor: "#6C60FF",
-      },
-      {
-        label: "Number of Flights 2",
-        data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
-        borderColor: "#6C60FF",
-        backgroundColor: "#CE2A96",
-      },
-      {
-        label: "Number of Flights 3",
-        data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
-        borderColor: "#106CC2", // Change the line color for this dataset
-        backgroundColor: "#106CC2",
-      },
-    ],
-  };
-
-  const line2Years = [
-    { year: "Current Value", bgColor: "#6C60FF" },
-    { year: "Adjusted Value", bgColor: "#CE2A96" },
-    { year: "Future Value", bgColor: "#106CC2" },
-  ];
+ 
 
   return (
-    <div className="px-20">
+    <div className="px-10">
       <div className="px-10 my-10 block lg:flex items-between justify-between gap-4">
         <StandardCard className="w-full lg:w-[70%]">
           <div className="2xl:py-20 2xl:px-8 px-4 py-10">
@@ -519,19 +478,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </StandardCard>
         </div>
       </div>
-      <div className="block lg:flex w-full">
-        <div className="flex flex-col w-full lg:w-[60%]">
-          <LineChart
-            title={"Acquisition Costs"}
-            data={line2Data}
-            years={line2Years}
-            sideText={"Value (Million $)"}
-          />
-        </div>
-        <div className="w-full lg:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-          <FlightCost/>
-        </div>
-      </div>
+      
       {/* 
 
         <ul className={cn(styles.facts)}>

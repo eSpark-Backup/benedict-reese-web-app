@@ -34,7 +34,7 @@ import {
 } from "../../utils/constants/app-constants";
 import Dropdown from "../../components/common/Dropdown";
 import Footer from "../../components/common/footer";
-// import Cruise from "../../components/SingleAircraft/Cruise";
+import Cruise from "../../components/SingleAircraft/Cruise";
 import HistoryCards from "../../components/historyCards";
 import FlightDetails from "../../components/FlightDetails";
 
@@ -622,29 +622,29 @@ export default function SingleAircraftDetails({
           country={country}
           unit={unit}
         />
-        <BasicInfo params={aircraftData} currency={currency} />
-        <PerformanceData params={aircraftData} unit={unit} />
+        {/* <BasicInfo params={aircraftData} currency={currency} /> */}
+        {/* <PerformanceData params={aircraftData} unit={unit} /> */}
         <OwnershipCosts
           params={aircraftData}
           currency={currency}
           country={country}
           setNbHoursProp={setNbHours}
         />
-        <Acquisition
+        {/* <Acquisition
           params={aircraftData}
           acquisition={keys}
           currency={currency}
-        />
+        /> */}
         <RangeMap params={aircraftData} />
 
-        <div className="grid grid-cols-12">
-          <div className="col-span-5">
-            {/* <Cruise params={aircraftData} /> */}
+        <div className="grid grid-cols-12 px-10">
+          <div className="xl:col-span-5 col-span-12">
+            <Cruise params={aircraftData} />
             <Features params={aircraftData} />
             <Interior params={aircraftData} unit={unit} />
           </div>
 
-          <div className="col-span-7">
+          <div className="xl:col-span-7 col-span-12 justify-center grid">
             <Powerplant params={aircraftData} unit={unit} />
             <Weights params={aircraftData} unit={unit} />
             <Dimensions params={aircraftData} unit={unit} />

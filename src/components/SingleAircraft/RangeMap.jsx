@@ -17,15 +17,177 @@ const RangeMap = ({ params }) => {
   const rangesAircraft = params.range_km;
   const maxPax = params.max_pax;
 
+  const [latLng, setLatLong] = useState({ lat: 37.772, lng: -80 });
+  const [address, setAddress] = useState("");
+  const [nbPax, setNbPax] = useState(1);
+  const [range, setRange] = useState(0);
+
+  function handleChange(address) {
+    setAddress(address);
+  }
+
+  function handleSelect(address) {
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => setLatLong(latLng))
+      .catch((error) => console.error("Error", error));
+  }
+
+  var options = {
+    strokeColor: "#FF0000",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#FF0000",
+    fillOpacity: 0.35,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    radius: range === undefined ? rangesAircraft * 1000 : range * 1000,
+    zIndex: 1,
+  };
+
+  const handlePaxChange = (e, newValue) => {
+    setNbPax(newValue);
+    if (newValue !== "") {
+      setRange(rangesAircraft - parseFloat(newValue) * parseFloat(rangeDec));
+    }
+  };
+
+  const details = [
+    {
+      id: 1,
+      label: "Range (Nautical Miles)",
+      total: "2,504",
+    },
+    {
+      id: 1,
+      label: "Range (Miles)",
+      total: "3,001",
+    },
+    {
+      id: 1,
+      label: "Adjusted Range (Nautical Miles)",
+      total: "2,504",
+    },
+    {
+      id: 1,
+      label: "Adjusted Range (Miles)",
+      total: "3,001",
+    },
+  ];
+
   return (
-    <section className={cn(global.section, global.page_break)}>
-      <SectionHeader title="Range Map" />
-      <main className={styles.main_range_map}>
-        <Map
-          max_pax={maxPax}
-          rangeDecrease={rangeDec}
-          aicraftRange={rangesAircraft}
-        />
+    <section className="px-10 py-20">
+      <main
+        className={`${styles.main_range_map} shadow-[0_28px_56px_-20px_rgba(0,0,0,0.25)] rounded-xl grid grid-cols-12 h-[605px]`}
+      >
+        <div className="col-span-4 pl-[39px] pt-[33px] pr-[100px]">
+          <SectionHeader title="Range Map" />
+
+          <LoadScript
+            id="script-loader"
+            googleMapsApiKey="AIzaSyDxFnslp1B8T5bn_Zb5J65hCUBkMTO-5z4"
+            libraries={["places"]}
+          >
+            <PlacesAutocomplete
+              value={address}
+              onChange={handleChange}
+              onSelect={handleSelect}
+            >
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading,
+              }) => (
+                <div className="mt-[46px] w-[358px] m-auto">
+                  <div className="">
+                    <div className="grid grid-cols-12">
+                      <label
+                        htmlFor="paxNumber"
+                        className="col-span-5 text-[#000000] text-base"
+                      >
+                        Pax number
+                      </label>
+
+                      <Slider
+                        valueLabelDisplay="auto"
+                        aria-label="Volume"
+                        value={nbPax}
+                        max={maxPax}
+                        onChange={handlePaxChange}
+                        className="col-span-7"
+                      />
+                    </div>
+
+                    <div
+                      className={`grid grid-cols-12 items-center mt-[46px] ${styles.inputFieldDiv}`}
+                    >
+                      <label
+                        htmlFor="startLocation"
+                        className="col-span-5 text-[#000000] text-base"
+                      >
+                        Start Location
+                      </label>
+
+                      <TextField
+                        // {...getInputProps({
+                        //   placeholder: "Enter Location...",
+                        //   className: "location-search-input",
+                        // })}
+                        placeholder="Enter Location..."
+                        id="startLocation"
+                        variant="standard"
+                        className={`col-span-7 ${styles.textInputFeild}`}
+                      />
+                    </div>
+                  </div>
+                  <div className="autocomplete-dropdown-container">
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map((suggestion) => {
+                      const className = suggestion.active
+                        ? "suggestion-item--active"
+                        : "suggestion-item";
+                      // inline style for demonstration purpose
+                      const style = suggestion.active
+                        ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                        : { backgroundColor: "#ffffff", cursor: "pointer" };
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                            style,
+                          })}
+                        >
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </PlacesAutocomplete>
+          </LoadScript>
+
+          <div className="mt-[46px] pl-[22px]">
+            {details?.map((detail) => (
+              <div className="flex justify-between items-center mb-[52px]">
+                <h4 className="text-[#000] text-base">{detail.label}</h4>
+                <h6 className="text-[#000] font-bold text-base">
+                  {detail.total}
+                </h6>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={`col-span-8 h-full`}>
+          <Map
+            max_pax={maxPax}
+            rangeDecrease={rangeDec}
+            aicraftRange={rangesAircraft}
+          />
+        </div>
       </main>
     </section>
   );
@@ -76,73 +238,12 @@ function Map({ rangeDecrease, aicraftRange, max_pax }) {
   };
 
   return (
-    <div>
+    <div className="h-full">
       <LoadScript
         id="script-loader"
-        googleMapsApiKey="AIzaSyB7zRbK_udn4vYNr4neiaPd71SuyldNIg4"
+        googleMapsApiKey="AIzaSyDxFnslp1B8T5bn_Zb5J65hCUBkMTO-5z4"
         libraries={["places"]}
       >
-        <PlacesAutocomplete
-          value={address}
-          onChange={handleChange}
-          onSelect={handleSelect}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }) => (
-            <div className={styles.range_configs}>
-              <div className={cn(styles.map_inputs, global.pdf_hidden)}>
-                <label htmlFor="paxNumber" className={styles.pax_slider}>
-                  Pax number
-                  <Slider
-                    valueLabelDisplay="auto"
-                    aria-label="Volume"
-                    value={nbPax}
-                    max={max_pax}
-                    onChange={handlePaxChange}
-                  />
-                </label>
-                
-                <label htmlFor="startLocation">
-                  <TextField
-                    {...getInputProps({
-                      placeholder: "Start location",
-                      className: "location-search-input",
-                    })}
-                    id="startLocation"
-                    label="Start Location"
-                    variant="standard"
-                  />
-                </label>
-              </div>
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map((suggestion) => {
-                  const className = suggestion.active
-                    ? "suggestion-item--active"
-                    : "suggestion-item";
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: "#fafafa", cursor: "pointer" }
-                    : { backgroundColor: "#ffffff", cursor: "pointer" };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
         <GoogleMap
           zoom={2}
           center={latLng}
@@ -152,7 +253,7 @@ function Map({ rangeDecrease, aicraftRange, max_pax }) {
             mapTypeControl: false,
           }}
           mapContainerClassName="map-container"
-          mapContainerStyle={{ height: 700 + "px" }}
+          mapContainerStyle={{ height: "100%" }}
         >
           <Circle center={latLng} options={options} />
           <Marker position={latLng} />

@@ -134,8 +134,14 @@ const Dimensions = ({ params, unit }) => {
     //     </div>
     //   </main>
     // </section>
-    <StandardCard className='w-[90%] m-auto'>
-      <div className="p-8">
+    <StandardCard className="xl:w-[90%] w-full ml-auto">
+      <div
+        className={`${
+          localStorage.getItem("isSidebarOpen") === "true"
+            ? "p-[1.5rem]"
+            : "p-8"
+        }`}
+      >
         <p className="text-3xl">Dimensions</p>
         <div className="flex divide-x-2 mx-16 my-8">
           <div className="px-10 flex gap-8 justify-between">

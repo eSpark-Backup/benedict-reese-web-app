@@ -97,51 +97,56 @@ const Powerplant = ({ params, unit }) => {
     //   </main>
     // </section>
 
-      <StandardCard className='w-[90%] m-auto'>
-        <div className="p-8">
-          <p className="text-3xl pl-8 pt-8">Powerplant</p>
-          <div className="flex divide-x-2 mx-14 my-8">
-            <div className="px-20 flex flex-col gap-8 justify-center">
-              <span className="flex gap-20 justify-between">
-                <p>Minimum Pilots</p>
-                <p>{params.minimum_pilots}</p>
-              </span>
-              <span className="flex gap-20 justify-between">
-                <p>Minimum Pilots</p>
-                <p>{params.number_made}</p>
-              </span>
-            </div>
-            <div className="px-20 flex flex-col gap-8 justify-center">
-              <span className="flex gap-20 justify-between">
-                <p>Minimum Pilots</p>
-                <p>{params.minimum_pilots}</p>
-              </span>
-              <span className="flex gap-20 justify-between">
-                <p>Minimum Pilots</p>
-                <p>{params.number_made}</p>
-              </span>
-            </div>
+    <StandardCard className="xl:w-[90%] w-full ml-auto">
+      <div
+        className={`${
+          localStorage.getItem("isSidebarOpen") === "true"
+            ? "p-[1.5rem]"
+            : "p-8"
+        }`}
+      >
+        <p className="text-3xl pl-8 pt-8">Powerplant</p>
+        <div className="flex divide-x-2 mx-14 my-8">
+          <div className="px-20 flex flex-col gap-8 justify-center">
+            <span className="flex gap-20 justify-between">
+              <p>Minimum Pilots</p>
+              <p>{params.minimum_pilots}</p>
+            </span>
+            <span className="flex gap-20 justify-between">
+              <p>Minimum Pilots</p>
+              <p>{params.number_made}</p>
+            </span>
           </div>
-          <div className="flex flex-col items-center gap-5">
-            <p className="font-bold">Exterior Noise Levels (dB)</p>
-            <div className="flex gap-20">
-              <span className="flex-col">
-                <p className="font-bold">Lateral</p>
-                <p>{params.lateral_db}</p>
-              </span>
-              <span className="flex-col">
-                <p className="font-bold">Flyover</p>
-                <p>{params.flyover_db}</p>
-              </span>
-              <span className="flex-col">
-                <p className="font-bold">Approach</p>
-                <p>{params.approach_db}</p>
-              </span>
-            </div>
+          <div className="px-20 flex flex-col gap-8 justify-center">
+            <span className="flex gap-20 justify-between">
+              <p>Minimum Pilots</p>
+              <p>{params.minimum_pilots}</p>
+            </span>
+            <span className="flex gap-20 justify-between">
+              <p>Minimum Pilots</p>
+              <p>{params.number_made}</p>
+            </span>
           </div>
         </div>
-      </StandardCard>
-
+        <div className="flex flex-col items-center gap-5">
+          <p className="font-bold">Exterior Noise Levels (dB)</p>
+          <div className="flex gap-20">
+            <span className="flex-col">
+              <p className="font-bold">Lateral</p>
+              <p>{params.lateral_db}</p>
+            </span>
+            <span className="flex-col">
+              <p className="font-bold">Flyover</p>
+              <p>{params.flyover_db}</p>
+            </span>
+            <span className="flex-col">
+              <p className="font-bold">Approach</p>
+              <p>{params.approach_db}</p>
+            </span>
+          </div>
+        </div>
+      </div>
+    </StandardCard>
   );
 };
 

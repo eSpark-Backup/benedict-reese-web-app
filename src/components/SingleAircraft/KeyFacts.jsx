@@ -12,6 +12,7 @@ import LineChart from "../charts/line";
 import { Insights } from "../Insights";
 import Chart from "../charts/pie";
 import OwnershipCosts from "./OwnershipCosts/OwnershipCosts";
+import { FlightCost } from "../flightCost";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -108,8 +109,109 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     ],
   };
 
+  const lineData = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Number of Flights 1",
+        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
+        borderColor: "#FF8660", // Change the line color for this dataset
+        backgroundColor: "rgba(0, 0, 255, 0.2)",
+      },
+      {
+        label: "Number of Flights 2",
+        data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
+        borderColor: "#6C60FF", // Change the line color for this dataset
+        backgroundColor: "rgba(255, 0, 0, 0.2)",
+      },
+      {
+        label: "Number of Flights 3",
+        data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
+        borderColor: "#106CC2", // Change the line color for this dataset
+        backgroundColor: "rgba(0, 255, 0, 0.2)",
+      },
+      {
+        label: "Number of Flights 4",
+        data: [280, 330, 400, 350, 430, 470, 490, 480, 460, 420, 470, 500],
+        borderColor: "#04BF00", // Change the line color for this dataset
+        backgroundColor: "rgba(0, 255, 0, 0.2)",
+      },
+      {
+        label: "Number of Flights 5",
+        data: [300, 380, 410, 420, 480, 500, 490, 480, 450, 410, 390, 450],
+        borderColor: "#CE2A96", // Change the line color for this dataset
+        backgroundColor: "rgba(0, 255, 0, 0.2)",
+      },
+      // Add more datasets and set different borderColor values as needed
+    ],
+  };
+
+  const lineYears = [
+    { year: 2019, bgColor: "#6C60FF" },
+    { year: 2020, bgColor: "#CE2A96" },
+    { year: 2021, bgColor: "#106CC2" },
+    { year: 2022, bgColor: "#FF8660" },
+    { year: 2023, bgColor: "#04BF00" },
+  ];
+
+  const line2Data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Number of Flights 1",
+        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
+        borderColor: "#FF8660",
+        backgroundColor: "#6C60FF",
+      },
+      {
+        label: "Number of Flights 2",
+        data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
+        borderColor: "#6C60FF",
+        backgroundColor: "#CE2A96",
+      },
+      {
+        label: "Number of Flights 3",
+        data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
+        borderColor: "#106CC2", // Change the line color for this dataset
+        backgroundColor: "#106CC2",
+      },
+    ],
+  };
+
+  const line2Years = [
+    { year: "Current Value", bgColor: "#6C60FF" },
+    { year: "Adjusted Value", bgColor: "#CE2A96" },
+    { year: "Future Value", bgColor: "#106CC2" },
+  ];
+
   return (
-    <div className="px-2">
+    <div className="px-20">
       <div className="px-10 my-10 block lg:flex items-between justify-between gap-4">
         <StandardCard className="w-full lg:w-[70%]">
           <div className="2xl:py-20 2xl:px-8 px-4 py-10">
@@ -196,7 +298,12 @@ const KeyFacts = ({ params, currency, country, unit }) => {
       </div>
       <div className="md:grid grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-8 ">
         <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-          <LineChart title={"Fleet Flight Hours"} />
+          <LineChart
+            title={"Fleet Flight Hours"}
+            data={lineData}
+            years={lineYears}
+            sideText={"Flight Hours"}
+          />
         </div>
         <div className="lg:col-span-1">
           <Insights
@@ -205,6 +312,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
             ]}
           />
+          
           <StandardCard
             style={{
               padding: "30px 20px 30px 20px",
@@ -411,7 +519,19 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </StandardCard>
         </div>
       </div>
-
+      <div className="block lg:flex w-full">
+        <div className="flex flex-col w-full lg:w-[60%]">
+          <LineChart
+            title={"Acquisition Costs"}
+            data={line2Data}
+            years={line2Years}
+            sideText={"Value (Million $)"}
+          />
+        </div>
+        <div className="w-full lg:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+          <FlightCost/>
+        </div>
+      </div>
       {/* 
 
         <ul className={cn(styles.facts)}>

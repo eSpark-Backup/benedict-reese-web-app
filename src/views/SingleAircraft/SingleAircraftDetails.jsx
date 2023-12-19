@@ -19,6 +19,7 @@ import Weights from "../../components/SingleAircraft/Weights";
 import Dimensions from "../../components/SingleAircraft/Dimensions";
 import Similar from "../../components/SingleAircraft/Similar";
 import Modal from "../../components/common/modal/Modal";
+import AirportMap from "../../assets/airport map.png";
 
 import aircraftService from "../../services/aircraft-service";
 
@@ -33,6 +34,167 @@ import {
 } from "../../utils/constants/app-constants";
 import Dropdown from "../../components/common/Dropdown";
 import Footer from "../../components/common/footer";
+import HistoryCards from "../../components/historyCards";
+import FlightDetails from "../../components/FlightDetails";
+
+const transHistoryHeaders = [
+  { label: "PREVIOUS REG", key: "preReg" },
+  { label: "PREVIOUS OWNER", key: "preOwner" },
+  { label: "NEW REG", key: "newReg" },
+  { label: "NEW OWNER", key: "newOwner" },
+  { label: "DATE", key: "date" },
+];
+
+const accidentHeaders = [
+  { label: "DATE", key: "date" },
+  { label: "SEVERITY", key: "severity" },
+  { label: "INCIDENT DESCRIPTION", key: "incidentDescription" },
+  { label: "RATING", key: "rating" },
+];
+
+const transHistoryData = [
+  {
+    id: 1,
+    preReg: "N7777S",
+    preOwner: "Unknown",
+    newReg: "N898TS",
+    newOwner: "SATA LLC",
+    date: "18 October 2014",
+  },
+  {
+    id: 1,
+    preReg: "N7777S",
+    preOwner: "Unknown",
+    newReg: "N898TS",
+    newOwner: "SATA LLC",
+    date: "18 October 2014",
+  },
+  {
+    id: 1,
+    preReg: "N7777S",
+    preOwner: "Unknown",
+    newReg: "N898TS",
+    newOwner: "SATA LLC",
+    date: "18 October 2014",
+  },
+];
+
+const accidentData = [
+  {
+    id: 1,
+    date: "20th November 2023",
+    severity: "Total Loss",
+    incidentDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+    rating: "7",
+  },
+  {
+    id: 1,
+    date: "20th November 2023",
+    severity: "Total Loss",
+    incidentDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+    rating: "7",
+  },
+  {
+    id: 1,
+    date: "20th November 2023",
+    severity: "Total Loss",
+    incidentDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
+    rating: "7",
+  },
+];
+
+const flightVisited = [
+  {
+    id: 1,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 2,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 3,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 4,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 5,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 6,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 7,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 8,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 9,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+  {
+    id: 10,
+    airport: "London Biggin Hill",
+    country: "United Kingdom",
+    times: "270",
+    graph: "View",
+    customStyleKey: "graph",
+  },
+];
+
+const flightVisitedHeaders = [
+  { label: "AIRPORT", key: "airport" },
+  { label: "COUNTRY", key: "country" },
+  { label: "TIMES VISITED", key: "times" },
+  { label: "GRAPH", key: "graph" },
+];
 
 export default function SingleAircraftDetails({
   byPassAuth = false,
@@ -245,7 +407,7 @@ export default function SingleAircraftDetails({
   // checkIfPathnameExists(JSON.parse(localStorage.getItem('aircrafts')) , propertyToMatch, location.pathname);
 
   return (
-    <div className="mt-32">
+    <div className="mt-16">
       {showExport && (
         <div className={cn(pdf.pdf_window)}>
           <div>
@@ -489,14 +651,41 @@ export default function SingleAircraftDetails({
           <div>compareprivateplanes.com</div>
         </section>
 
-        {showSimilarAircrafts && (
-          <Similar
-            params={similarAircrafts.filter(
-              (aircraft) => aircraft.aircraft_id !== aircraftData.aircraft_id
-            )}
+        <div className="block lg:flex gap-4 px-10 my-10">
+          <HistoryCards
+            title="Transaction History"
+            className="w-full xl:w-3/5"
+            tableHeader={transHistoryHeaders}
+            tableData={transHistoryData}
           />
+          <HistoryCards
+            title="Accident History"
+            className="w-full xl:w-2/5"
+            tableHeader={accidentHeaders}
+            tableData={accidentData}
+          />
+        </div>
+        <div className="px-10">
+          <FlightDetails
+            flightData={flightVisited}
+            hideFilterButton
+            image={AirportMap}
+            airportCount="20,982"
+            detailsHeading={"Airports"}
+            tableHeaders={flightVisitedHeaders}
+          />
+        </div>
+
+        {showSimilarAircrafts && (
+          <div className="px-10">
+            <Similar
+              params={similarAircrafts.filter(
+                (aircraft) => aircraft.aircraft_id !== aircraftData.aircraft_id
+              )}
+            />
+          </div>
         )}
-        <div className={cn(global.footer, global.pdf_hidden)}>
+        {/* <div className={cn(global.footer, global.pdf_hidden)}>
           <div>
             <div className={cn(global.btns_container)}>
               <button
@@ -518,7 +707,7 @@ export default function SingleAircraftDetails({
               )}
             </div>
           </div>
-        </div>
+        </div> */}
         <Modal
           title={`Compare ${aircraftData.aircraft_name} with other aircraft`}
           notice="You can compare up to 3 aircraft"
@@ -619,7 +808,6 @@ export default function SingleAircraftDetails({
           </div>
         </Modal>
       </main>
-      <Footer />
     </div>
   );
 }

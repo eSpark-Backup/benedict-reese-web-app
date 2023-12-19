@@ -18,7 +18,14 @@ import {
   DialogActions,
 } from "@mui/material";
 
-const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
+const FlightDetails = ({
+  flightData,
+  image,
+  detailsHeading,
+  tableHeaders,
+  hideFilterButton,
+  airportCount,
+}) => {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
   const [originFilter, setOriginFilter] = useState("");
@@ -99,7 +106,9 @@ const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
                   )}
                 </div>
               ) : (
-                flight[header.key]
+                <span className="text-center flex justify-center">
+                  {flight[header.key]}
+                </span>
               )}
             </TableCell>
           ))}
@@ -116,26 +125,31 @@ const FlightDetails = ({ flightData, image, detailsHeading, tableHeaders }) => {
       >
         <div className={styles.flightCardHead}>
           <h2>{detailsHeading}</h2>
-          <Button
-            variant="contained"
-            onClick={handleOpenModal}
-            sx={{
-              width: "112px",
-              height: "38px",
-              borderRadius: "12px",
-              border: "1px solid #EBECF2",
-              background: "#FFF",
-              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-              color: "#000",
-              fontSize: "15px",
-              fontWeight: "500",
-              marginTop: "35px",
-              marginRight: "30px",
-            }}
-          >
-            <FaFilter className={styles.filterButton} />
-            Filter
-          </Button>
+          {!hideFilterButton && (
+            <Button
+              variant="contained"
+              onClick={handleOpenModal}
+              sx={{
+                width: "112px",
+                height: "38px",
+                borderRadius: "12px",
+                border: "1px solid #EBECF2",
+                background: "#FFF",
+                boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+                color: "#000",
+                fontSize: "15px",
+                fontWeight: "500",
+                marginTop: "35px",
+                marginRight: "30px",
+              }}
+            >
+              <FaFilter className={styles.filterButton} />
+              Filter
+            </Button>
+          )}
+          {airportCount && (
+            <span className="text-[#8000FF] mr-7">{airportCount} Airports</span>
+          )}
         </div>
         <TableContainer
           component={Paper}

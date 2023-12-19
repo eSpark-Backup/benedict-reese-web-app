@@ -108,14 +108,12 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     ],
   };
 
-
-
   return (
     <div className="px-2">
-      <div className="px-10 my-10 flex items-between justify-between gap-4">
-        <StandardCard>
-          <div className="py-20 px-8">
-            <h1 className="font-bold text-6xl w-[779px]">
+      <div className="px-10 my-10 block lg:flex items-between justify-between gap-4">
+        <StandardCard className="w-full lg:w-[70%]">
+          <div className="2xl:py-20 2xl:px-8 px-4 py-10">
+            <h1 className="font-bold text-3xl 2xl:text-6xl w-[779px]">
               {params.aircraft_name}
             </h1>
             <div className="mt-4 px-12">
@@ -123,7 +121,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
                 {keyFacts.map((fact, index) => {
                   return (
                     <li
-                      className="text-3xl text-start list-outside list-disc"
+                      className="text-xl 2xl:text-3xl text-start list-outside list-disc"
                       key={index}
                     >
                       {fact}
@@ -134,16 +132,16 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             </div>
           </div>
         </StandardCard>
-        <StandardCard>
+        <StandardCard className={"w-full lg:w-[30%]"}>
           <div className="flex items-center flex-col justify-center overflow-auto p-8 h-full ">
             <img src={`${params?.image_name}`} className="w-[40vw]" />
             <img src={`${params?.floorplan_drawing}`} className="w-[40vw] " />
           </div>
         </StandardCard>
       </div>
-      <div className="flex justify-between px-10 my-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32 px-10">
         <StandardCard>
-          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+          <div className="p-10 flex flex-col justify-center gap-8">
             <div className="flex justify-between gap-12">
               <p className="text-2xl">Production Start</p>
               <p className="text-2xl font-bold">{params.production_start}</p>
@@ -159,7 +157,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
         <StandardCard>
-          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+          <div className="p-10 flex flex-col justify-center gap-8">
             <div className="flex justify-between gap-12">
               <p className="text-2xl">Production Start</p>
               <p className="text-2xl font-bold"> {params.number_in_service}</p>
@@ -175,7 +173,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
         <StandardCard>
-          <div className="p-10 flex flex-col justify-center gap-8 w-[500px]">
+          <div className="p-10 flex flex-col justify-center gap-8 ">
             <div className="flex justify-between gap-12">
               <p className="text-2xl">Production Start</p>
               <p className="text-2xl font-bold">
@@ -195,11 +193,10 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             </div>
           </div>
         </StandardCard>
-
       </div>
-      <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
+      <div className="md:grid grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-8 ">
         <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-          <LineChart />
+          <LineChart title={"Fleet Flight Hours"} />
         </div>
         <div className="lg:col-span-1">
           <Insights
@@ -207,7 +204,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             secondaryParagraphs={[
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
             ]}
-/>
+          />
           <StandardCard
             style={{
               padding: "30px 20px 30px 20px",

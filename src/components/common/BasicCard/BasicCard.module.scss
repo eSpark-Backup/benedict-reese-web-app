@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
   }
-  span {
+  .container span {
     // width: 62px;
     // height: 62px;
     border-radius: 12px;
@@ -79,7 +79,7 @@
   }
 }
 
-span {
+.container span {
   display: flex;
   align-items: center;
   border-radius: 12px;

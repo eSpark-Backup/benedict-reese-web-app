@@ -97,9 +97,9 @@ const Powerplant = ({ params, unit }) => {
     //   </main>
     // </section>
 
-      <StandardCard>
+      <StandardCard className='w-[90%] m-auto'>
         <div className="p-8">
-          <p className="text-3xl">Powerplant</p>
+          <p className="text-3xl pl-8 pt-8">Powerplant</p>
           <div className="flex divide-x-2 mx-14 my-8">
             <div className="px-20 flex flex-col gap-8 justify-center">
               <span className="flex gap-20 justify-between">

@@ -185,7 +185,7 @@ const Weights = ({ params, unit }) => {
     //     </div>
     //   </main>
     // </section>
-    <StandardCard>
+    <StandardCard className='w-[90%] m-auto'>
       <div className="p-8">
         <p className="text-3xl">Weights</p>
         <div className="flex divide-x-2 my-8 mx-2">

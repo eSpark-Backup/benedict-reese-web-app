@@ -12,6 +12,8 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import styles from "./styles/styles.module.scss";
 
+import MapImage from "../../assets/google-map.png";
+
 const RangeMap = ({ params }) => {
   const rangeDec = params.range_decrease_per_passenger;
   const rangesAircraft = params.range_km;
@@ -87,7 +89,7 @@ const RangeMap = ({ params }) => {
 
           <LoadScript
             id="script-loader"
-            googleMapsApiKey="AIzaSyDxFnslp1B8T5bn_Zb5J65hCUBkMTO-5z4"
+            googleMapsApiKey="AIzaSyB7zRbK_udn4vYNr4neiaPd71SuyldNIg4"
             libraries={["places"]}
           >
             <PlacesAutocomplete
@@ -182,11 +184,12 @@ const RangeMap = ({ params }) => {
           </div>
         </div>
         <div className={`col-span-8 h-full`}>
-          <Map
+          <img src={MapImage} alt="MapImage" className="w-full h-full" />
+          {/* <Map
             max_pax={maxPax}
             rangeDecrease={rangeDec}
             aicraftRange={rangesAircraft}
-          />
+          /> */}
         </div>
       </main>
     </section>
@@ -241,7 +244,7 @@ function Map({ rangeDecrease, aicraftRange, max_pax }) {
     <div className="h-full">
       <LoadScript
         id="script-loader"
-        googleMapsApiKey="AIzaSyDxFnslp1B8T5bn_Zb5J65hCUBkMTO-5z4"
+        googleMapsApiKey="AIzaSyB7zRbK_udn4vYNr4neiaPd71SuyldNIg4"
         libraries={["places"]}
       >
         <GoogleMap

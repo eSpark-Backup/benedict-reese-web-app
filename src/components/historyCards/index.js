@@ -25,7 +25,7 @@ const HistoryCards = ({ className, title, tableHeader, tableData }) => {
                   {flight[header.key]}
                 </span>
               ) : (
-                <span>{flight[header.key]}</span>
+                <span className="text-center">{flight[header.key]}</span>
               )}
             </TableCell>
           ))}

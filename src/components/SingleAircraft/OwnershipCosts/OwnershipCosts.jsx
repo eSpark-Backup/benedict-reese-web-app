@@ -938,11 +938,11 @@ const OwnershipCosts = ({ params, currency, country }) => {
         backgroundColor={chart1BackgroundColor}
       />
     </StandardCard>
-    <StandardCard style={{ width: "100%", padding: "21px" }}>
+    <StandardCard style={{ width: "100%", padding: "35px 20px 20px 20px" }}>
       <section>
-        <div className={global.pizza_header_bars}>
+        {/* <div className={global.pizza_header_bars}>
           <SectionHeader title="Ownership Costs" />
-        </div>
+        </div> */}
         <main className={styles.ownership_main}>
           {/* <header className={cn(styles.os_header, global.bar_form)}>
           <h2 className={global.pdf_hidden}>

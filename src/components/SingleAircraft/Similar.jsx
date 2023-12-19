@@ -3,12 +3,13 @@ import global from "..//styles/global.module.scss";
 import styles from "./styles/styles.module.scss";
 import SectionHeader from "../shared/SectionHeader";
 import { Link } from "react-router-dom";
+import StandardCard from "../common/StandardCard";
 
 const Similar = ({ params }) => {
   return (
-    <section className={cn(global.section, global.pdf_hidden)}>
-      <SectionHeader title="Similar Aircraft" />
-      <main className={cn(styles.similar)}>
+    <StandardCard className={"mt-5 p-10 w-full"}>
+      <h1 className="text-[32px]">Similar Aircraft</h1>
+      <section className="flex justify-center">
         {params?.length ? (
           params?.map((aircraft) => (
             <Link
@@ -17,19 +18,25 @@ const Similar = ({ params }) => {
                 aircraftData: aircraft,
               }}
             >
-              <div key={aircraft.aircraft_id} className={cn(styles.suggestion)}>
-                <div className={cn(styles.image_container)}>
-                  <img src={`${aircraft?.image_name}`} alt="" />
+              <div key={aircraft.aircraft_id}>
+                <div className="">
+                  <img
+                    className="h-[230px] w-[300px]"
+                    src={`${aircraft?.image_name}`}
+                    alt=""
+                  />
                 </div>
-                <h5>{aircraft.aircraft_name}</h5>
+                <h5 className="font-semibold text-center">
+                  {aircraft.aircraft_name}
+                </h5>
               </div>
             </Link>
           ))
         ) : (
           <p>No Similar Aircraft</p>
         )}
-      </main>
-    </section>
+      </section>
+    </StandardCard>
   );
 };
 

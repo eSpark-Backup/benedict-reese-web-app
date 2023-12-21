@@ -684,6 +684,7 @@ export default function SingleAircraftDetails({
             airportCount="20,982"
             detailsHeading={"Airports"}
             tableHeaders={flightVisitedHeaders}
+            filterFields={["country"]}
           />
         </div>
 

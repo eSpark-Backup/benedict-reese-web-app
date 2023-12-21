@@ -25,11 +25,14 @@ const FlightDetails = ({
   tableHeaders,
   hideFilterButton,
   airportCount,
+  filterFields,
 }) => {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
   const [originFilter, setOriginFilter] = useState("");
   const [destinationFilter, setDestinationFilter] = useState("");
+  const [airportFilter, setAirportFilter] = useState("");
+  const [countryFilter, setCountryFilter] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -39,20 +42,39 @@ const FlightDetails = ({
 
   useEffect(() => {
     let filtered = flights.filter((flight) => {
-      if (
-        (!originFilter ||
-          flight.origin.toLowerCase().includes(originFilter.toLowerCase())) &&
-        (!destinationFilter ||
-          flight.destination
+      const found = filterFields.some((field) => {
+        if (
+          flight[field] &&
+          typeof flight[field] === "string" &&
+          flight[field]
             .toLowerCase()
-            .includes(destinationFilter.toLowerCase()))
-      ) {
-        return true;
-      }
-      return false;
+            .includes(
+              field === "origin"
+                ? originFilter.toLowerCase()
+                : field === "destination"
+                ? destinationFilter.toLowerCase()
+                : field === "airport"
+                ? airportFilter.toLowerCase()
+                : field === "country"
+                ? countryFilter.toLowerCase()
+                : ""
+            )
+        ) {
+          return true;
+        }
+        return false;
+      });
+      return found;
     });
     setFilteredFlights(filtered);
-  }, [flights, originFilter, destinationFilter]);
+  }, [
+    flights,
+    originFilter,
+    destinationFilter,
+    airportFilter,
+    countryFilter,
+    filterFields,
+  ]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -148,7 +170,7 @@ const FlightDetails = ({
             </Button>
           )}
           {airportCount && (
-            <span className="text-[#8000FF] mr-7">{airportCount} Airports</span>
+            <span className="text-[#8000FF] mr-7 mt-7">{airportCount} Airports</span>
           )}
         </div>
         <TableContainer
@@ -185,18 +207,35 @@ const FlightDetails = ({
         <Dialog open={openModal} onClose={handleCloseModal}>
           <DialogTitle>Filter Options</DialogTitle>
           <DialogContent>
-            <TextField
-              type="text"
-              placeholder="Enter origin..."
-              value={originFilter}
-              onChange={(e) => setOriginFilter(e.target.value)}
-            />
-            <TextField
-              type="text"
-              placeholder="Enter destination..."
-              value={destinationFilter}
-              onChange={(e) => setDestinationFilter(e.target.value)}
-            />
+            {filterFields.map((field, index) => (
+              <TextField
+                key={index}
+                type="text"
+                placeholder={`Enter ${field}...`}
+                value={
+                  field === "origin"
+                    ? originFilter
+                    : field === "destination"
+                    ? destinationFilter
+                    : field === "airport"
+                    ? airportFilter
+                    : field === "country"
+                    ? countryFilter
+                    : ""
+                }
+                onChange={(e) =>
+                  field === "origin"
+                    ? setOriginFilter(e.target.value)
+                    : field === "destination"
+                    ? setDestinationFilter(e.target.value)
+                    : field === "airport"
+                    ? setAirportFilter(e.target.value)
+                    : field === "country"
+                    ? setCountryFilter(e.target.value)
+                    : ""
+                }
+              />
+            ))}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseModal}>Cancel</Button>

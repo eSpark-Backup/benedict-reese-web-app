@@ -457,11 +457,11 @@ const AircraftLookup = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-8">
+          <div className="flex flex-col lg:flex-row lg:space-x-8 mb-16">
             <div className="lg:w-3/4 ">
               <VerticalProgressBars />
             </div>
-            <div className="lg:w-1/4">
+            <div className="lg:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
               <StandardCard>
               <Chart
                 heading={chart1Heading}
@@ -473,12 +473,17 @@ const AircraftLookup = () => {
               </StandardCard>
             </div>
           </div>
+          <div>
           <FlightDetails
             flightData={flightRoutes}
+            hideFilterButton
             image={RoutesMap}
-            detailsHeading={"Routes"}
+            airportCount="20,982"
+            detailsHeading={"Airports"}
             tableHeaders={flightRoutesHeaders}
+            filterFields={["origin"]}
           />
+        </div>
           <div className="block md:flex gap-4 my-10">
             <HistoryCards
               title="Transaction History"
@@ -493,12 +498,17 @@ const AircraftLookup = () => {
               tableData={accidentData}
             />
           </div>
+          <div>
           <FlightDetails
             flightData={flightVisited}
+            hideFilterButton
             image={AirportMap}
-            detailsHeading={"Airports Visited"}
+            airportCount="20,982"
+            detailsHeading={"Airports"}
             tableHeaders={flightVisitedHeaders}
+            filterFields={["airport"]}
           />
+        </div>
         </div>
       
     </>

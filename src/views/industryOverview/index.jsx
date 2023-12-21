@@ -545,9 +545,7 @@ const IndustryOverview = () => {
       <div
         className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
       >
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32`}
-        >
+        <div className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3`}>
           {data.map((item, index) => (
             <BasicCard item={item} key={index} />
           ))}
@@ -603,9 +601,16 @@ const IndustryOverview = () => {
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
         />
-        <div className="block lg:flex w-full justify-between gap-10">
-          <div className="flex flex-col w-full lg:w-[70%] gap-10">
-            <LineChart heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
+        <div className="block xl:flex w-full justify-between gap-10">
+          <div className="flex flex-col w-full xl:w-[70%] gap-10">
+            <LineChart
+              heading={"Flight History"}
+              data={lineData}
+              years={lineYears}
+              sideText={"Number of Flights"}
+              showButtons
+              title="Flight History"
+            />
             <ActivityByType />
           </div>
           <ChartTriBoxes />

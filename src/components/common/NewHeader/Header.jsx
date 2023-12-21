@@ -95,15 +95,15 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
         } `}
       >
         <div className={`${styles.nav_wrapper} flex`}>
-          <div className={styles.nav_link}>
+          {/* <div className={styles.nav_link}>
             <GiHamburgerMenu
               style={{ cursor: "pointer" }}
               size={30}
               fill="#C8C8C8"
               onClick={() => sidebarHandler()}
             />
-          </div>
-          <div className={styles.online_status}></div>
+          </div> */}
+          <div className={`${styles.online_status} ml-5`}></div>
           <div className={styles.nav_link}>Status</div>
           <svg
             width="26"
@@ -117,7 +117,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
               fill="#C8C8C8"
             />
           </svg>
-          <div className={`${styles.nav_link} w-[88px]`}>Live Flights</div>
+          <div className={`${styles.nav_link}`}>612 Live Flights</div>
         </div>
         <div className="hidden md:block">
           <a href="https://compareprivateplanes.com">
@@ -129,12 +129,12 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
           </a>
         </div>
         <div className={`${styles.nav_wrapper} hidden md:flex`}>
-          <div className={styles.nav_link}>
+          {/* <div className={styles.nav_link}>
             <a href="https://compareprivateplanes.com/register/your-membership">
               Account
             </a>
           </div>
-          <div className={styles.nav_link}>Logout</div>
+          <div className={styles.nav_link}>Logout</div> */}
         </div>
       </header>
       <Drawer

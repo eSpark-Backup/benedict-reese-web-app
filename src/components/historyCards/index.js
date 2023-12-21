@@ -16,16 +16,25 @@ import { FaFilter } from "react-icons/fa";
 const HistoryCards = ({ className, title, tableHeader, tableData }) => {
   const companyStockRows = () => {
     return tableData.map((flight, index) => {
+      console.log({ flight });
       return (
         <TableRow key={flight.id}>
           {tableHeader.map((header, index) => (
             <TableCell key={index}>
               {header.key === "rating" ? (
-                <span className="bg-[#befdb8] border border-2 border-[#70fd63] flex justify-center">
+                <span
+                  className={`${
+                    flight[header.key] > 3
+                      ? "bg-[#FFB1B1] border-[#FD6F6F]"
+                      : "bg-[#befdb8] border-[#70fd63]"
+                  }  border border-2 rounded-[12px]  px-2 py-1`}
+                >
                   {flight[header.key]}
                 </span>
               ) : (
-                <span className="text-center">{flight[header.key]}</span>
+                <div className="flex justify-center w-full">
+                  <span className="text-center">{flight[header.key]}</span>
+                </div>
               )}
             </TableCell>
           ))}
@@ -35,7 +44,7 @@ const HistoryCards = ({ className, title, tableHeader, tableData }) => {
   };
 
   return (
-    <StandardCard className={`px-10 py-5  ${className}`}>
+    <StandardCard className={`px-10 py-5 ${className}`}>
       <div className="flex justify-between my-5">
         <h2 className="text-2xl font-semibold">{title}</h2>
       </div>
@@ -43,7 +52,7 @@ const HistoryCards = ({ className, title, tableHeader, tableData }) => {
         component={Paper}
         sx={{
           boxShadow: "none",
-          overflowY: "auto",
+          overflowX: "auto",
           maxHeight: "530px",
         }}
       >
@@ -58,6 +67,7 @@ const HistoryCards = ({ className, title, tableHeader, tableData }) => {
                     color: "#B6B8BD",
                     fontWeight: "700",
                     border: "none",
+                    textAlign: "center",
                   }}
                 >
                   {header.label}

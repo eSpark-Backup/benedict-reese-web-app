@@ -40,9 +40,7 @@ import FlightDetails from "../../components/FlightDetails";
 
 const transHistoryHeaders = [
   { label: "PREVIOUS REG", key: "preReg" },
-  { label: "PREVIOUS OWNER", key: "preOwner" },
   { label: "NEW REG", key: "newReg" },
-  { label: "NEW OWNER", key: "newOwner" },
   { label: "DATE", key: "date" },
 ];
 
@@ -57,25 +55,19 @@ const transHistoryData = [
   {
     id: 1,
     preReg: "N7777S",
-    preOwner: "Unknown",
     newReg: "N898TS",
-    newOwner: "SATA LLC",
     date: "18 October 2014",
   },
   {
     id: 1,
     preReg: "N7777S",
-    preOwner: "Unknown",
     newReg: "N898TS",
-    newOwner: "SATA LLC",
     date: "18 October 2014",
   },
   {
     id: 1,
     preReg: "N7777S",
-    preOwner: "Unknown",
     newReg: "N898TS",
-    newOwner: "SATA LLC",
     date: "18 October 2014",
   },
 ];
@@ -95,7 +87,7 @@ const accidentData = [
     severity: "Total Loss",
     incidentDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
-    rating: "7",
+    rating: "3",
   },
   {
     id: 1,
@@ -662,16 +654,16 @@ export default function SingleAircraftDetails({
           <div>compareprivateplanes.com</div>
         </section>
 
-        <div className="block lg:flex gap-4 px-10 my-10">
+        <div className="block xl:flex gap-4 px-10 my-10">
           <HistoryCards
             title="Transaction History"
-            className="w-full xl:w-3/5"
+            className="w-full xl:w-2/5"
             tableHeader={transHistoryHeaders}
             tableData={transHistoryData}
           />
           <HistoryCards
             title="Accident History"
-            className="w-full xl:w-2/5"
+            className="w-full xl:w-3/5 "
             tableHeader={accidentHeaders}
             tableData={accidentData}
           />

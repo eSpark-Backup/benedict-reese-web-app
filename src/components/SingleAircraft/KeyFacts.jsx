@@ -211,11 +211,11 @@ const KeyFacts = ({ params, currency, country, unit }) => {
   ];
 
   return (
-    <div className="px-20">
-      <div className="px-10 my-10 block lg:flex items-between justify-between gap-4">
-        <StandardCard className="w-full lg:w-[70%]">
+    <div className="px-10">
+      <div className=" my-10 block lg:flex items-between justify-between gap-4">
+        <StandardCard className="w-full lg:w-[60%]">
           <div className="2xl:py-20 2xl:px-8 px-4 py-10">
-            <h1 className="font-bold text-3xl 2xl:text-6xl w-[779px]">
+            <h1 className="font-bold text-3xl 2xl:text-6xl">
               {params.aircraft_name}
             </h1>
             <div className="mt-4 px-12">
@@ -234,14 +234,14 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             </div>
           </div>
         </StandardCard>
-        <StandardCard className={"w-full lg:w-[30%]"}>
+        <StandardCard className={"w-full lg:w-[40%]"}>
           <div className="flex items-center flex-col justify-center overflow-auto p-8 h-full ">
             <img src={`${params?.image_name}`} className="w-[40vw]" />
             <img src={`${params?.floorplan_drawing}`} className="w-[40vw] " />
           </div>
         </StandardCard>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32 px-10">
+      <div className="grid grid-cols-1 xl:grid-cols-3 xl:gap-20 gap-3 mt-12">
         <StandardCard>
           <div className="p-10 flex flex-col justify-center gap-8">
             <div className="flex justify-between gap-12">
@@ -296,7 +296,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
       </div>
-      <div className="md:grid grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-8 ">
+      <div className="md:grid grid grid-cols-1 xl:grid-cols-2 lg:gap-8 mt-8 ">
         <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
           <LineChart
             title={"Fleet Flight Hours"}
@@ -312,7 +312,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
             ]}
           />
-          
+
           <StandardCard
             style={{
               padding: "30px 20px 30px 20px",
@@ -519,8 +519,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </StandardCard>
         </div>
       </div>
-      <div className="block lg:flex w-full">
-        <div className="flex flex-col w-full lg:w-[60%]">
+      <div className="block xl:flex w-full">
+        <div className="flex flex-col w-full xl:w-[60%]">
           <LineChart
             title={"Acquisition Costs"}
             data={line2Data}
@@ -528,8 +528,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             sideText={"Value (Million $)"}
           />
         </div>
-        <div className="w-full lg:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-          <FlightCost/>
+        <div className="w-full xl:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+          <FlightCost />
         </div>
       </div>
       {/* 

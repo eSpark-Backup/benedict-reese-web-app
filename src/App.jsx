@@ -20,7 +20,7 @@ function App() {
   // const location = useLocation();
   // const navigate = useNavigate();
   const { isAuthenticating, isAuthenticated } = useUserAuthentication();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const drawerWidth = 300;
   const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     ({ theme, open }) => ({

@@ -377,7 +377,8 @@ const AircraftLookup = () => {
       severity: "Total Loss",
       incidentDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
-      rating: "3",
+      rating: "7",
+      rating: "7",
     },
     {
       id: 1,
@@ -428,12 +429,11 @@ const AircraftLookup = () => {
   return (
     <>
       <div className={styles.container}>
-        <header className="flex flex-col items-center justify-center mb-24 xl:mb-12">
+      <header className="flex flex-col items-center justify-center mb-24 xl:mb-12">
           <h1 className="font-semibold xl:font-bold text-2xl xl:text-4xl text-center">
             Enter registration number of <br />
             aircraft
           </h1>
-
           <input
             className="w-[335px] h-10 rounded-xl text-center font-bold text-3xl mt-8"
             type="text"
@@ -454,62 +454,62 @@ const AircraftLookup = () => {
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
                 ]}
               />
-            </div>
-          </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-8 mb-16">
-            <div className="lg:w-3/4 ">
-              <VerticalProgressBars />
-            </div>
-            <div className="lg:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <StandardCard>
-                <Chart
-                  heading={chart1Heading}
-                  chartData={chart1Data}
-                  chartLabels={chart1Labels}
-                  backgroundColor={chart1BackgroundColor}
-                  display={true}
-                />
-              </StandardCard>
-            </div>
-            <div>
-              <FlightDetails
-                flightData={flightRoutes}
-                hideFilterButton
-                image={RoutesMap}
-                airportCount="20,982"
-                detailsHeading={"Airports"}
-                tableHeaders={flightRoutesHeaders}
-                filterFields={["origin"]}
-              />
-            </div>
-            <div className="block md:flex gap-4 my-10">
-              <HistoryCards
-                title="Transaction History"
-                className="w-full xl:w-4/12"
-                tableHeader={transHistoryHeaders}
-                tableData={transHistoryData}
-              />
-              <HistoryCards
-                title="Accident History"
-                className="w-full xl:w-8/12"
-                tableHeader={accidentHeaders}
-                tableData={accidentData}
-              />
-            </div>
-            <div>
-              <FlightDetails
-                flightData={flightVisited}
-                hideFilterButton
-                image={AirportMap}
-                airportCount="20,982"
-                detailsHeading={"Airports"}
-                tableHeaders={flightVisitedHeaders}
-                filterFields={["airport"]}
-              />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="flex flex-col xl:flex-row lg:space-x-8 mb-16">
+          <div className="xl:w-3/4 ">
+            <VerticalProgressBars />
+          </div>
+          <div className="xl:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+            <StandardCard>
+              <Chart
+                heading={chart1Heading}
+                chartData={chart1Data}
+                chartLabels={chart1Labels}
+                backgroundColor={chart1BackgroundColor}
+                display={true}
+              />
+            </StandardCard>
+          </div>
+        </div>
+        <div>
+          <FlightDetails
+            flightData={flightRoutes}
+            hideFilterButton
+            image={RoutesMap}
+            airportCount="20,982"
+            detailsHeading={"Airports"}
+            tableHeaders={flightRoutesHeaders}
+            filterFields={["origin"]}
+          />
+        </div>
+        <div className="block md:flex gap-4 my-10">
+          <HistoryCards
+            title="Transaction History"
+            className="w-full xl:w-4/12"
+            tableHeader={transHistoryHeaders}
+            tableData={transHistoryData}
+          />
+          <HistoryCards
+            title="Accident History"
+            className="w-full xl:w-8/12"
+            tableHeader={accidentHeaders}
+            tableData={accidentData}
+          />
+        </div>
+        <div>
+          <FlightDetails
+            flightData={flightVisited}
+            hideFilterButton
+            image={AirportMap}
+            airportCount="20,982"
+            detailsHeading={"Airports"}
+            tableHeaders={flightVisitedHeaders}
+            filterFields={["airport"]}
+          />
+        </div>
     </>
   );
 };

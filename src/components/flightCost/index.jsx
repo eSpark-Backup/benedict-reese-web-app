@@ -68,7 +68,15 @@ export const FlightCost = () => {
   ];
 
   return (
-    <StandardCard style={{ padding: "25px" }}>
+    <StandardCard
+      style={{
+        padding: "25px",
+        borderTopLeftRadius: "0px",
+        borderBottomLeftRadius: "0px",
+        marginLeft: "-10px",
+        backgroundColor: "white",
+      }}
+    >
       <div className={styles.container}>
         <div className={styles.row}>
           <div className={styles.table}>

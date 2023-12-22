@@ -29,7 +29,6 @@ const Chart = ({
     labels: chartLabels,
     datasets: [
       {
-        label: "Countries",
         data: chartData,
         backgroundColor: backgroundColor,
         borderWidth: 0,

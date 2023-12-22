@@ -212,8 +212,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
 
   return (
     <div className="px-10">
-      <div className=" my-10 block lg:flex items-between justify-between gap-4">
-        <StandardCard className="w-full lg:w-[60%]">
+      <div className=" my-10 block xl:flex items-between justify-between gap-4">
+        <StandardCard className="w-full xl:w-[60%]">
           <div className="2xl:py-20 2xl:px-8 px-4 py-10">
             <h1 className="font-bold text-3xl 2xl:text-6xl">
               {params.aircraft_name}
@@ -234,7 +234,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             </div>
           </div>
         </StandardCard>
-        <StandardCard className={"w-full lg:w-[40%]"}>
+        <StandardCard className={"w-full xl:w-[40%]"}>
           <div className="flex items-center flex-col justify-center overflow-auto p-8 h-full ">
             <img src={`${params?.image_name}`} className="w-[40vw]" />
             <img src={`${params?.floorplan_drawing}`} className="w-[40vw] " />
@@ -519,7 +519,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </StandardCard>
         </div>
       </div>
-      <div className="block xl:flex w-full">
+      <div className="block xl:flex w-full py-7">
         <div className="flex flex-col w-full xl:w-[60%]">
           <LineChart
             title={"Acquisition Costs"}
@@ -528,7 +528,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             sideText={"Value (Million $)"}
           />
         </div>
-        <div className="w-full xl:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+        <div className=" mt-7 xl:mt-0 xl:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
           <FlightCost />
         </div>
       </div>

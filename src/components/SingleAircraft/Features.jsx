@@ -1,154 +1,128 @@
-import cn from "classnames";
-import global from "../styles/global.module.scss";
 import SectionHeader from "../shared/SectionHeader";
 import StandardCard from "../common/StandardCard";
 
+import styles from "./styles/styles.module.scss";
+
 const Features = ({ params }) => {
   return (
-    <section className="mb-[53px] mt-[53px] block">
+    <section
+      className={`mb-[53px] block max-[1366px]:w-[49%] ${styles.features_section}`}
+    >
       <StandardCard
-        className={`w-full ${
-          localStorage.getItem("isSidebarOpen") === "true"
-            ? "px-[16px]"
-            : "px-[22px]"
-        } py-[26px]`}
+        className={`w-full pl-[22px] pr-[30px] py-[26px] bg-[#ffffff] ${styles.feature_card}`}
       >
-        <div className="mb-[9px]">
-          <SectionHeader title="Features" />
+        <div className={`mb-[9px] ${styles.header}`}>
+          <SectionHeader title="Features" className={styles.heading} />
         </div>
 
         <main>
-          <div
-            className={`grid grid-cols-12 ${
-              localStorage.getItem("isSidebarOpen") === "true"
-                ? "pl-[14px] pr-[6px]"
-                : "pl-[55px] pr-[15px]"
-            }`}
-          >
-            <div className="col-span-5 mt-[18px] pr-[53px]">
-              <div className={cn(global.rows)}>
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+          <div className={`flex pl-[37px] ${styles.details}`}>
+            <div className={`mt-[18px] ${styles.left_div}`}>
+              <div className={`mr-[53px] ${styles.left_item}`}>
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Minimum Pilots
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {params.minimum_pilots === 0 ? "-" : params.minimum_pilots}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Toilet Available
                   </span>
-                  <span>{params.toilet ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.toilet ? "Yes" : "No"}
+                  </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Shower Available
                   </span>
-                  <span>{params.shower ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.shower ? "Yes" : "No"}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Space to Sleep
                   </span>
-                  <span>{params.space_to_sleep ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.space_to_sleep ? "Yes" : "No"}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* ---------- */}
 
-            <div className="col-span-1 justify-center">
-              <span className="w-[2px] bg-[#DEDEDE] h-[226px] m-auto block"></span>
+            <div className={`justify-center mr-[30px] ${styles.border_div}`}>
+              <span
+                className={`w-[2px] bg-[#DEDEDE] h-[226px] m-auto block ${styles.border}`}
+              ></span>
             </div>
 
             {/* ----------- */}
 
-            <div
-              className={`col-span-6 mt-[18px] ${
-                localStorage.getItem("isSidebarOpen") === "true"
-                  ? "pl-[0px]"
-                  : "pl-[15px]"
-              }`}
-            >
-              <div className={cn(global.rows)}>
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+            <div className={`mt-[18px] ${styles.right_div} flex-1`}>
+              <div className={""}>
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Typical Avionics Suite
                   </span>
-                  <span>{params.typical_avionic_suite}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.typical_avionic_suite}
+                  </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Flat Floor
                   </span>
-                  <span>{params.flat_floor ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.flat_floor ? "Yes" : "No"}
+                  </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Inflight Baggage Access
                   </span>
-                  <span>{params.baggage_access ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.baggage_access ? "Yes" : "No"}
+                  </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                  <span className={`text-[#000000] ${styles.left_span}`}>
                     Dedicated Bedroom
                   </span>
-                  <span>{params.dedicated_bed ? "Yes" : "No"}</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
+                    {params.dedicated_bed ? "Yes" : "No"}
+                  </span>
                 </div>
               </div>
             </div>

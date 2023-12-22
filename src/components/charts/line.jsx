@@ -7,7 +7,17 @@ import { FaFilter } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { TbReload } from "react-icons/tb";
 
-const LineChart = ({ showButtons, title, years, data, sideText }) => {
+const LineChart = ({
+  showButtons,
+  title,
+  years,
+  data,
+  sideText,
+  showYears,
+  chartWidth,
+  chartHeight,
+  showTitle,
+}) => {
   // Data for the line chart
 
   // Options for the line chart
@@ -54,9 +64,11 @@ const LineChart = ({ showButtons, title, years, data, sideText }) => {
   };
 
   return (
-    <StandardCard className={"h-full"} style={{ padding: "40px" }}>
+    <StandardCard className={"h-full"} style={{ padding: "20px" }}>
       <div className="block md:flex justify-between md:mb-0 mb-12">
-        <h2 className={`${styles.lineHeading} md:mb-[50px]`}>{title}</h2>
+        {showTitle && (
+          <h2 className={`${styles.lineHeading} md:mb-[50px]`}>{title}</h2>
+        )}
         {showButtons && (
           <div className="block md:flex justify-between">
             <Button
@@ -119,18 +131,23 @@ const LineChart = ({ showButtons, title, years, data, sideText }) => {
           </div>
         )}
       </div>
-      <Line data={data} options={options} />
-      <div className={styles.yearRectangles}>
-        {years.map((item, index) => (
-          <div key={index} className={styles.yearBox}>
-            <div
-              className={styles.colorBox}
-              style={{ backgroundColor: item.bgColor }}
-            ></div>
-            <div className={styles.year}>{item.year}</div>
-          </div>
-        ))}
+      <div style={{ width: chartWidth, height: chartHeight }}>
+        <Line data={data} options={options} />
       </div>
+      {showYears && (
+        <div className={styles.yearRectangles}>
+          {years.map((item, index) => (
+            <div key={index} className={styles.yearBox}>
+              <div
+                className={styles.colorBox}
+                style={{ backgroundColor: item.bgColor }}
+              ></div>
+
+              <div className={styles.year}>{item.year}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </StandardCard>
   );
 };

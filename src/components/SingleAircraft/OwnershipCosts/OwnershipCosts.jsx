@@ -966,30 +966,62 @@ const OwnershipCosts = ({ params, currency, country }) => {
   const chart1Cost = ["$21,000,000"];
 
   return (
-    <div className="xl:flex block px-10 gap-3 py-20">
-      <StandardCard className={"block xl:flex "}>
-        <Chart
-          heading={chart1Heading}
-          cost={chart1Cost}
-          chartData={chart1Data}
-          chartLabels={chart1Labels}
-          backgroundColor={chart1BackgroundColor}
-        />
-        <Chart
-          heading={chart1Heading}
-          cost={chart1Cost}
-          chartData={chart1Data}
-          chartLabels={chart1Labels}
-          backgroundColor={chart1BackgroundColor}
-        />
-      </StandardCard>
-      <StandardCard style={{ width: "100%", padding: "35px 20px 20px 20px" }}>
-        <section>
-          {/* <div className={global.pizza_header_bars}>
+    <>
+      <div className="flex px-10 py-10">
+        <StandardCard
+          className="lg:w-[50%] "
+          style={{
+            borderTopRightRadius: "0px",
+            borderBottomRightRadius: "0px",
+            marginRight: "-6px",
+            backgroundColor: "white",
+            zIndex: "1",
+          }}
+        >
+          <div className="flex px-20 pt-20">
+            <div className={styles.row}>
+              <div className={styles.table}>
+                <h3>Year of Manufacture</h3>
+                <input
+                  type="text"
+                  // value={inputValues.yearOfManufacture}
+                  // onChange={(e) => handleInputChange(e, "yearOfManufacture")}
+                  className={styles.inputCost}
+                />
+              </div>
+              <div className={styles.table}>
+                <h3>Current Market Value</h3>
+                <h4>$21,000,000</h4>
+              </div>
+            </div>
+          </div>
+          <div className=" flex">
+            <Chart
+              heading={chart1Heading}
+              cost={chart1Cost}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+            />
+            <Chart
+              heading={chart1Heading}
+              cost={chart1Cost}
+              chartData={chart1Data}
+              chartLabels={chart1Labels}
+              backgroundColor={chart1BackgroundColor}
+            />
+          </div>
+        </StandardCard>
+        <StandardCard
+          className="lg:w-[50%]"
+          style={{ padding: "35px 40px 20px 40px" }}
+        >
+          <section>
+            {/* <div className={global.pizza_header_bars}>
           <SectionHeader title="Ownership Costs" />
         </div> */}
-          <main className={styles.ownership_main}>
-            {/* <header className={cn(styles.os_header, global.bar_form)}>
+            <main className={styles.ownership_main}>
+              {/* <header className={cn(styles.os_header, global.bar_form)}>
           <h2 className={global.pdf_hidden}>
             Estimated annual flight hours:{" "}
             <div className={styles.form + " " + global.pdf_hidden}>
@@ -1058,250 +1090,266 @@ const OwnershipCosts = ({ params, currency, country }) => {
             </div>
           </div>
         </div> */}
-            <div className={cn(styles.f_v_costs, global.breakdown_bars)}>
-              <div className={cn(styles.costs_container)}>
-                <h3>Annual Fixed Costs Breakdown</h3>
-                <div className={cn(styles.costs)}>
-                  <div className={cn(styles.keys_values_container)}>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Crew Salary
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+              <div className={cn(styles.f_v_costs, global.breakdown_bars)}>
+                <div className={cn(styles.costs_container)}>
+                  <h3>Annual Fixed Costs Breakdown</h3>
+                  <div className={cn(styles.costs)}>
+                    <div className={cn(styles.keys_values_container)}>
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Crew Salary
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="crew_salary"
-                            placeholder="Crew Salary"
-                            value={crewSalary}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={crewChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="crew_salary"
+                              placeholder="Crew Salary"
+                              value={crewSalary}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={crewChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill1)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(crewSalary.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
+                      <div className={styles.key_value_bar}>
                         <div
-                          className={cn(styles.bar__fill1)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(crewSalary.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Crew Training
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Crew Training
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="crew_training"
-                            placeholder="Crew Training"
-                            value={crewTrain}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={crewTrainChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="crew_training"
+                              placeholder="Crew Training"
+                              value={crewTrain}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={crewTrainChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill2)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(crewTrain.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
+                      <div className={styles.key_value_bar}>
                         <div
-                          className={cn(styles.bar__fill2)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(crewTrain.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>Hangar</span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Hangar
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="hangar"
-                            placeholder="Hangar"
-                            value={hanger}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={hangerChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="hangar"
+                              placeholder="Hangar"
+                              value={hanger}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={hangerChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill3)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(hanger.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>{" "}
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Insurrance Hull
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="insurrance_hull"
+                              placeholder="Insurrance Hull"
+                              value={insurranceHull}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={insHullChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill4)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(insurranceHull.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
+                      <div className={styles.key_value_bar}>
                         <div
-                          className={cn(styles.bar__fill3)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(hanger.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>{" "}
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Insurrance Hull
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Insurrance Liability
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="insurrance_hull"
-                            placeholder="Insurrance Hull"
-                            value={insurranceHull}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={insHullChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="insurrance_liability"
+                              placeholder="Insurrance Liability"
+                              value={insurranceLiability}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={insLiabilityChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill5)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(
+                                  insurranceLiability.split(",").join("")
+                                ) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
+                      <div className={styles.key_value_bar}>
                         <div
-                          className={cn(styles.bar__fill4)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(insurranceHull.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Insurrance Liability
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Managment
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="insurrance_liability"
-                            placeholder="Insurrance Liability"
-                            value={insurranceLiability}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={insLiabilityChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="management"
+                              placeholder="Management"
+                              value={management}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={managementChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill6)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(management.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill5)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(insurranceLiability.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Managment
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="management"
-                            placeholder="Management"
-                            value={management}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={managementChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill6)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(management.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    {/* <div className={styles.key_value_bar}>
+                      {/* <div className={styles.key_value_bar}>
                   <div className={cn(styles.key_value) + " " + cn(global.row)}>
                     <span className={styles.fixed_span_medium}>Deprication Rate</span>
                     <span className={styles.fixed_span_short}>
@@ -1370,268 +1418,296 @@ const OwnershipCosts = ({ params, currency, country }) => {
                     ></div>
                   </div>
                 </div> */}
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Misc Fixed
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Misc Fixed
                           </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="misc_fixed"
-                            placeholder="Misc Fixed"
-                            value={miscFixed}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={miscFixedChange}
-                          />
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="misc_fixed"
+                              placeholder="Misc Fixed"
+                              value={miscFixed}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={miscFixedChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill7)}
+                            style={{
+                              width:
+                                (Number(miscFixed.split(",").join("")) /
+                                  maximumAnnualValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
                         </div>
                       </div>
-                      <div className={cn(styles.bar)}>
+                    </div>
+                  </div>
+                </div>
+                <div className={cn(styles.costs_container)}>
+                  <h3>Variable Cost Breakdown (per flight hour)</h3>
+                  <div className={cn(styles.costs)}>
+                    <div className={cn(styles.keys_values_container)}>
+                      <div className={styles.key_value_bar}>
                         <div
-                          className={cn(styles.bar__fill7)}
-                          style={{
-                            width:
-                              (Number(miscFixed.split(",").join("")) /
-                                maximumAnnualValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Fuel Cost
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="fuel_cost"
+                              placeholder="Fuel Cost"
+                              value={fuelCost}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={fuelCostChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill1)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(fuelCost.split(",").join("")) /
+                                  maximumVariableValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Maintenance
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="maintenance"
+                              placeholder="Maintenance"
+                              value={maintenance}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={maintenanceChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill2)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(maintenance.split(",").join("")) /
+                                  maximumVariableValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Engine Overhaul
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="engine_overhaul"
+                              placeholder="Engine Overhaul"
+                              value={engOverhaul}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={engOverhaulChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill3)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(engOverhaul.split(",").join("")) /
+                                  maximumVariableValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Ground Fees
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="ground_fees"
+                              placeholder="Ground Fees"
+                              value={groundFees}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={groundFeesChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill4)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(groundFees.split(",").join("")) /
+                                  maximumVariableValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className={styles.key_value_bar}>
+                        <div
+                          className={
+                            cn(styles.key_value) + " " + cn(global.row)
+                          }
+                        >
+                          <span className={styles.fixed_span_medium}>
+                            Misc Variable
+                          </span>
+                          <div>
+                            <span>
+                              {currency === "USD"
+                                ? "$ "
+                                : currency === "EUR"
+                                ? "€ "
+                                : "£ "}
+                            </span>
+                            <input
+                              className={styles.input}
+                              type="text"
+                              name="misc_variable"
+                              placeholder="Misc Variable"
+                              value={miscVar}
+                              onKeyDown={wholeNumberKeyValidation}
+                              onInput={miscVarChange}
+                            />
+                          </div>
+                        </div>
+                        <div className={cn(styles.bar)}>
+                          <div
+                            className={cn(styles.bar__fill6)}
+                            style={{
+                              maxWidth: "101%",
+                              width:
+                                (Number(miscVar.split(",").join("")) /
+                                  maximumVariableValue) *
+                                  100 +
+                                "%",
+                            }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className={cn(styles.costs_container)}>
-                <h3>Variable Cost Breakdown (per flight hour)</h3>
-                <div className={cn(styles.costs)}>
-                  <div className={cn(styles.keys_values_container)}>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Fuel Cost
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="fuel_cost"
-                            placeholder="Fuel Cost"
-                            value={fuelCost}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={fuelCostChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill1)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(fuelCost.split(",").join("")) /
-                                maximumVariableValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Maintenance
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="maintenance"
-                            placeholder="Maintenance"
-                            value={maintenance}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={maintenanceChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill2)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(maintenance.split(",").join("")) /
-                                maximumVariableValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Engine Overhaul
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="engine_overhaul"
-                            placeholder="Engine Overhaul"
-                            value={engOverhaul}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={engOverhaulChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill3)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(engOverhaul.split(",").join("")) /
-                                maximumVariableValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Ground Fees
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="ground_fees"
-                            placeholder="Ground Fees"
-                            value={groundFees}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={groundFeesChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill4)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(groundFees.split(",").join("")) /
-                                maximumVariableValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className={styles.key_value_bar}>
-                      <div
-                        className={cn(styles.key_value) + " " + cn(global.row)}
-                      >
-                        <span className={styles.fixed_span_medium}>
-                          Misc Variable
-                        </span>
-                        <div>
-                          <span>
-                            {currency === "USD"
-                              ? "$ "
-                              : currency === "EUR"
-                              ? "€ "
-                              : "£ "}
-                          </span>
-                          <input
-                            className={styles.input}
-                            type="text"
-                            name="misc_variable"
-                            placeholder="Misc Variable"
-                            value={miscVar}
-                            onKeyDown={wholeNumberKeyValidation}
-                            onInput={miscVarChange}
-                          />
-                        </div>
-                      </div>
-                      <div className={cn(styles.bar)}>
-                        <div
-                          className={cn(styles.bar__fill6)}
-                          style={{
-                            maxWidth: "101%",
-                            width:
-                              (Number(miscVar.split(",").join("")) /
-                                maximumVariableValue) *
-                                100 +
-                              "%",
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className={styles.reset_values}>
+                <button
+                  className={styles.reset_button}
+                  onClick={() => setReset(!reset)}
+                >
+                  Reset Values
+                </button>
               </div>
-            </div>
-            <div className={styles.reset_values}>
-              <button
-                className={styles.reset_button}
-                onClick={() => setReset(!reset)}
-              >
-                Reset Values
-              </button>
-            </div>
-          </main>
-        </section>
-      </StandardCard>
-    </div>
+            </main>
+          </section>
+        </StandardCard>
+      </div>
+      <div className="block lg:flex w-full px-10">
+        <div className="flex flex-col w-full lg:w-[60%]">
+          <LineChart
+            title={"Acquisition Costs"}
+            data={line2Data}
+            years={line2Years}
+            sideText={"Value (Million $)"}
+            showYears
+            showTitle
+          />
+        </div>
+        <div className="w-full lg:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+          <FlightCost />
+        </div>
+      </div>
+    </>
   );
 };
 

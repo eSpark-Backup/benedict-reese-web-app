@@ -109,49 +109,6 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     ],
   };
 
-  const line2Data = {
-    labels: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    datasets: [
-      {
-        label: "Number of Flights 1",
-        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
-        borderColor: "#FF8660",
-        backgroundColor: "#6C60FF",
-      },
-      {
-        label: "Number of Flights 2",
-        data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
-        borderColor: "#6C60FF",
-        backgroundColor: "#CE2A96",
-      },
-      {
-        label: "Number of Flights 3",
-        data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
-        borderColor: "#106CC2", // Change the line color for this dataset
-        backgroundColor: "#106CC2",
-      },
-    ],
-  };
-
-  const line2Years = [
-    { year: "Current Value", bgColor: "#6C60FF" },
-    { year: "Adjusted Value", bgColor: "#CE2A96" },
-    { year: "Future Value", bgColor: "#106CC2" },
-  ];
-
   const lineData = {
     labels: [
       "Jan",
@@ -215,7 +172,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
       <div className=" my-10 block xl:flex items-between justify-between gap-4">
         <StandardCard className="w-full xl:w-[60%]">
           <div className="2xl:py-20 2xl:px-8 px-4 py-10">
-            <h1 className="font-bold text-3xl 2xl:text-6xl">
+            <h1 className="font-bold text-3xl 2xl:text-6xl w-[779px]">
               {params.aircraft_name}
             </h1>
             <div className="mt-4 px-12">
@@ -241,7 +198,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
       </div>
-      <div className="grid grid-cols-1 xl:grid-cols-3 xl:gap-20 gap-3 mt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32 px-10">
         <StandardCard>
           <div className="p-10 flex flex-col justify-center gap-8">
             <div className="flex justify-between gap-12">
@@ -296,13 +253,15 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </div>
         </StandardCard>
       </div>
-      <div className="md:grid grid grid-cols-1 xl:grid-cols-2 lg:gap-8 mt-8 ">
+      <div className="md:grid grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-8 ">
         <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
           <LineChart
             title={"Fleet Flight Hours"}
             data={lineData}
             years={lineYears}
             sideText={"Flight Hours"}
+            showYears
+            showTitle
           />
         </div>
         <div className="lg:col-span-1">
@@ -519,7 +478,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
           </StandardCard>
         </div>
       </div>
-      <div className="block xl:flex w-full py-7">
+      {/* <div className="block xl:flex w-full py-7">
         <div className="flex flex-col w-full xl:w-[60%]">
           <LineChart
             title={"Acquisition Costs"}
@@ -531,7 +490,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
         <div className=" mt-7 xl:mt-0 xl:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
           <FlightCost />
         </div>
-      </div>
+      </div> */}
       {/* 
 
         <ul className={cn(styles.facts)}>

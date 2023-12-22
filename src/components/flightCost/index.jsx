@@ -69,11 +69,11 @@ export const FlightCost = () => {
 
   return (
     <StandardCard
+      className={"ml-0 xl:ml-[-10px]"}
       style={{
         padding: "25px",
         borderTopLeftRadius: "0px",
         borderBottomLeftRadius: "0px",
-        marginLeft: "-10px",
         backgroundColor: "white",
       }}
     >

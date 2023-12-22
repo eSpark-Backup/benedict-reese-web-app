@@ -1,37 +1,80 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import {
   Chart as Chartjs,
   BarElement,
+  LineElement,
   CategoryScale,
   LinearScale,
+  PointElement,
   Tooltip,
   Legend,
 } from "chart.js";
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import ZoomPlugin from "chartjs-plugin-zoom";
 
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+  OutlinedInput,
+  InputAdornment,
+} from "@mui/material";
+
+import StandardCard from "../common/StandardCard";
 
 import Calendar from "../../assets/calendar.png";
 import Switch from "../../assets/switch.png";
 
+import {
+  customTooltip,
+  darkSide,
+  datalabels,
+  labels,
+  legend,
+  lineBg,
+  lineLabels,
+  lineLegend,
+  lineScales,
+  otherValues,
+  scales,
+  scrollUsingMouse,
+  scrollUsingTouchpad,
+  years,
+  yearsData,
+} from "./data";
+
 import "./ActivityByType.scss";
-import StandardCard from "../common/StandardCard";
 
 Chartjs.register(
   BarElement,
+  LineElement,
   CategoryScale,
   LinearScale,
+  PointElement,
   Tooltip,
-  Legend,
-  ZoomPlugin
+  Legend
 );
 
 const ActivityByType = () => {
+  const chartRef = useRef();
+  const lineChartRef = useRef();
+
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
+  const [year, setYear] = React.useState([]);
+  const [showCalender, setShowCalender] = useState(false);
+  const [switchGraph, setSwitchGraph] = useState(false);
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setYear(typeof value === "string" ? value.split(",") : value);
+    setShowCalender(true);
+  };
 
   const handleResize = () => {
     setPageWidth(window.innerWidth);
@@ -45,143 +88,45 @@ const ActivityByType = () => {
     };
   }, []);
 
-  // Hardcoded random values for each category for every month
-  const monthlyData = [
-    [1450, 1800, 1600, 1400, 2000, 1800, 1900, 1700, 1500, 1750, 1850, 1650], // VLJ
-    [1300, 1550, 1700, 1800, 1450, 2000, 1600, 1850, 1400, 1700, 1900, 1750], // Light
-    [1500, 1700, 1800, 1600, 1750, 1850, 1650, 1400, 1900, 2000, 1500, 1700], // Medium
-    [1600, 1400, 1850, 1700, 1600, 1750, 1800, 1500, 1700, 1600, 1550, 1900], // Large
-    [1800, 1600, 1500, 1750, 1900, 1700, 1550, 2000, 1800, 1650, 1400, 1700], // VIP Airliner
-  ];
+  const stackedChartDatasets = (dataset, index) => {
+    return {
+      label: datalabels[index],
+      backgroundColor: darkSide[index],
+      borderColor: "transparent",
+      borderWidth: 2,
+      borderRadius: {
+        topLeft: 12,
+        topRight: 12,
+        bottomLeft: 12,
+        bottomRight: 12,
+      },
+      borderSkipped: false,
+      data: dataset,
+      barPercentage: 1,
+      categoryPercentage: 0.9,
+    };
+  };
 
-  // const start = [
-  //   "rgba(82, 71, 198, 1)",
-  //   "rgba(134, 125, 244, 1)",
-  //   "rgba(93, 148, 247, 1)",
-  //   "rgba(93, 197, 194, 1)",
-  //   "rgba(141, 230, 230, 1)",
-  // ];
-
-  // const end = [
-  //   "rgba(82, 71, 198, 0.2)",
-  //   "rgba(134, 125, 244, 0.2)",
-  //   "rgba(93, 148, 247, 0.2)",
-  //   "rgba(93, 197, 194, 0.2)",
-  //   "rgba(141, 230, 230, 0.2)",
-  // ];
+  const lineChartDatasets = (dataset, index) => {
+    return {
+      label: datalabels[index],
+      backgroundColor: lineBg[index],
+      borderColor: lineBg[index],
+      data: dataset,
+      tension: 0.4,
+    };
+  };
 
   const data = {
-    labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    datasets: [
-      {
-        label: "VLJ",
-        backgroundColor: "rgba(82, 71, 198, 1)",
-        borderColor: "transparent",
-        borderWidth: 2,
-        borderRadius: {
-          topLeft: 12,
-          topRight: 12,
-          bottomLeft: 12,
-          bottomRight: 12,
-        },
-        borderSkipped: false,
-        data: [
-          1450, 1800, 1600, 1400, 2000, 1800, 1900, 1700, 1500, 1750, 1850,
-          1650,
-        ],
-        barPercentage: 1,
-        categoryPercentage: 0.9,
-      },
-      {
-        label: "Light",
-        backgroundColor: "rgba(134, 125, 244, 1)",
-        borderColor: "transparent",
-        borderWidth: 2,
-        borderRadius: {
-          topLeft: 12,
-          topRight: 12,
-          bottomLeft: 12,
-          bottomRight: 12,
-        },
-        borderSkipped: false,
-        data: [
-          1300, 1550, 1700, 1800, 1450, 2000, 1600, 1850, 1400, 1700, 1900,
-          1750,
-        ],
-        barPercentage: 1,
-        categoryPercentage: 0.9,
-      },
-      {
-        label: "Medium",
-        backgroundColor: "rgba(93, 148, 247, 1)",
-        borderColor: "transparent",
-        borderWidth: 2,
-        borderRadius: {
-          topLeft: 12,
-          topRight: 12,
-          bottomLeft: 12,
-          bottomRight: 12,
-        },
-        borderSkipped: false,
-        data: [
-          1500, 1700, 1800, 1600, 1750, 1850, 1650, 1400, 1900, 2000, 1500,
-          1700,
-        ],
-        barPercentage: 1,
-        categoryPercentage: 0.9,
-      },
-      {
-        label: "Large",
-        backgroundColor: "rgba(93, 197, 194, 1)",
-        borderColor: "transparent",
-        borderWidth: 2,
-        borderRadius: {
-          topLeft: 12,
-          topRight: 12,
-          bottomLeft: 12,
-          bottomRight: 12,
-        },
-        borderSkipped: false,
-        data: [
-          1600, 1400, 1850, 1700, 1600, 1750, 1800, 1500, 1700, 1600, 1550,
-          1900,
-        ],
-        barPercentage: 1,
-        categoryPercentage: 0.9,
-      },
-      {
-        label: "VIP Airliner",
-        backgroundColor: "rgba(141, 230, 230, 1)",
-        borderColor: "transparent",
-        borderWidth: 2,
-        borderRadius: {
-          topLeft: 12,
-          topRight: 12,
-          bottomLeft: 12,
-          bottomRight: 12,
-        },
-        borderSkipped: false,
-        data: [
-          1800, 1600, 1500, 1750, 1900, 1700, 1550, 2000, 1800, 1650, 1400,
-          1700,
-        ],
-        barPercentage: 1,
-        categoryPercentage: 0.9,
-      },
-    ],
+    labels: labels,
+    datasets:
+      year.length === 0
+        ? yearsData[2023].map((dataset, index) =>
+            stackedChartDatasets(dataset, index)
+          )
+        : yearsData[year[0]].map((dataset, index) =>
+            stackedChartDatasets(dataset, index)
+          ),
   };
 
   const options = {
@@ -189,157 +134,219 @@ const ActivityByType = () => {
     maintainAspectRatio: false,
     plugins: {
       datalabels: {
-        padding: 0,
-        offset: 0,
-        color: "#000000",
-        anchor: "end",
-        align: "end",
-        font: {
-          weight: "normal",
-          family: "poppins",
-        },
-        formatter: (value, context) => {
+        ...otherValues,
+        formatter: (_, context) => {
           // Display the total above the last dataset in the stack
           if (context.datasetIndex === context.chart.data.datasets.length - 1) {
-            const total = monthlyData.reduce(
-              (acc, dataset) => acc + dataset[context.dataIndex],
-              0
-            );
+            const total =
+              year.length === 0
+                ? yearsData[2023].reduce(
+                    (acc, dataset) => acc + dataset[context.dataIndex],
+                    0
+                  )
+                : yearsData[year[0]].reduce(
+                    (acc, dataset) => acc + dataset[context.dataIndex],
+                    0
+                  );
             return total;
           }
           return "";
         },
       },
-      legend: {
-        position: "bottom",
-        labels: {
-          boxWidth: 37,
-          color: "#000000",
-          font: {
-            size: 16,
-            family: "poppins",
-            weight: "normal",
-          },
-        },
-      },
+      legend: legend,
     },
-    scales: {
-      x: {
-        stacked: true,
-        min: 0,
-        max: 4,
-        color: "#fff",
-        border: {
-          display: false,
-        },
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#000000",
-          font: {
-            size: 22,
-            family: "poppins",
-            weight: "normal",
-          },
-        },
-      },
-      y: {
-        stacked: true,
-        beginAtZero: true,
-        display: false, // Hide the y-axis
-        grid: {
-          display: false,
-        },
-      },
-    },
+    scales: scales,
 
-    tooltips: {
-      enabled: false, // Disable default tooltips to avoid overlap with datalabels
-      custom: (tooltip) => {
-        // Custom tooltip to display the total above each stacked bar
-        if (tooltip.body && tooltip.body.length > 0) {
-          const total = tooltip.body[0].lines[0];
-          const tooltipElement = document.getElementById("custom-tooltip");
-          if (tooltipElement) {
-            tooltipElement.innerHTML = total;
-            tooltipElement.style.visibility = "visible";
-            tooltipElement.style.left = tooltip.caretX + "px";
-            tooltipElement.style.top = tooltip.caretY + "px";
-          }
-        }
-      },
-    },
+    tooltips: customTooltip,
   };
 
-  const chartRef = useRef();
-
-  function scrollWheel(Wheel, chart) {
-    const { scales } = chart.config.options;
-
-    if (Wheel.deltaY > 0) {
-      if (scales.x.max >= data.labels.length) {
-        scales.x.min = data.labels.length - 5;
-        scales.x.max = data.labels.length;
-      } else {
-        scales.x.min += 1;
-        scales.x.max += 1;
-      }
-    }
-
-    if (Wheel.deltaY < 0) {
-      if (scales.x.min <= 0) {
-        scales.x.min = 0;
-        scales.x.max = 4;
-      } else {
-        scales.x.min -= 1;
-        scales.x.max -= 1;
-      }
-    }
-
-    chart.update();
-  }
-
+  // Adding wheel event to scroll on chart
   useEffect(() => {
     const chartInstance = chartRef.current;
 
-    const handleWheel = (e) => {
-      e.preventDefault();
-      scrollWheel(e, chartInstance);
-    };
+    if (chartInstance && chartInstance.ctx && chartInstance.ctx.canvas) {
+      const handleWheel = (e) => {
+        e.preventDefault();
+        scrollWheel(e, chartInstance);
+      };
 
-    chartInstance.ctx?.canvas.addEventListener("wheel", handleWheel);
-
-    return () => {
-      chartInstance.ctx?.canvas.removeEventListener("wheel", handleWheel);
-    };
+      chartInstance.ctx?.canvas.addEventListener("wheel", handleWheel);
+      return () => {
+        chartInstance.ctx?.canvas.removeEventListener("wheel", handleWheel);
+      };
+    }
   }, [chartRef]);
 
   useEffect(() => {
-    if (pageWidth <= 1536) {
-      chartRef.current.config.options.scales.x.ticks.font.size = 18;
-      chartRef.current.config.options.plugins.legend.labels.boxWidth = 27;
-      chartRef.current.config.options.plugins.legend.labels.font.size = 14;
+    window.addEventListener("wheel", function (event) {
+      if (event.deltaX !== 0 || event.deltaY !== 0) {
+        if (event.deltaMode === 0) {
+          console.log("Mouse scrolling");
+        } else {
+          console.log("Touchpad scrolling");
+        }
+      }
+    });
+  }, []);
 
-      chartRef.current.update();
+  function scrollWheel(Wheel, chart) {
+    if (chart && chart.ctx && chart.ctx.canvas) {
+      const { scales } = chart.config.options;
+      const { x } = scales;
+      const { deltaY, deltaX } = Wheel;
+      const labelLength = data.labels.length;
+      console.log(Wheel?.deltaMode);
+
+      // Check if the user is not scrolling using a touchpad
+      scrollUsingMouse(deltaY, x, labelLength);
+      scrollUsingTouchpad(deltaX, x, labelLength);
+
+      chart.update();
     }
-  }, [pageWidth, chartRef]);
+  }
+
+  const lineData = {
+    labels: lineLabels,
+    datasets:
+      year.length === 0
+        ? yearsData[2023].map((dataset, index) =>
+            lineChartDatasets(dataset, index)
+          )
+        : yearsData[year[0]].map((dataset, index) =>
+            lineChartDatasets(dataset, index)
+          ),
+  };
+
+  const lineOptions = {
+    interaction: {
+      intersect: false,
+      mode: "index",
+    },
+    plugins: {
+      legend: lineLegend,
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          title: function (context) {
+            return `${context[0].label} ${
+              year[0] === undefined ? "2023" : year[0]
+            }`;
+          },
+        },
+      },
+    },
+    scales: lineScales,
+  };
+
+  useEffect(() => {
+    if (chartRef?.current !== null) {
+      if (chartRef?.current?.config) {
+        if (pageWidth <= 1536) {
+          chartRef.current.config.options.scales.x.ticks.font.size = 18;
+          chartRef.current.config.options.plugins.legend.labels.boxWidth = 27;
+          chartRef.current.config.options.plugins.legend.labels.font.size = 14;
+
+          chartRef.current.update();
+        }
+
+        if (pageWidth <= 1100) {
+          chartRef.current.config.options.scales.x.ticks.font.size = 14;
+          chartRef.current.config.options.plugins.legend.labels.boxWidth = 20;
+          chartRef.current.config.options.plugins.legend.labels.font.size = 14;
+
+          chartRef.current.update();
+        }
+      }
+    }
+
+    if (lineChartRef?.current !== null) {
+      if (lineChartRef?.current?.config) {
+        if (pageWidth <= 1536) {
+          lineChartRef.current.config.options.plugins.legend.labels.padding = 12;
+          lineChartRef.current.config.options.scales.y.title.font.size = 14;
+          lineChartRef.current.config.options.scales.y.title.padding.bottom = 12;
+          lineChartRef.current.config.options.plugins.legend.labels.boxWidth = 20;
+
+          lineChartRef.current.update();
+        }
+
+        if (pageWidth <= 1100) {
+          lineChartRef.current.config.options.plugins.legend.labels.padding = 8;
+          lineChartRef.current.config.options.scales.y.title.font.size = 14;
+          lineChartRef.current.config.options.scales.y.title.padding.bottom = 5;
+          lineChartRef.current.config.options.plugins.legend.labels.boxWidth = 20;
+
+          lineChartRef.current.update();
+        }
+      }
+    }
+  }, [pageWidth, chartRef, lineChartRef, switchGraph]);
 
   return (
-    <StandardCard style={{ padding: "40px" }}>
+    <StandardCard
+      className={`activity_type_card h-full p-[33px_35px_33px_33px]`}
+    >
       <div className="h-full w-full">
-        <div className="chart ">
+        <div className="chart">
           <div className="chart-header">
-            <Typography variant="h3">Activity by Type</Typography>
+            <Typography variant="h3">
+              {switchGraph ? "Flight History" : "Activity by Type"}
+            </Typography>
 
-            <div>
-              <Button className="year-button">
-                <span className="calendar">
-                  <img src={Calendar} alt="Calendar" />
-                </span>
-                Year
-              </Button>
-              <Button>
+            <div className="flex items-center">
+              <Select
+                displayEmpty
+                onChange={handleChange}
+                input={
+                  <OutlinedInput
+                    startAdornment={
+                      showCalender && (
+                        <InputAdornment
+                          position="start"
+                          className="!block !mr-[15px] ml-[5px] !h-auto !max-h-max"
+                        >
+                          <span className="calendar">
+                            <img src={Calendar} alt="Calendar" />
+                          </span>
+                        </InputAdornment>
+                      )
+                    }
+                  />
+                }
+                renderValue={(selected) => {
+                  if (selected.length === 0) {
+                    return (
+                      <div className="flex items-center">
+                        <span className="calendar">
+                          <img src={Calendar} alt="Calendar" />
+                        </span>
+
+                        <span className="placeholder">Year</span>
+                      </div>
+                    );
+                  }
+
+                  return selected.join(", ");
+                }}
+                inputProps={{ "aria-label": "Without label" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={year}
+                className="year-button bg-[#FFFFFF] shadow-[0px_21px_19.7px_-9px_rgba(0,0,0,0.05)] border border-[#EBECF2] !rounded-xl"
+              >
+                {years?.map((year) => (
+                  <MenuItem key={year} value={year}>
+                    {year}
+                  </MenuItem>
+                ))}
+              </Select>
+
+              <Button
+                onClick={() => {
+                  setSwitchGraph(!switchGraph);
+                }}
+                className="switch-button"
+              >
                 <span className="switch">
                   <img src={Switch} alt="Switch" />
                 </span>
@@ -349,16 +356,24 @@ const ActivityByType = () => {
           </div>
 
           <div className="container-bar">
-            <div className="container-body-bar">
-              <Bar
-                data={data}
-                options={options}
-                plugins={[ChartDataLabels]}
-                ref={chartRef}
-                className="w-full"
-              ></Bar>
+            <div className="container-body-bar h-[45rem]">
+              {switchGraph ? (
+                <Line
+                  data={lineData}
+                  options={lineOptions}
+                  ref={lineChartRef}
+                  className="w-full !h-[calc(100%-48px)]"
+                />
+              ) : (
+                <Bar
+                  data={data}
+                  options={options}
+                  plugins={[ChartDataLabels]}
+                  ref={chartRef}
+                  className="w-full !h-[calc(100%-48px)]"
+                ></Bar>
+              )}
             </div>
-            {/* <ReactEcharts option={option} /> */}
           </div>
         </div>
       </div>

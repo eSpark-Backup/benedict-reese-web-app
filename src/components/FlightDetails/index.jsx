@@ -16,7 +16,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Accordion,
+  AccordionSummary,
+  Typography,
+  AccordionDetails,
 } from "@mui/material";
+import LineChart from "../charts/line";
 
 const FlightDetails = ({
   flightData,
@@ -34,6 +39,7 @@ const FlightDetails = ({
   const [airportFilter, setAirportFilter] = useState("");
   const [countryFilter, setCountryFilter] = useState("");
   const [openModal, setOpenModal] = useState(false);
+  const [expandedRow, setExpandedRow] = useState(null);
 
   useEffect(() => {
     setFlights(flightData);
@@ -102,42 +108,75 @@ const FlightDetails = ({
     setFilteredFlights(filtered);
   };
 
+  const lineData = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Number of Flights 1",
+        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
+        borderColor: "#FF8660", // Change the line color for this dataset
+        backgroundColor: "rgba(0, 0, 255, 0.2)",
+      },
+    ],
+  };
+
   const renderTableRows = () => {
     return filteredFlights.map((flight, index) => {
+      const isRowExpanded = expandedRow === index;
+      const viewText = isRowExpanded ? "Hide" : "View";
+  
       return (
-        <TableRow key={flight.id}>
-          {tableHeaders.map((header, index) => (
-            <TableCell key={index}>
-              {header.key === "graph" && flight.customStyleKey === "graph" ? (
-                <span className={styles.graphText}>{flight[header.key]}</span>
-              ) : header.key === "change" &&
-                !isNaN(parseFloat(flight[header.key])) ? (
-                <div
-                  className={
-                    parseFloat(flight[header.key]) < 10
-                      ? styles.lessThanTen
-                      : styles.greaterThanTen
-                  }
-                >
-                  <span>{flight[header.key]}</span>
-                  {parseFloat(flight[header.key]) > 0 &&
-                  parseFloat(flight[header.key]) < 10 ? (
-                    <MdOutlineArrowOutward className={styles.logo} />
-                  ) : (
-                    <MdOutlineArrowOutward className={styles.logo} />
-                  )}
-                </div>
-              ) : (
-                <span className="text-center flex justify-center">
-                  {flight[header.key]}
-                </span>
-              )}
-            </TableCell>
-          ))}
-        </TableRow>
+        <React.Fragment key={flight.id}>
+          <TableRow>
+            {tableHeaders.map((header, headerIndex) => (
+              <TableCell key={headerIndex} sx={{ textAlign: "-webkit-center" }}>
+                {header.key === "graph" && flight.customStyleKey === "graph" ? (
+                  <span
+                    className={styles.graphText}
+                    onClick={() => setExpandedRow(isRowExpanded ? null : index)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {viewText}
+                  </span>
+                ) : (
+                  <span className="text-center flex justify-center">
+                    {flight[header.key]}
+                  </span>
+                )}
+              </TableCell>
+            ))}
+          </TableRow>
+          {isRowExpanded && (
+            <TableRow >
+              <TableCell colSpan={tableHeaders.length}>
+                <Accordion>
+                  <LineChart
+                    chartWidth="530px"
+                    chartHeight="230px"
+                    data={lineData}
+                  />
+                </Accordion>
+              </TableCell>
+            </TableRow>
+          )}
+        </React.Fragment>
       );
     });
   };
+  
 
   return (
     <div className={`${styles.flightSection} block md:flex md:h-[671px]`}>
@@ -170,7 +209,9 @@ const FlightDetails = ({
             </Button>
           )}
           {airportCount && (
-            <span className="text-[#8000FF] mr-7 mt-7">{airportCount} Airports</span>
+            <span className="text-[#8000FF] mr-7 mt-7">
+              {airportCount} Airports
+            </span>
           )}
         </div>
         <TableContainer
@@ -192,6 +233,7 @@ const FlightDetails = ({
                       color: "#B6B8BD",
                       fontWeight: "700",
                       border: "none",
+                      textAlign: "center",
                     }}
                   >
                     {header.label}
@@ -199,7 +241,9 @@ const FlightDetails = ({
                 ))}
               </TableRow>
             </TableHead>
-            <TableBody sx={{ borderBottom: "1px solid #F3F5F9" }}>
+            <TableBody
+              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center" }}
+            >
               {renderTableRows()}
             </TableBody>
           </Table>

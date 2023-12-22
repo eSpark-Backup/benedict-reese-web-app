@@ -1,18 +1,19 @@
-import cn from "classnames";
-import global from "../styles/global.module.scss";
-import SectionHeader from "../shared/SectionHeader";
-import { GoogleMap, Circle, LoadScript, Marker } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import Slider from "@mui/material/Slider";
-import TextField from "@mui/material/TextField";
+
+import { GoogleMap, Circle, LoadScript, Marker } from "@react-google-maps/api";
+
+import { Slider, TextField } from "@mui/material";
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import styles from "./styles/styles.module.scss";
+
+import SectionHeader from "../shared/SectionHeader";
 
 import MapImage from "../../assets/google-map.png";
+
+import styles from "./styles/styles.module.scss";
 
 const RangeMap = ({ params }) => {
   const rangeDec = params.range_decrease_per_passenger;
@@ -80,12 +81,14 @@ const RangeMap = ({ params }) => {
   ];
 
   return (
-    <section className="px-10 py-20">
+    <section className={`px-10 py-20 ${styles.section}`}>
       <main
-        className={`${styles.main_range_map} shadow-[0_28px_56px_-20px_rgba(0,0,0,0.25)] rounded-xl grid grid-cols-12`}
+        className={`${styles.main_range_map} bg-[#ffffff] shadow-[0_28px_56px_-20px_rgba(0,0,0,0.25)] rounded-xl lg:grid xl:grid grid-cols-12 h-[605px]`}
       >
-        <div className="col-span-4 pl-[39px] pt-[33px] pr-[100px]">
-          <SectionHeader title="Range Map" />
+        <div
+          className={`${styles.span4} col-span-4 xl:col-span-4 p-[33px_100px_0px_39px]`}
+        >
+          <SectionHeader title="Range Map" className={styles.heading} />
 
           <LoadScript
             id="script-loader"
@@ -103,9 +106,11 @@ const RangeMap = ({ params }) => {
                 getSuggestionItemProps,
                 loading,
               }) => (
-                <div className="mt-[46px] w-[358px] m-auto">
+                <div
+                  className={`${styles.sliderBox} mt-[46px] w-[358px] m-auto`}
+                >
                   <div className="">
-                    <div className="grid grid-cols-12">
+                    <div className={`grid grid-cols-12 ${styles.slider}`}>
                       <label
                         htmlFor="paxNumber"
                         className="col-span-5 text-[#000000] text-base"
@@ -145,6 +150,7 @@ const RangeMap = ({ params }) => {
                       />
                     </div>
                   </div>
+
                   <div className="autocomplete-dropdown-container">
                     {loading && <div>Loading...</div>}
                     {suggestions.map((suggestion) => {
@@ -172,9 +178,11 @@ const RangeMap = ({ params }) => {
             </PlacesAutocomplete>
           </LoadScript>
 
-          <div className="mt-[46px] pl-[22px]">
+          <div className={`${styles.details} mt-[46px] pl-[22px]`}>
             {details?.map((detail) => (
-              <div className="flex justify-between items-center mb-[52px]">
+              <div
+                className={`flex justify-between items-center mb-[52px] ${styles.details_list}`}
+              >
                 <h4 className="text-[#000] text-base">{detail.label}</h4>
                 <h6 className="text-[#000] font-bold text-base">
                   {detail.total}
@@ -183,7 +191,7 @@ const RangeMap = ({ params }) => {
             ))}
           </div>
         </div>
-        <div className={`col-span-8 h-full`}>
+        <div className={`${styles.span8} lg:col-span-8 xl:col-span-8 h-full`}>
           <img src={MapImage} alt="MapImage" className="w-full h-full" />
           {/* <Map
             max_pax={maxPax}

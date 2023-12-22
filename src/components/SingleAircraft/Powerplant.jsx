@@ -1,148 +1,101 @@
 import SectionHeader from "../shared/SectionHeader";
-import cn from "classnames";
-import global from "../styles/global.module.scss";
-import numeral from "numeral";
 import StandardCard from "../common/StandardCard";
+
+import styles from "./styles/styles.module.scss";
 
 const Powerplant = ({ params, unit }) => {
   return (
-    // <section className={cn(global.section)}>
-    //   <SectionHeader title="Powerplant" />
-    //   <main>
-    //     <div className={cn(global.details_table)}>
-    //       <div className={cn(global.column)}>
-    //         <div className={cn(global.rows)}>
-    //           <div className={cn(global.row)}>
-    //             <span className={cn(global.key, global.key_realign)}>
-    //               Engine Make
-    //             </span>
-    //             <span>{params.engine_manufacturer}</span>
-    //           </div>
-    //           <div className={cn(global.row)}>
-    //             <span className={cn(global.key, global.key_realign)}>
-    //               Thrust per Engine{" "}
-    //               {unit === "Imperial Units" ? "(lbs)" : "(KG)"}
-    //             </span>
-    //             <span>
-    //               {unit === "Imperial Units"
-    //                 ? params.thrust_output_lbs === 0
-    //                   ? "-"
-    //                   : numeral(params.thrust_output_lbs).format("0,0")
-    //                 : params.thrust_output_kgs === 0
-    //                 ? "-"
-    //                 : numeral(params.thrust_output_kgs).format("0,0")}
-    //             </span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <span className={cn(global.seperator)}></span>
-    //       <div className={cn(global.column)}>
-    //         <div className={cn(global.rows)}>
-    //           <div className={cn(global.row)}>
-    //             <span className={cn(global.key, global.key_realign)}>
-    //               Engine Model
-    //             </span>
-    //             <span>{params.engine_model}</span>
-    //           </div>
-    //           <div className={cn(global.row)}>
-    //             <span className={cn(global.key, global.key_realign)}>
-    //               Total Thrust Output{" "}
-    //               {unit === "Imperial Units" ? "(lbs)" : "(KG)"}
-    //             </span>
-    //             <span>
-    //               {unit === "Imperial Units"
-    //                 ? params.total_thrust_lbs === 0
-    //                   ? "-"
-    //                   : numeral(params.total_thrust_lbs).format("0,0")
-    //                 : params.total_thrust_kgs === 0
-    //                 ? "-"
-    //                 : numeral(params.total_thrust_kgs).format("0,0")}
-    //             </span>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
+    <StandardCard
+      className={`mb-[31px] pb-[49px] bg-[#ffffff] ${styles.powerplant_section}`}
+    >
+      <div className={`px-[28px] pt-[33px] ${styles.powerplant}`}>
+        <SectionHeader title="Powerplant" className={styles.heading} />
 
-    //     {/* ----------------- */}
+        <div
+          className={`${styles.upper_details} mt-[30px] flex justify-center max-[1366px]:justify-evenly items-center`}
+        >
+          <div className={`${styles.detail}`}>
+            <div
+              className={`flex justify-between mb-[30px] ${styles.detail_list}`}
+            >
+              <p className={`text-[#000000] mr-[45px] ${styles.left_para}`}>
+                Minimum Pilots
+              </p>
 
-    //     <div className={cn(global.table_container)}>
-    //       <div className={cn(global.details_table)}>
-    //         <div className={cn(global.column)}>
-    //           <span className={cn(global.column_header)}>
-    //             Exterior Noise Levels (dB)
-    //           </span>
-    //           <div className={cn(global.rows)}>
-    //             <div className={cn(global.row)}>
-    //               <span className={cn(global.key)}>Lateral</span>
-    //               <span className={cn(global.key)}>Flyover</span>
-    //               <span className={cn(global.key)}>Approach</span>
-    //             </div>
-    //             <div className={cn(global.rows)}>
-    //               <div className={cn(global.row)}>
-    //                 <span className={cn(global.value)}>
-    //                   {params.lateral_db === 0 ? "-" : params.lateral_db}
-    //                 </span>
-    //                 <span className={cn(global.value)}>
-    //                   {params.flyover_db === 0 ? "-" : params.flyover_db}
-    //                 </span>
-    //                 <span className={cn(global.value)}>
-    //                   {params.approach_db === 0 ? "-" : params.approach_db}
-    //                 </span>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </main>
-    // </section>
+              <p className="text-[#000000]">{params.minimum_pilots}</p>
+            </div>
 
-    <StandardCard className="xl:w-[90%] w-full ml-auto">
-      <div
-        className={`${
-          localStorage.getItem("isSidebarOpen") === "true"
-            ? "p-[1.5rem]"
-            : "p-8"
-        }`}
-      >
-        <p className="text-3xl pl-8 pt-8">Powerplant</p>
-        <div className="flex divide-x-2 mx-14 my-8">
-          <div className="px-20 flex flex-col gap-8 justify-center">
-            <span className="flex gap-20 justify-between">
-              <p>Minimum Pilots</p>
-              <p>{params.minimum_pilots}</p>
-            </span>
-            <span className="flex gap-20 justify-between">
-              <p>Minimum Pilots</p>
-              <p>{params.number_made}</p>
-            </span>
+            <div className="flex justify-between">
+              <p className={`text-[#000000] mr-[45px] ${styles.left_para}`}>
+                Minimum Pilots
+              </p>
+
+              <p className="text-[#000000]">{params.number_made}</p>
+            </div>
           </div>
-          <div className="px-20 flex flex-col gap-8 justify-center">
-            <span className="flex gap-20 justify-between">
-              <p>Minimum Pilots</p>
-              <p>{params.minimum_pilots}</p>
-            </span>
-            <span className="flex gap-20 justify-between">
-              <p>Minimum Pilots</p>
-              <p>{params.number_made}</p>
-            </span>
+
+          {/* -------- */}
+
+          <div className={`justify-center mx-[53px] ${styles.border_div}`}>
+            <span
+              className={`w-[2px] bg-[#DEDEDE] h-[129px] block m-auto ${styles.border}`}
+            ></span>
+          </div>
+
+          {/* ------- */}
+
+          <div className={`${styles.detail} `}>
+            <div className={``}>
+              <div className="">
+                <div
+                  className={`flex justify-between mb-[30px] ${styles.detail_list}`}
+                >
+                  <p className={`text-[#000000] mr-[45px] ${styles.left_para}`}>
+                    Minimum Pilots
+                  </p>
+
+                  <p>{params.minimum_pilots}</p>
+                </div>
+              </div>
+
+              <div className="">
+                <div className="flex justify-between">
+                  <p className={`text-[#000000] mr-[45px] ${styles.left_para}`}>
+                    Minimum Pilots
+                  </p>
+
+                  <p className="text-[#000000]">{params.number_made}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col items-center gap-5">
-          <p className="font-bold">Exterior Noise Levels (dB)</p>
-          <div className="flex gap-20">
-            <span className="flex-col">
-              <p className="font-bold">Lateral</p>
+
+        <div className={`${styles.lower_details} mt-[38px]`}>
+          <p className="text-[#000000] font-bold text-center">
+            Exterior Noise Levels (dB)
+          </p>
+
+          <div
+            className={`flex justify-center mt-[23px] text-center ${styles.bottom_grid}`}
+          >
+            <div className="">
+              <p className="text-[#000000] font-bold">Lateral</p>
+
               <p>{params.lateral_db}</p>
-            </span>
-            <span className="flex-col">
-              <p className="font-bold">Flyover</p>
+            </div>
+
+            <div className={`mx-[78px] ${styles.middle_item}`}>
+              <p className="text-[#000000] font-bold">Flyover</p>
+
               <p>{params.flyover_db}</p>
-            </span>
-            <span className="flex-col">
-              <p className="font-bold">Approach</p>
+            </div>
+
+            <div className="">
+              <p className="text-[#000000] font-bold">Approach</p>
+
               <p>{params.approach_db}</p>
-            </span>
+            </div>
           </div>
         </div>
       </div>

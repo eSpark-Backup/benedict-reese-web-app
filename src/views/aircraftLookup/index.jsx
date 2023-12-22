@@ -378,6 +378,7 @@ const AircraftLookup = () => {
       incidentDescription:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, ",
       rating: "7",
+      rating: "7",
     },
     {
       id: 1,
@@ -457,12 +458,13 @@ const AircraftLookup = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-8 mb-16">
-            <div className="lg:w-3/4 ">
-              <VerticalProgressBars />
-            </div>
-            <div className="lg:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <StandardCard>
+        </div>
+        <div className="flex flex-col xl:flex-row lg:space-x-8 mb-16">
+          <div className="xl:w-3/4 ">
+            <VerticalProgressBars />
+          </div>
+          <div className="xl:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+            <StandardCard>
               <Chart
                 heading={chart1Heading}
                 chartData={chart1Data}
@@ -470,10 +472,10 @@ const AircraftLookup = () => {
                 backgroundColor={chart1BackgroundColor}
                 display={true}
               />
-              </StandardCard>
-            </div>
+            </StandardCard>
           </div>
-          <div>
+        </div>
+        <div>
           <FlightDetails
             flightData={flightRoutes}
             hideFilterButton
@@ -484,21 +486,21 @@ const AircraftLookup = () => {
             filterFields={["origin"]}
           />
         </div>
-          <div className="block md:flex gap-4 my-10">
-            <HistoryCards
-              title="Transaction History"
-              className="w-full xl:w-4/12"
-              tableHeader={transHistoryHeaders}
-              tableData={transHistoryData}
-            />
-            <HistoryCards
-              title="Accident History"
-              className="w-full xl:w-8/12"
-              tableHeader={accidentHeaders}
-              tableData={accidentData}
-            />
-          </div>
-          <div>
+        <div className="block md:flex gap-4 my-10">
+          <HistoryCards
+            title="Transaction History"
+            className="w-full xl:w-4/12"
+            tableHeader={transHistoryHeaders}
+            tableData={transHistoryData}
+          />
+          <HistoryCards
+            title="Accident History"
+            className="w-full xl:w-8/12"
+            tableHeader={accidentHeaders}
+            tableData={accidentData}
+          />
+        </div>
+        <div>
           <FlightDetails
             flightData={flightVisited}
             hideFilterButton
@@ -509,8 +511,6 @@ const AircraftLookup = () => {
             filterFields={["airport"]}
           />
         </div>
-        </div>
-      
     </>
   );
 };

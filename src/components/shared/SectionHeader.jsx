@@ -1,10 +1,9 @@
-import cn from "classnames";
-import global from "../styles/global.module.scss";
-
-const SectionHeader = ({ title }) => {
+const SectionHeader = ({ title, className }) => {
   return (
     <header>
-      <h3 className="text-[#000000] font-[Inter] font-normal text-[32px] leading-normal">
+      <h3
+        className={`text-[#000000] font-normal text-[32px] leading-normal ${className}`}
+      >
         {title}
       </h3>
     </header>

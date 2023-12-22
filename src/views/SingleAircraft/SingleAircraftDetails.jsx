@@ -629,17 +629,23 @@ export default function SingleAircraftDetails({
         /> */}
         <RangeMap params={aircraftData} />
 
-        <div className="grid grid-cols-12 px-10">
-          <div className="xl:col-span-5 col-span-12">
+        <div
+          className={`${styles.parent_three} flex px-10 gap-16 max-[1536px]:gap-8 max-[1366px]:gap-6 max-[1366px]:px-8 max-[1366px]:block max-[990px]:px-4`}
+        >
+          <div className={`w-[45%] ${styles.left_three}`}>
             <Cruise params={aircraftData} />
-            <Features params={aircraftData} />
-            <Interior params={aircraftData} unit={unit} />
+            <div className="max-[1366px]:flex max-[1366px]:justify-between max-[990px]:block">
+              <Features params={aircraftData} />
+              <Interior params={aircraftData} unit={unit} />
+            </div>
           </div>
 
-          <div className="xl:col-span-7 col-span-12 justify-center grid">
-            <Powerplant params={aircraftData} unit={unit} />
-            <Weights params={aircraftData} unit={unit} />
-            <Dimensions params={aircraftData} unit={unit} />
+          <div className={`w-[55%] ${styles.right_three}`}>
+            <div className="flex-col flex">
+              <Powerplant params={aircraftData} unit={unit} />
+              <Weights params={aircraftData} unit={unit} />
+              <Dimensions params={aircraftData} unit={unit} />
+            </div>
           </div>
         </div>
 

@@ -601,8 +601,8 @@ const IndustryOverview = () => {
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
         />
-        <div className="block xl:flex w-full justify-between gap-10">
-          <div className="flex flex-col w-full xl:w-[70%] gap-10">
+        <div className="block 2xl:flex w-full justify-between gap-10">
+          <div className="flex flex-col w-full 2xl:w-[70%] gap-10">
             <LineChart
               heading={"Flight History"}
               data={lineData}

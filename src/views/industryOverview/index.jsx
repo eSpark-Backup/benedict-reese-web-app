@@ -600,6 +600,7 @@ const IndustryOverview = () => {
           image={Map}
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
+          filterFields={['origin' ]}
         />
         <div className="block 2xl:flex w-full justify-between gap-10">
           <div className="flex flex-col w-full 2xl:w-[70%] gap-10">
@@ -620,18 +621,21 @@ const IndustryOverview = () => {
           image={RoutesMap}
           detailsHeading={"Top Routes"}
           tableHeaders={flightRouteHeaders}
+          filterFields={['origin']}
         />
         <FlightDetails
           flightData={topAirports}
           image={AirportMap}
           detailsHeading={"Top Airports"}
           tableHeaders={topAirportsHeaders}
+          filterFields={['airport']}
         />
         <FlightDetails
           flightData={toplocations}
           image={AirportMap}
           detailsHeading={"Top Locations"}
           tableHeaders={toplocationsHeaders}
+          filterFields={['country' ]}
         />
       </div>
     </>

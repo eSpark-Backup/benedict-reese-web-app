@@ -9,6 +9,8 @@ import Axios from "axios";
 import numeral from "numeral";
 import StandardCard from "../../common/StandardCard";
 import Chart from "../../charts/pie";
+import LineChart from "../../charts/line";
+import FlightCost from "../../flightCost";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 const OwnershipCosts = ({ params, currency, country }) => {
@@ -915,6 +917,49 @@ const OwnershipCosts = ({ params, currency, country }) => {
     "#0097C7",
     "#0400B8",
     "#B8B8B8",
+  ];
+
+  const line2Data = {
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+    datasets: [
+      {
+        label: "Number of Flights 1",
+        data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
+        borderColor: "#FF8660",
+        backgroundColor: "#6C60FF",
+      },
+      {
+        label: "Number of Flights 2",
+        data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
+        borderColor: "#6C60FF",
+        backgroundColor: "#CE2A96",
+      },
+      {
+        label: "Number of Flights 3",
+        data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
+        borderColor: "#106CC2", // Change the line color for this dataset
+        backgroundColor: "#106CC2",
+      },
+    ],
+  };
+
+  const line2Years = [
+    { year: "Current Value", bgColor: "#6C60FF" },
+    { year: "Adjusted Value", bgColor: "#CE2A96" },
+    { year: "Future Value", bgColor: "#106CC2" },
   ];
 
   const chart1Heading = ["Fixed Costs"];

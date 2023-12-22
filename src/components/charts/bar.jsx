@@ -30,7 +30,7 @@ const ProgressBar = ({ progress, text, backgroundColor }) => {
 };
 
 const VerticalProgressBars = () => {
-  const months = ["July", "August", "September", "October", "November"];
+  const months = ["January","February","March","April","May","June","July", "August", "September", "October", "November", "December"];
 
   const labels = [
     { label: "Fleet Average Movements", color: "#5DC5C2" },
@@ -71,8 +71,48 @@ const VerticalProgressBars = () => {
       { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
       { progress: 100, text: "200", backgroundColor: "#867DF4" },
     ],
-    // Include data for other months as needed
-    // ...
+    [
+      { progress: 195, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 245, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 90, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 135, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 120, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 220, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 220, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 220, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 220, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
+    [
+      { progress: 170, text: "2,564", backgroundColor: "#5DC5C2" },
+      { progress: 220, text: "3,001", backgroundColor: "#5247C6" },
+      { progress: 70, text: "150", backgroundColor: "#8DE6E6" },
+      { progress: 100, text: "200", backgroundColor: "#867DF4" },
+    ],
   ];
 
   const LabelBox = ({ label, color }) => (
@@ -103,7 +143,7 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard className="w-full mx-auto mb-8 lg:mb-16 relative ">
+    <StandardCard className="w-full mx-auto mb-8 lg:mb-0 relative ">
       <div className={`${styles.barsHeading} absolute top-[50%]`}>
         <h2>Number of Flights</h2>
       </div>
@@ -131,8 +171,8 @@ const VerticalProgressBars = () => {
           Graph Type
         </Button>
       </div>
-      <div className="overflow-x-auto ml-14">
-        <div className="flex items-end justify-center mt-12 lg:mt-20 w-[1300px] h-[600px]">
+      <div className="overflow-x-auto ">
+        <div className="flex items-end justify-center mt-12 lg:mt-20 w-[3035px] h-[600px]">
           {months.map((month, index) => (
             <div key={index} className="text-center mx-16 mb-10 lg:mb-0">
               {progressBarsData[index].map((barData, barIndex) => (

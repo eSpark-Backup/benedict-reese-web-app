@@ -456,49 +456,59 @@ const AircraftLookup = () => {
               />
             </div>
           </div>
-        </div>
-        <div className="flex flex-col lg:flex-row lg:space-x-8">
-          <div className="lg:w-3/4 ">
-            <VerticalProgressBars />
-          </div>
-          <div className="lg:w-1/4">
-            <StandardCard>
-              <Chart
-                heading={chart1Heading}
-                chartData={chart1Data}
-                chartLabels={chart1Labels}
-                backgroundColor={chart1BackgroundColor}
-                display={true}
+          <div className="flex flex-col lg:flex-row lg:space-x-8 mb-16">
+            <div className="lg:w-3/4 ">
+              <VerticalProgressBars />
+            </div>
+            <div className="lg:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+              <StandardCard>
+                <Chart
+                  heading={chart1Heading}
+                  chartData={chart1Data}
+                  chartLabels={chart1Labels}
+                  backgroundColor={chart1BackgroundColor}
+                  display={true}
+                />
+              </StandardCard>
+            </div>
+            <div>
+              <FlightDetails
+                flightData={flightRoutes}
+                hideFilterButton
+                image={RoutesMap}
+                airportCount="20,982"
+                detailsHeading={"Airports"}
+                tableHeaders={flightRoutesHeaders}
+                filterFields={["origin"]}
               />
-            </StandardCard>
+            </div>
+            <div className="block md:flex gap-4 my-10">
+              <HistoryCards
+                title="Transaction History"
+                className="w-full xl:w-4/12"
+                tableHeader={transHistoryHeaders}
+                tableData={transHistoryData}
+              />
+              <HistoryCards
+                title="Accident History"
+                className="w-full xl:w-8/12"
+                tableHeader={accidentHeaders}
+                tableData={accidentData}
+              />
+            </div>
+            <div>
+              <FlightDetails
+                flightData={flightVisited}
+                hideFilterButton
+                image={AirportMap}
+                airportCount="20,982"
+                detailsHeading={"Airports"}
+                tableHeaders={flightVisitedHeaders}
+                filterFields={["airport"]}
+              />
+            </div>
           </div>
         </div>
-        <FlightDetails
-          flightData={flightRoutes}
-          image={RoutesMap}
-          detailsHeading={"Routes"}
-          tableHeaders={flightRoutesHeaders}
-        />
-        <div className="block xl:flex gap-4 my-10">
-          <HistoryCards
-            title="Transaction History"
-            className="w-full 2xl:w-4/12"
-            tableHeader={transHistoryHeaders}
-            tableData={transHistoryData}
-          />
-          <HistoryCards
-            title="Accident History"
-            className="w-full 2xl:w-8/12"
-            tableHeader={accidentHeaders}
-            tableData={accidentData}
-          />
-        </div>
-        <FlightDetails
-          flightData={flightVisited}
-          image={AirportMap}
-          detailsHeading={"Airports Visited"}
-          tableHeaders={flightVisitedHeaders}
-        />
       </div>
     </>
   );

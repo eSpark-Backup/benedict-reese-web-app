@@ -7,9 +7,8 @@ import { FaFilter } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { TbReload } from "react-icons/tb";
 
-const LineChart = ({ showButtons, title, years, data, sideText}) => {
+const LineChart = ({ showButtons, title, years, data, sideText }) => {
   // Data for the line chart
- 
 
   // Options for the line chart
   const options = {
@@ -26,7 +25,6 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
           color: "black",
           font: {
             size: 14,
-            
           },
           align: "center",
           padding: { top: 20, bottom: 20 },
@@ -55,8 +53,6 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
     },
   };
 
-  
-
   return (
     <StandardCard style={{ padding: "40px" }}>
       <div className="block md:flex justify-between md:mb-0 mb-12">
@@ -66,7 +62,7 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
             <Button
               variant="contained"
               sx={{
-                width: "112px",
+                width: "165px",
                 height: "38px",
                 borderRadius: "12px",
                 border: "1px solid #EBECF2",
@@ -79,8 +75,8 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
                 marginRight: "30px",
               }}
             >
-              <FaFilter className={styles.filterButton} />
-              Filter
+              <TbReload className={styles.TbReload} />
+              Past 30 Days
             </Button>
             <Button
               variant="contained"
@@ -104,7 +100,7 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
             <Button
               variant="contained"
               sx={{
-                width: "165px",
+                width: "112px",
                 height: "38px",
                 borderRadius: "12px",
                 border: "1px solid #EBECF2",
@@ -117,8 +113,8 @@ const LineChart = ({ showButtons, title, years, data, sideText}) => {
                 marginRight: "30px",
               }}
             >
-              <TbReload className={styles.filterButton} />
-              Past 30 Days
+              <FaFilter className={styles.filterButton} />
+              Filter
             </Button>
           </div>
         )}

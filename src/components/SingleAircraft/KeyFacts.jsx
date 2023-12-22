@@ -167,8 +167,6 @@ const KeyFacts = ({ params, currency, country, unit }) => {
     { year: 2023, bgColor: "#04BF00" },
   ];
 
- 
-
   return (
     <div className="px-10">
       <div className="px-10 my-10 block lg:flex items-between justify-between gap-4">
@@ -262,6 +260,8 @@ const KeyFacts = ({ params, currency, country, unit }) => {
             data={lineData}
             years={lineYears}
             sideText={"Flight Hours"}
+            showYears
+            showTitle
           />
         </div>
         <div className="lg:col-span-1">
@@ -271,7 +271,7 @@ const KeyFacts = ({ params, currency, country, unit }) => {
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
             ]}
           />
-          
+
           <StandardCard
             style={{
               padding: "30px 20px 30px 20px",

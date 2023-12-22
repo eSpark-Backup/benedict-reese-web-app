@@ -1693,12 +1693,14 @@ const OwnershipCosts = ({ params, currency, country }) => {
         </StandardCard>
       </div>
       <div className="block lg:flex w-full px-10">
-        <div className="flex flex-col w-full lg:w-[60%]" >
-          <LineChart 
+        <div className="flex flex-col w-full lg:w-[60%]">
+          <LineChart
             title={"Acquisition Costs"}
             data={line2Data}
             years={line2Years}
             sideText={"Value (Million $)"}
+            showYears
+            showTitle
           />
         </div>
         <div className="w-full lg:w-[40%] flex flex-col col-span-3 sm:col-span-2 grid grid-cols-1 w-full">

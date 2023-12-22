@@ -606,7 +606,7 @@ const IndustryOverview = () => {
         />
         <div className="block lg:flex w-full justify-between gap-10">
           <div className="flex flex-col w-full lg:w-[70%] gap-10">
-            <LineChart heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
+            <LineChart showYears showTitle heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
             <ActivityByType />
           </div>
           <ChartTriBoxes />

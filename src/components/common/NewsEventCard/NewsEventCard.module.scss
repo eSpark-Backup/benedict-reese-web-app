@@ -10,11 +10,11 @@ p {
 .header {
   display: flex;
   align-items: center;
-justify-content: space-between;
+  justify-content: space-between;
   padding-right: 32px;
   padding-bottom: 5px;
   p {
-    font-size: 32px;
+    font-size: 22px;
     padding: 0;
     margin: 0;
   }
@@ -22,8 +22,9 @@ justify-content: space-between;
     border-radius: 12px;
     border: 1px solid #dcdee0;
     padding: 10px;
-    width: 290px;
+    width: 230px;
     min-width: auto;
+    height: 40px !important;
   }
   ::placeholder {
     color: #b3b5ba;
@@ -50,7 +51,7 @@ justify-content: space-between;
   flex-direction: column;
   gap: 15px;
   margin-bottom: 15px;
-  height: 435px;
+  height: 535px;
   overflow-y: scroll;
   overflow-x: hidden;
   padding-right: 20px;
@@ -65,7 +66,7 @@ justify-content: space-between;
 .result::-webkit-scrollbar-thumb {
   background-color: rgba(217, 217, 217, 0.51);
   border-radius: 12px;
-  height: 284px;
+  // height: 284px;
 }
 
 .resultCard {

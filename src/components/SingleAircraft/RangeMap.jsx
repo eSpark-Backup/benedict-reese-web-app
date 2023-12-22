@@ -82,7 +82,7 @@ const RangeMap = ({ params }) => {
   return (
     <section className="px-10 py-20">
       <main
-        className={`${styles.main_range_map} shadow-[0_28px_56px_-20px_rgba(0,0,0,0.25)] rounded-xl grid grid-cols-12 h-[605px]`}
+        className={`${styles.main_range_map} shadow-[0_28px_56px_-20px_rgba(0,0,0,0.25)] rounded-xl grid grid-cols-12`}
       >
         <div className="col-span-4 pl-[39px] pt-[33px] pr-[100px]">
           <SectionHeader title="Range Map" />

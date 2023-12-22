@@ -1,78 +1,56 @@
-import cn from "classnames";
-import global from "../styles/global.module.scss";
-import SectionHeader from "../shared/SectionHeader";
 import numeral from "numeral";
+
+import SectionHeader from "../shared/SectionHeader";
 import StandardCard from "../common/StandardCard";
+
+import styles from "./styles/styles.module.scss";
 
 const Interior = ({ params, unit }) => {
   return (
-    <section className="mt-[53px] block">
+    <section
+      className={`mb-[53px] block max-[1366px]:w-[49%] ${styles.interior_section}`}
+    >
       <StandardCard
-        className={`w-full ${
-          localStorage.getItem("isSidebarOpen") === "true"
-            ? "px-[16px]"
-            : "px-[22px]"
-        } py-[26px]`}
+        className={`w-full pl-[22px] pr-[30px] py-[26px] bg-[#ffffff] ${styles.interior_card}`}
       >
-        <div className="mb-[9px]">
-          <SectionHeader title="Interior" />
+        <div className={`mb-[9px] ${styles.header}`}>
+          <SectionHeader title="Interior" className={styles.heading} />
         </div>
 
         <main>
-          <div
-            className={`grid grid-cols-12 ${
-              localStorage.getItem("isSidebarOpen") === "true"
-                ? "pl-[14px] pr-[6px]"
-                : "pl-[55px] pr-[15px]"
-            }`}
-          >
-            <div className="col-span-5 mt-[18px] pr-[53px]">
-              <div className={cn(global.rows)}>
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
-                    Maximum Passengers
-                  </span>
-                  <span>
+          <div className={`flex pl-[37px] ${styles.details}`}>
+            <div className={`mt-[18px] ${styles.left_div}`}>
+              <div className={`mr-[53px] ${styles.left_item}`}>
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000]`}>Maximum Passengers</span>
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {params.max_pax === 0
                       ? "-"
                       : numeral(params.max_pax).format("0,0")}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
-                    Typical Passengers
-                  </span>
-                  <span>
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] `}>Typical Passengers</span>
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {params.typical_pax === 0
                       ? "-"
                       : numeral(params.typical_pax).format("0,0")}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] `}>
                     Number of Living Zones
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {params.living_zones === 0
                       ? "-"
                       : numeral(params.living_zones).format("0,0")}
@@ -80,16 +58,9 @@ const Interior = ({ params, unit }) => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
-                    Cabin Noise (dB)
-                  </span>
-                  <span>
+                  <span className={`text-[#000000] `}>Cabin Noise (dB)</span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {params.cabin_noise === 0
                       ? "-"
                       : numeral(params.cabin_noise).format("0,0")}
@@ -99,32 +70,25 @@ const Interior = ({ params, unit }) => {
             </div>
             {/* -------- */}
 
-            <div className="col-span-1 justify-center">
-              <span className="w-[2px] bg-[#DEDEDE] h-[226px] m-auto block"></span>
+            <div className={`justify-center mr-[30px] ${styles.border_div}`}>
+              <span
+                className={`w-[2px] bg-[#DEDEDE] h-[226px] m-auto block ${styles.border}`}
+              ></span>
             </div>
 
             {/* --------- */}
 
-            <div
-              className={`col-span-6 mt-[18px] ${
-                localStorage.getItem("isSidebarOpen") === "true"
-                  ? "pl-[0px]"
-                  : "pl-[15px]"
-              }`}
-            >
-              <div className={cn(global.rows)}>
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+            <div className={`mt-[18px] ${styles.right_div} flex-1`}>
+              <div className={""}>
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] `}>
                     Max Cabin Altitude{" "}
                     {unit === "Imperial Units" ? "(Feet)" : "(Meters)"}
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {unit === "Imperial Units"
                       ? params.cabin_altitude === 0
                         ? "-"
@@ -137,18 +101,15 @@ const Interior = ({ params, unit }) => {
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] `}>
                     Sea Level Cabin{" "}
                     {unit === "Imperial Units" ? "(Feet)" : "(Meters)"}
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {unit === "Imperial Units"
                       ? params.sea_level_cabin === 0
                         ? "-"
@@ -159,18 +120,15 @@ const Interior = ({ params, unit }) => {
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between mb-[34px]">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                <div
+                  className={`flex items-center justify-between mb-[34px] ${styles.detail_item}`}
+                >
+                  <span className={`text-[#000000] `}>
                     Pressure Differential{" "}
                     {unit === "Imperial Units" ? "(PSI)" : "(kPa)"}
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {unit === "Imperial Units"
                       ? params.pressure_differential_psi === 0
                         ? "-"
@@ -184,19 +142,14 @@ const Interior = ({ params, unit }) => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span
-                    className={cn(
-                      global.key,
-                      global.key_realign,
-                      "text-[#000000]"
-                    )}
-                  >
+                  <span className={`text-[#000000] `}>
                     Cabin Volume{" "}
                     {unit === "Imperial Units"
                       ? "(Cubic Feet)"
                       : "(Cubic Meters)"}
                   </span>
-                  <span>
+
+                  <span className={`text-[#000000] ${styles.right_span}`}>
                     {unit === "Imperial Units"
                       ? params.cabin_volume_CF === 0
                         ? "-"

@@ -54,7 +54,7 @@ const LineChart = ({ showButtons, title, years, data, sideText }) => {
   };
 
   return (
-    <StandardCard style={{ padding: "40px" }}>
+    <StandardCard className={"h-full"} style={{ padding: "40px" }}>
       <div className="block md:flex justify-between md:mb-0 mb-12">
         <h2 className={`${styles.lineHeading} md:mb-[50px]`}>{title}</h2>
         {showButtons && (

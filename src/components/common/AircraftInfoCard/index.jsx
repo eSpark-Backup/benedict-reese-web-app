@@ -32,7 +32,7 @@ const AircraftInfoCard = ({
   } = activityThisYear;
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32">
+    <section className="grid grid-cols-1 xl:grid-cols-3 xl:gap-15 gap-3 mt-32">
       <StandardCard>
         <div className="flex justify-between py-5 px-5">
           <p className="text-lg 2xl:text-xl ">Aircraft Type</p>
@@ -65,7 +65,7 @@ const AircraftInfoCard = ({
             <ProgressBar data={totalFlightsHours30} />
             <ProgressBar data={averageMissionLength30} />
           </div>
-          <div className="flex hidden 2xl:flex justify-end items-center right-0 absolute w-40 top-[110px]">
+          <div className="flex hidden max-[1800px]:text-red-800 min-[1800px]:flex justify-end items-center right-0 absolute w-40 top-[110px]">
             <div className="flex flex-col gap-2 px-2">
               <div
                 style={{
@@ -107,7 +107,7 @@ const AircraftInfoCard = ({
             <ProgressBar data={totalFlightsHours} />
             <ProgressBar data={averageMissionLength} />
           </div>
-          <div className="flex  2xl:hidden justify-end items-center ">
+          <div className="flex  min-[1800px]:hidden justify-end items-center ">
             <div className="flex flex-col gap-2 px-2">
               <div
                 style={{

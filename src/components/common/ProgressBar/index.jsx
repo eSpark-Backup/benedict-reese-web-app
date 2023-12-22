@@ -14,7 +14,7 @@ const ProgressBar = ({ data: { value, color, width, height } }) => {
         justifyContent: "flex-end",
       }}
     >
-      <p className="text-white text-sm xl:text-lg pr-1 xl:pr-2 xl:font-bold ">
+      <p className="text-white text-sm xl:text-md pr-1 xl:pr-2 xl:font-bold ">
         {value}
       </p>
     </div>

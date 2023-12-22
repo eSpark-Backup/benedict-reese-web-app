@@ -164,8 +164,8 @@ const FlightDetails = ({
               <TableCell colSpan={tableHeaders.length}>
                 <Accordion>
                   <LineChart
-                    chartWidth="665px"
-                    chartHeight="260px"
+                    chartWidth="530px"
+                    chartHeight="230px"
                     data={lineData}
                   />
                 </Accordion>

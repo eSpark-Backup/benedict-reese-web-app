@@ -545,9 +545,7 @@ const IndustryOverview = () => {
       <div
         className={`${styles.industryOverviewSection} mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8`}
       >
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3 mt-32`}
-        >
+        <div className={`grid grid-cols-1 lg:grid-cols-3 xl:gap-15 gap-3`}>
           {data.map((item, index) => (
             <BasicCard item={item} key={index} />
           ))}

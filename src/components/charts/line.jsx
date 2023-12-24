@@ -17,6 +17,10 @@ const LineChart = ({
   chartWidth,
   chartHeight,
   showTitle,
+  graphText,
+  showButton1,
+  showButton2,
+  showButton3,
 }) => {
   // Data for the line chart
 
@@ -69,8 +73,8 @@ const LineChart = ({
         {showTitle && (
           <h2 className={`${styles.lineHeading} md:mb-[50px]`}>{title}</h2>
         )}
-        {showButtons && (
-          <div className="block md:flex justify-between">
+        <div className="block md:flex justify-between">
+          {showButton1 && (
             <Button
               variant="contained"
               sx={{
@@ -90,10 +94,12 @@ const LineChart = ({
               <TbReload className={styles.TbReload} />
               Past 30 Days
             </Button>
+          )}
+          {showButton2 && (
             <Button
               variant="contained"
               sx={{
-                width: "165px",
+                width: "215px",
                 height: "38px",
                 borderRadius: "12px",
                 border: "1px solid #EBECF2",
@@ -107,8 +113,10 @@ const LineChart = ({
               }}
             >
               <BsGraphUpArrow className={styles.filterButton} />
-              Graph Type
+              {graphText}
             </Button>
+          )}
+          {showButton3 && (
             <Button
               variant="contained"
               sx={{
@@ -128,8 +136,8 @@ const LineChart = ({
               <FaFilter className={styles.filterButton} />
               Filter
             </Button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div style={{ width: chartWidth, height: chartHeight }}>
         <Line data={data} options={options} />

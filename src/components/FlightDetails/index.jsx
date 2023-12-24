@@ -22,6 +22,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import LineChart from "../charts/line";
+import { LuArrowLeftRight } from "react-icons/lu";
 
 const FlightDetails = ({
   flightData,
@@ -31,6 +32,8 @@ const FlightDetails = ({
   hideFilterButton,
   airportCount,
   filterFields,
+  hideArrowRightLeftButton,
+  buttonText,
 }) => {
   const [flights, setFlights] = useState([]);
   const [filteredFlights, setFilteredFlights] = useState([]);
@@ -137,7 +140,7 @@ const FlightDetails = ({
     return filteredFlights.map((flight, index) => {
       const isRowExpanded = expandedRow === index;
       const viewText = isRowExpanded ? "Hide" : "View";
-  
+
       return (
         <React.Fragment key={flight.id}>
           <TableRow>
@@ -152,15 +155,33 @@ const FlightDetails = ({
                     {viewText}
                   </span>
                 ) : (
-                  <span className="text-center flex justify-center">
-                    {flight[header.key]}
-                  </span>
+                  <div className="text-center flex justify-center">
+                    {header.key === "change" ? (
+                      <div
+                        className={
+                          parseFloat(flight[header.key]) < 10
+                            ? styles.lessThanTen
+                            : styles.greaterThanTen
+                        }
+                      >
+                        <span>{flight[header.key]}</span>
+                        {parseFloat(flight[header.key]) > 0 &&
+                        parseFloat(flight[header.key]) < 10 ? (
+                          <MdOutlineArrowOutward className={styles.logo} />
+                        ) : (
+                          <MdOutlineArrowOutward className={styles.logo} />
+                        )}
+                      </div>
+                    ) : (
+                      flight[header.key] // Render content for other header keys
+                    )}
+                  </div>
                 )}
               </TableCell>
             ))}
           </TableRow>
           {isRowExpanded && (
-            <TableRow >
+            <TableRow>
               <TableCell colSpan={tableHeaders.length}>
                 <Accordion>
                   <LineChart
@@ -176,7 +197,6 @@ const FlightDetails = ({
       );
     });
   };
-  
 
   return (
     <div className={`${styles.flightSection} block md:flex md:h-[671px]`}>
@@ -186,6 +206,37 @@ const FlightDetails = ({
       >
         <div className={styles.flightCardHead}>
           <h2>{detailsHeading}</h2>
+         
+
+          <div className="flex">
+            {!hideArrowRightLeftButton && (
+              <Button
+                variant="contained"
+                onClick={handleOpenModal}
+                sx={{
+                  width: "122px",
+                  height: "43px",
+                  borderRadius: "12px",
+                  border: "1px solid #EBECF2",
+                  background: "#FFF",
+                  boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+                  color: "#000",
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  marginTop: "25px",
+                  marginRight: "30px",
+                }}
+              >
+                <LuArrowLeftRight className={styles.arrowButton} />
+                {buttonText}
+              </Button>
+            )}
+            {airportCount && (
+              <span className="text-[#8000FF] mr-7 mt-8">
+                {airportCount} Airports
+              </span>
+            )}
+          </div>
           {!hideFilterButton && (
             <Button
               variant="contained"
@@ -200,7 +251,7 @@ const FlightDetails = ({
                 color: "#000",
                 fontSize: "15px",
                 fontWeight: "500",
-                marginTop: "35px",
+                marginTop: "25px",
                 marginRight: "30px",
               }}
             >
@@ -208,16 +259,12 @@ const FlightDetails = ({
               Filter
             </Button>
           )}
-          {airportCount && (
-            <span className="text-[#8000FF] mr-7 mt-7">
-              {airportCount} Airports
-            </span>
-          )}
         </div>
+        
         <TableContainer
           component={Paper}
           sx={{
-            boxShadow: "none",
+            boxShadow: "none !important",
             overflowY: "scroll",
             maxHeight: "530px",
           }}

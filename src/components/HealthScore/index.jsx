@@ -26,7 +26,7 @@ const healthData = [
   },
 ];
 
-export const HealthScore = () => {
+export const HealthScore = ({showButton}) => {
   return (
     <>
       <StandardCard
@@ -42,10 +42,12 @@ export const HealthScore = () => {
             <h1>Health Score</h1>
             <button> AI Beta </button>
           </div>
+          {!showButton && (
           <button className={styles.iconButton}>
             <LuArrowLeftRight className={styles.rightLeft} />{" "}
             <span className={styles.rightLeftText}>Ask</span>
           </button>
+          )}
         </div>
         <div
           style={{

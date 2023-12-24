@@ -683,6 +683,7 @@ export default function SingleAircraftDetails({
             detailsHeading={"Airports"}
             tableHeaders={flightVisitedHeaders}
             filterFields={["country"]}
+            hideArrowRightLeftButton
           />
         </div>
 

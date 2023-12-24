@@ -14,6 +14,7 @@ import StandardCard from "../common/StandardCard";
 import flightPending from "../../images/arrowPending.svg";
 import NewModal from "../common/NewModal";
 import { BiSolidCheckboxChecked } from "react-icons/bi";
+import { Insights } from "../Insights";
 
 const ChartTriBoxes = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,7 +33,7 @@ const ChartTriBoxes = () => {
   ];
   const companyStockHeaders = [
     { label: "COMPANY", key: "company" },
-    { label: "VALUE.", key: "value" },
+    { label: "VALUE", key: "value" },
     { label: "CHANGE", key: "change" },
   ];
 
@@ -285,50 +286,22 @@ const ChartTriBoxes = () => {
   };
 
   return (
-    <div className="w-full 2xl:w-[30%] flex flex-col items-center">
-      <StandardCard className="px-8 py-11 w-full ">
-        <div className="flex justify-between mb-10">
-          <h2 className="text-2xl font-semibold">Insights</h2>
-          <Button
-            variant="contained"
-            sx={{
-              height: "38px",
-              borderRadius: "12px",
-              border: "1px solid #EBECF2",
-              background: "#FFF",
-              boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-              color: "#000",
-              fontSize: "15px",
-              fontWeight: "500",
-            }}
-          >
-            <FaFilter color="grey" fill="grey" className="mr-1" />
-            Regenerate
-          </Button>
-        </div>
-        <div>
-          <StandardCard className="border py-5 px-2 rounded-lg">
-            What has happened of note within the private aviation industry
-            within the past 7 days? Tell me about any relevant news, what the
-            flight activity has been like, and what your predictions are for the
-            future of the industry.
-          </StandardCard>
-          <p className="py-5 px-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris
-            condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis
-            mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et
-            est nec, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim.
-            Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel
-            mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat,
-            tincidunt et est nec,{" "}
-          </p>
-        </div>
+    <div className="w-full flex flex-col items-center">
+      <StandardCard className="px-8 py-11 w-full mb-11 ">
+      <Insights
+          mainParagraph="What has happened of note within the private aviation industry
+                within the past 7 days? Tell me about any relevant news, what the
+                flight activity has been like, and what your predictions are for the
+                future of the industry."
+          secondaryParagraphs={[
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec,",
+          ]}
+        />
       </StandardCard>
-      <StandardCard className="px-8 py-11 w-full">
+      
+      <StandardCard className="px-8 py-11 w-full mb-11">
         <div className="flex justify-between mb-10">
-          <h2 className="text-2xl font-semibold">Recent Transactions</h2>
+          <h2 className="text-3xl font-normal">Recent Transactions</h2>
           <Button
             variant="contained"
             sx={{
@@ -350,9 +323,11 @@ const ChartTriBoxes = () => {
         <TableContainer
           component={Paper}
           sx={{
-            boxShadow: "none",
+            boxShadow: "none !important",
             overflowY: "auto",
-            maxHeight: "430px",
+            maxHeight: "335px",
+            border: "none",
+            padding: "12px",
           }}
         >
           <Table>
@@ -458,9 +433,9 @@ const ChartTriBoxes = () => {
           </div>
         </div>
       </NewModal>
-      <StandardCard className="px-8 py-11 w-full">
-        <div className="flex justify-between mb-10">
-          <h2 className="text-2xl font-semibold">Company Stock</h2>
+      <StandardCard className="px-8 pt-11 w-full">
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-normal">Company Stock</h2>
         </div>
         <TableContainer
           component={Paper}
@@ -468,9 +443,10 @@ const ChartTriBoxes = () => {
             boxShadow: "none",
             width: "100%",
             overflowY: "auto",
-            maxHeight: "430px",
+            maxHeight: "390px",
             display: "flex",
             justifyContent: "center",
+            border: "none",
           }}
         >
           <Table className="flex justify-center">
@@ -480,7 +456,7 @@ const ChartTriBoxes = () => {
                   <TableCell
                     key={index}
                     sx={{
-                      fontSize: "12px",
+                      fontSize: "16px",
                       color: "#B6B8BD",
                       fontWeight: "700",
                       border: "none",
@@ -493,7 +469,11 @@ const ChartTriBoxes = () => {
               </TableRow>
             </TableHead>
             <TableBody
-              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center" }}
+              sx={{
+                borderBottom: "1px solid #F3F5F9",
+                textAlign: "center",
+                fontSize: "16px",
+              }}
             >
               {companyStockRows()}
             </TableBody>

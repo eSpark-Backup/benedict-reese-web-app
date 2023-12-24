@@ -978,7 +978,7 @@ const OwnershipCosts = ({ params, currency, country }) => {
             zIndex: "1",
           }}
         >
-          <div className="flex px-20 pt-20">
+          <div className="flex px-12 pt-20">
             <div className={styles.row}>
               <div className={styles.table}>
                 <h3>Year of Manufacture</h3>

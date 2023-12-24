@@ -5,7 +5,7 @@ import { FaFilter } from "react-icons/fa";
 
 export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
   return (
-    <StandardCard className="p-5 w-full ">
+    <div className="w-full ">
       <div className="flex justify-between mb-10">
         <div className="flex">
           <h2 className="text-2xl font-semibold flex">AI Insights</h2>
@@ -53,6 +53,6 @@ export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
           </p>
         ))}
       </div>
-    </StandardCard>
+    </div>
   );
 };

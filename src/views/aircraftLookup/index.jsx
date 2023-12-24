@@ -429,7 +429,7 @@ const AircraftLookup = () => {
   return (
     <>
       <div className={styles.container}>
-      <header className="flex flex-col items-center justify-center mb-24 xl:mb-12">
+        <header className="flex flex-col items-center justify-center mb-24 xl:mb-10">
           <h1 className="font-semibold xl:font-bold text-2xl xl:text-4xl text-center">
             Enter registration number of <br />
             aircraft
@@ -441,12 +441,12 @@ const AircraftLookup = () => {
           />
         </header>
         <AircraftInfoCard data={data} />
-        <div style={{ marginBottom: "50px" }}>
-          <div className="md:grid grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8 ">
-            <div className="lg:col-span-1 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
-              <HealthScore />
+      
+          <div className="flex flex-col xl:flex-row lg:space-x-8 mb-16 mt-16">
+            <div className="flex w-full lg:w-[50%]">
+              <HealthScore showButton />
             </div>
-            <div className="lg:col-span-1">
+            <StandardCard className="px-8 py-11 lg:w-[50%] ">
               <Insights
                 mainParagraph="What are some anomalies with the flight activity of this aircraft? Is it a good investment? Should I be concerned about anything I see about it?"
                 secondaryParagraphs={[
@@ -454,15 +454,14 @@ const AircraftLookup = () => {
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",
                 ]}
               />
-              </div>
-            </div>
-          </div>
+            </StandardCard>
+          
         </div>
         <div className="flex flex-col xl:flex-row lg:space-x-8 mb-16">
-          <div className="xl:w-3/4 ">
+          <div className="lg:w-[70%] ">
             <VerticalProgressBars />
           </div>
-          <div className="xl:w-1/4 col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
+          <div className="lg:w-[30%] col-span-3 sm:col-span-2 grid grid-cols-1 w-full">
             <StandardCard>
               <Chart
                 heading={chart1Heading}
@@ -480,9 +479,10 @@ const AircraftLookup = () => {
             hideFilterButton
             image={RoutesMap}
             airportCount="20,982"
-            detailsHeading={"Airports"}
+            detailsHeading={"Routes"}
             tableHeaders={flightRoutesHeaders}
             filterFields={["origin"]}
+            buttonText={"Recent"}
           />
         </div>
         <div className="block md:flex gap-4 my-10">
@@ -505,11 +505,13 @@ const AircraftLookup = () => {
             hideFilterButton
             image={AirportMap}
             airportCount="20,982"
-            detailsHeading={"Airports"}
+            detailsHeading={"Airports Visited"}
             tableHeaders={flightVisitedHeaders}
             filterFields={["airport"]}
+            hideArrowRightLeftButton
           />
         </div>
+      </div>
     </>
   );
 };

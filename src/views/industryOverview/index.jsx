@@ -551,7 +551,7 @@ const IndustryOverview = () => {
           ))}
         </div>
 
-        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-10">
           <StandardCard>
             <Chart
               heading={chart1Heading}
@@ -573,7 +573,7 @@ const IndustryOverview = () => {
           </div>
         </div>
 
-        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className=" flex flex-col md:block md:grid md:grid-cols-2 xl:grid-cols-4 gap-10">
           <StandardCard>
             <Chart
               heading={chart3Heading}
@@ -601,13 +601,16 @@ const IndustryOverview = () => {
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
           filterFields={['origin' ]}
+          hideArrowRightLeftButton
         />
         <div className="block lg:flex w-full justify-between gap-10">
-          <div className="flex flex-col w-full lg:w-[70%] gap-10">
-            <LineChart showYears showTitle heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
+          <div className="flex flex-col w-full lg:w-[65%] gap-10">
+            <LineChart showButton1 showButton2 showButton3 graphText={"Graph Type"}  chartWidth="940px" showYears showTitle heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
             <ActivityByType />
           </div>
+          <div className="lg:w-[35%]">
           <ChartTriBoxes />
+          </div>
         </div>
         <FlightDetails
           flightData={flightRoute}
@@ -615,6 +618,7 @@ const IndustryOverview = () => {
           detailsHeading={"Top Routes"}
           tableHeaders={flightRouteHeaders}
           filterFields={['origin']}
+          hideArrowRightLeftButton
         />
         <FlightDetails
           flightData={topAirports}
@@ -622,6 +626,7 @@ const IndustryOverview = () => {
           detailsHeading={"Top Airports"}
           tableHeaders={topAirportsHeaders}
           filterFields={['airport']}
+          hideArrowRightLeftButton
         />
         <FlightDetails
           flightData={toplocations}
@@ -629,6 +634,8 @@ const IndustryOverview = () => {
           detailsHeading={"Top Locations"}
           tableHeaders={toplocationsHeaders}
           filterFields={['country' ]}
+          hideFilterButton
+          buttonText={"Country"}
         />
       </div>
     </>

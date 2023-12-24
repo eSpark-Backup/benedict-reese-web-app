@@ -171,8 +171,8 @@ const VerticalProgressBars = () => {
           Graph Type
         </Button>
       </div>
-      <div className="overflow-x-auto ">
-        <div className="flex items-end justify-center mt-12 lg:mt-20 w-[3035px] h-[600px]">
+      <div className="overflow-x-auto">
+        <div className="flex items-end justify-center mt-12 lg:mt-20 w-[3035px] h-[480px]">
           {months.map((month, index) => (
             <div key={index} className="text-center mx-16 mb-10 lg:mb-0">
               {progressBarsData[index].map((barData, barIndex) => (

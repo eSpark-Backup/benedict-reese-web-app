@@ -69,7 +69,7 @@ const Chart = ({
   const rows = Math.ceil(chartLabels.length / columns); // Calculate rows needed
 
   return (
-    <div style={{ padding: "20px", width: "100%" }}>
+    <div style={{width: "100%" }}>
       <h2 className={styles.pieHeading}>{heading}</h2>
       <p className={styles.pieCost}>{cost}</p>
       <div

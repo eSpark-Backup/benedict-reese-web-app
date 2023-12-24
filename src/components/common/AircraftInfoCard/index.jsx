@@ -32,7 +32,7 @@ const AircraftInfoCard = ({
   } = activityThisYear;
 
   return (
-    <section className="grid grid-cols-1 xl:grid-cols-3 xl:gap-15 gap-3 mt-32">
+    <section className="grid grid-cols-1 xl:grid-cols-3 xl:gap-15 gap-3 mt-16">
       <StandardCard>
         <div className="flex justify-between py-5 px-5">
           <p className="text-lg 2xl:text-xl ">Aircraft Type</p>

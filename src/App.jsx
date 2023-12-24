@@ -118,8 +118,9 @@ function App() {
               );
             })}
           </Routes>
+          <Footer />
         </Main>
-        <Footer />
+       
       </BrowserRouter>
     </>
   );

@@ -3,12 +3,12 @@ import StandardCard from "../common/StandardCard";
 import { Button } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 
-export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
+export const Insights = ({ mainParagraph, secondaryParagraphs, heading  }) => {
   return (
     <div className="w-full ">
       <div className="flex justify-between mb-10">
         <div className="flex">
-          <h2 className="text-2xl font-semibold flex">AI Insights</h2>
+          <h2 className="text-3xl font-normal flex">{heading}</h2>
           <Button
             sx={{
               width: "83px",
@@ -20,6 +20,7 @@ export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
               color: "#1800ad",
               marginLeft: "20px",
               textTransform: "none",
+              marginTop:"6px"
             }}
           >
             Beta
@@ -37,6 +38,9 @@ export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
             fontSize: "15px",
             fontWeight: "500",
             textTransform: "none",
+            '&:hover': {
+              backgroundColor: '#28ACE2', 
+            },
           }}
         >
           <FaFilter color="grey" fill="grey" className="mr-1" />
@@ -44,11 +48,11 @@ export const Insights = ({ mainParagraph, secondaryParagraphs }) => {
         </Button>
       </div>
       <div>
-        <StandardCard className="border py-5 px-2 rounded-lg">
+        <StandardCard className="text-black text-base font-normal border py-5 px-2 rounded-lg">
           {mainParagraph}
         </StandardCard>
         {secondaryParagraphs.map((paragraph, index) => (
-          <p key={index} className="py-5 px-2">
+          <p key={index} className="text-black text-base font-normal py-5 px-2">
             {paragraph}
           </p>
         ))}

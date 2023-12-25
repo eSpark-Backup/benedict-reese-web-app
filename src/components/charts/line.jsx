@@ -89,6 +89,9 @@ const LineChart = ({
                 fontWeight: "500",
                 marginTop: "35px",
                 marginRight: "30px",
+                "&:hover": {
+                  backgroundColor: "#28ACE2",
+                },
               }}
             >
               <TbReload className={styles.TbReload} />
@@ -110,6 +113,9 @@ const LineChart = ({
                 fontWeight: "500",
                 marginTop: "35px",
                 marginRight: "30px",
+                "&:hover": {
+                  backgroundColor: "#28ACE2",
+                },
               }}
             >
               <BsGraphUpArrow className={styles.filterButton} />
@@ -131,6 +137,9 @@ const LineChart = ({
                 fontWeight: "500",
                 marginTop: "35px",
                 marginRight: "30px",
+                "&:hover": {
+                  backgroundColor: "#28ACE2",
+                },
               }}
             >
               <FaFilter className={styles.filterButton} />

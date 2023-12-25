@@ -66,6 +66,9 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
 }
 
 .greaterThanTen {
@@ -76,11 +79,11 @@
   background: #befdb8;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .greaterThanTen .logo {
   fill: #00811c;
-  margin-top: 7px;
   margin-left: 3px;
 }
 
@@ -92,11 +95,23 @@
   background: #ffb1b1;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .lessThanTen .logo {
   fill: #aa0101;
-  margin-top: 7px;
   margin-left: 3px;
   transform: rotate(90deg);
+}
+
+.lessThanText {
+  color: #aa0101;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.greaterThanText {
+  color: #00811c;
+  font-size: 16px;
+  font-style: normal;
 }

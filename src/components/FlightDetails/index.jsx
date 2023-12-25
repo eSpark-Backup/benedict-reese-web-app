@@ -164,7 +164,10 @@ const FlightDetails = ({
                             : styles.greaterThanTen
                         }
                       >
-                        <span>{flight[header.key]}</span>
+                        <span className={
+                          parseFloat(flight[header.key]) < 10
+                            ? styles.lessThanText
+                            : styles.greaterThanText}>{flight[header.key]}</span>
                         {parseFloat(flight[header.key]) > 0 &&
                         parseFloat(flight[header.key]) < 10 ? (
                           <MdOutlineArrowOutward className={styles.logo} />
@@ -225,6 +228,9 @@ const FlightDetails = ({
                   fontWeight: "500",
                   marginTop: "25px",
                   marginRight: "30px",
+                  '&:hover': {
+                    backgroundColor: '#28ACE2', 
+                  },
                 }}
               >
                 <LuArrowLeftRight className={styles.arrowButton} />
@@ -253,6 +259,9 @@ const FlightDetails = ({
                 fontWeight: "500",
                 marginTop: "25px",
                 marginRight: "30px",
+                '&:hover': {
+                  backgroundColor: '#28ACE2', 
+                },
               }}
             >
               <FaFilter className={styles.filterButton} />
@@ -289,7 +298,7 @@ const FlightDetails = ({
               </TableRow>
             </TableHead>
             <TableBody
-              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center" }}
+              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center", fontSize:"16px,", color:"#000" }}
             >
               {renderTableRows()}
             </TableBody>

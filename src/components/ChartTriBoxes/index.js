@@ -289,6 +289,7 @@ const ChartTriBoxes = () => {
     <div className="w-full flex flex-col items-center">
       <StandardCard className="px-8 py-11 w-full mb-11 ">
       <Insights
+      heading={"Insights"}
           mainParagraph="What has happened of note within the private aviation industry
                 within the past 7 days? Tell me about any relevant news, what the
                 flight activity has been like, and what your predictions are for the
@@ -313,6 +314,9 @@ const ChartTriBoxes = () => {
               color: "#000",
               fontSize: "15px",
               fontWeight: "500",
+              '&:hover': {
+                backgroundColor: '#28ACE2', 
+              },
             }}
             onClick={() => setModalOpen(!modalOpen)}
           >

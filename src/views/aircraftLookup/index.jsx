@@ -74,8 +74,8 @@ const AircraftLookup = () => {
       },
       charterAircraft: "Yes",
       annualEmissions: 3500,
-      marketValue: 21000000,
-      annualOperatingCost: 1200000,
+      marketValue: "$21000000",
+      annualOperatingCost: "$1200000",
     },
     {
       regNo: "M898TS",
@@ -448,6 +448,7 @@ const AircraftLookup = () => {
             </div>
             <StandardCard className="px-8 py-11 lg:w-[50%] ">
               <Insights
+              heading={"AI Insights"}
                 mainParagraph="What are some anomalies with the flight activity of this aircraft? Is it a good investment? Should I be concerned about anything I see about it?"
                 secondaryParagraphs={[
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum bibendum, sodales tortor vel, dignissim enim. Mauris condimentum erat augue, id bibendum elit pretium non. Ut vel mi quis mi tristique rutrum ut eget nibh. Curabitur neque erat, tincidunt et est nec, feugiat sagittis justo. Fusce malesuada, turpis quis bibendum efficitur, risus mi aliquam felis, ac rutrum felis diam ac mi. Integer lobortis sapien turpis, eget faucibus quam elementum dapibus. Mauris laoreet lorem a aliquam mattis. Ut tellus tellus, faucibus id tellus sed, rutrum tempus dolor.",

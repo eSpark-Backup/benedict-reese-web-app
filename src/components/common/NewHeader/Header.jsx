@@ -142,6 +142,7 @@ const NewHeader = ({ sidebarHandler, openSidebar }) => {
         open={openSidebar}
         variant="persistent"
         onClose={() => sidebarHandler()}
+        className={`${styles.drawer}`}
       >
         <div className={styles.sidebar_container}>
           <div>

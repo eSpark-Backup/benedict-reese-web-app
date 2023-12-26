@@ -122,7 +122,18 @@ const FlightDetails = ({
   
       const lineData = {
         labels: [
-          "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
         ],
         datasets: [
           {
@@ -132,6 +143,10 @@ const FlightDetails = ({
             backgroundColor: 'transparent',
             pointStyle: 'line',
             pointRadius: 0,
+            hoverBackgroundColor: "white",
+            pointHoverRadius: 5,
+            pointHoverBorderColor: "#676767",
+            clip: true,
           },
         ],
       };
@@ -159,10 +174,15 @@ const FlightDetails = ({
                             : styles.greaterThanTen
                         }
                       >
-                        <span className={
-                          parseFloat(flight[header.key]) < 10
-                            ? styles.lessThanText
-                            : styles.greaterThanText}>{flight[header.key]}</span>
+                        <span
+                          className={
+                            parseFloat(flight[header.key]) < 10
+                              ? styles.lessThanText
+                              : styles.greaterThanText
+                          }
+                        >
+                          {flight[header.key]}
+                        </span>
                         {parseFloat(flight[header.key]) > 0 &&
                         parseFloat(flight[header.key]) < 10 ? (
                           <MdOutlineArrowOutward className={styles.logo} />
@@ -204,7 +224,6 @@ const FlightDetails = ({
       >
         <div className={styles.flightCardHead}>
           <h2>{detailsHeading}</h2>
-         
 
           <div className="flex">
             {!hideArrowRightLeftButton && (
@@ -264,7 +283,7 @@ const FlightDetails = ({
             </Button>
           )}
         </div>
-        
+
         <TableContainer
           component={Paper}
           sx={{
@@ -293,7 +312,12 @@ const FlightDetails = ({
               </TableRow>
             </TableHead>
             <TableBody
-              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center", fontSize:"16px,", color:"#000" }}
+              sx={{
+                borderBottom: "1px solid #F3F5F9",
+                textAlign: "center",
+                fontSize: "16px,",
+                color: "#000",
+              }}
             >
               {renderTableRows()}
             </TableBody>

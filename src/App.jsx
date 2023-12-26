@@ -120,7 +120,6 @@ function App() {
           </Routes>
           <Footer />
         </Main>
-       
       </BrowserRouter>
     </>
   );

@@ -28,15 +28,16 @@
 
 .healthScoreContainer {
   width: 100%;
-  border-radius: 12px;
   padding: 6px;
-  border: 1px solid #ebecf2;
-  background-color: #fff;
   display: flex;
   padding-left: 15px;
   padding-top: 8px;
   margin-bottom: 10px;
   align-items: center;
+  border-radius: 12px;
+  border: 1px solid #ebecf2;
+  background: #fff;
+  box-shadow: 0px 21px 19.7px -9px rgba(0, 0, 0, 0.05);
 }
 
 .healthScoreContainer .checkBox {

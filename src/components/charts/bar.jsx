@@ -143,7 +143,7 @@ const VerticalProgressBars = () => {
   const secondRowLabels = labels.slice(halfLabelsCount);
 
   return (
-    <StandardCard className="pl-[75px] w-full mx-auto mb-8 lg:mb-0 relative ">
+    <StandardCard className="pb-5 pl-[75px] w-full mx-auto mb-8 lg:mb-0 relative ">
       <div className={`${styles.barsHeading} absolute top-[50%]`}>
         <h2>Number of Flights</h2>
       </div>
@@ -175,7 +175,7 @@ const VerticalProgressBars = () => {
         </Button>
       </div>
       <div className="overflow-x-auto">
-        <div style={{marginLeft:"-20px"}} className="flex items-end justify-center mt-12 lg:mt-20 w-[3035px] h-[480px]">
+        <div style={{marginLeft:"-20px"}} className="flex items-end justify-center mt-12 lg:mt-20 w-[3070px] h-[480px]">
           {months.map((month, index) => (
             <div key={index} className="text-center mx-16 mb-10 lg:mb-0">
               {progressBarsData[index].map((barData, barIndex) => (
@@ -186,7 +186,7 @@ const VerticalProgressBars = () => {
                   backgroundColor={barData.backgroundColor}
                 />
               ))}
-              <div>{month}</div>
+              <div className={styles.barMonth}>{month}</div>
             </div>
           ))}
         </div>

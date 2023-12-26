@@ -1,11 +1,35 @@
-import React, { useState } from "react";
-import { Line } from "react-chartjs-2";
-import StandardCard from "../common/StandardCard";
-import styles from "./Line.module.scss";
+import React, { useEffect, useRef, useState } from "react";
+
 import { Button, ListSubheader, Menu, MenuItem } from "@mui/material";
+
+import StandardCard from "../common/StandardCard";
+
 import { FaFilter } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { TbReload } from "react-icons/tb";
+
+import { Line } from "react-chartjs-2";
+
+import {
+  Chart as Chartjs,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import styles from "./Line.module.scss";
+
+Chartjs.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend
+);
 
 const LineChart = ({
   showButtons,
@@ -23,6 +47,7 @@ const LineChart = ({
   showButton3,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const lineChartRef = useRef(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,8 +83,63 @@ const LineChart = ({
     return footerText;
   };
 
+  const lines = {
+    id: "lines",
+    beforeDatasetsDraw(chart) {
+      const {
+        ctx,
+        tooltip,
+        chartArea: { top, bottom },
+      } = chart;
+
+      if (tooltip?._active[0]) {
+        ctx.beginPath();
+        ctx.strokeStyle = "#676767";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([6, 4]);
+        ctx.moveTo(tooltip?._active[0]?.element?.x, top);
+        ctx.lineTo(tooltip?._active[0]?.element?.x, bottom);
+        ctx.stroke();
+        ctx.restore();
+        ctx.setLineDash([6, 0]);
+      }
+    },
+  };
+
+  const titleTooltip = () => {
+    return "";
+  };
+
+  const labelTooltip = () => {
+    return "";
+  };
+
+  useEffect(() => {
+    const chart = lineChartRef.current;
+
+    if (chart) {
+      Tooltip.positioners.top = (_, eventPosition) => {
+        if (lineChartRef?.current) {
+          const {
+            chartArea: { top },
+            scales: { x },
+          } = lineChartRef?.current;
+
+          return {
+            x: x.getPixelForValue(x.getValueForPixel(eventPosition.x)),
+            y: top,
+          };
+        }
+      };
+    }
+  }, [lineChartRef]);
+
   // Options for the line chart
   const options = {
+    interaction: {
+      intersect: false,
+      mode: "index",
+    },
     scales: {
       y: {
         suggestedMin: 50,
@@ -97,10 +177,23 @@ const LineChart = ({
         display: false, // Hide legend labels
       },
       tooltip: {
-        callbacks: {
-          footer: footer, // Assign the footer callback function
+        position: "top",
+        intersect: false,
+        mode: "index",
+        enabled: true,
+        displayColors: false,
+        yAlign: "bottom",
+        backgroundColor: "#F4F4F6",
+        footerColor: "black",
+        footerFont: {
+          weight: "normal",
+          family: "Poppins",
         },
-        // backgroundColor: "#F4F4F6",
+        callbacks: {
+          footer: footer,
+          title: titleTooltip,
+          label: labelTooltip,
+        },
       },
       // Customizing the chart background to be plain white
       backgroundColor: "white",
@@ -223,7 +316,12 @@ const LineChart = ({
         </div>
       </div>
       <div style={{ width: chartWidth, height: chartHeight }}>
-        <Line data={data} options={options} />
+        <Line
+          data={data}
+          options={options}
+          ref={lineChartRef}
+          plugins={[lines]}
+        />
       </div>
       {showYears && (
         <div className={styles.yearRectangles}>

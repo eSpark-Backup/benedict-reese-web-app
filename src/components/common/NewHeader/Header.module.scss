@@ -32,6 +32,7 @@
     background-color: #3ab18b;
     border-radius: 50%;
   }
+  
 }
 
 .sidebar_container {
@@ -63,4 +64,9 @@
     align-items: center;
     justify-content: center;
   }
+}
+
+.drawer div{
+  margin-top: 0px;
+  border-radius: 0;
 }

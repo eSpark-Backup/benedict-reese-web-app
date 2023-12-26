@@ -114,6 +114,11 @@ const ActivityByType = () => {
       borderColor: lineBg[index],
       data: dataset,
       tension: 0.4,
+      pointRadius: 0,
+      hoverBackgroundColor: "white",
+      pointHoverRadius: 5,
+      pointHoverBorderColor: "#676767",
+      clip: true,
     };
   };
 
@@ -177,25 +182,12 @@ const ActivityByType = () => {
     }
   }, [chartRef]);
 
-  useEffect(() => {
-    window.addEventListener("wheel", function (event) {
-      if (event.deltaX !== 0 || event.deltaY !== 0) {
-        if (event.deltaMode === 0) {
-          console.log("Mouse scrolling");
-        } else {
-          console.log("Touchpad scrolling");
-        }
-      }
-    });
-  }, []);
-
   function scrollWheel(Wheel, chart) {
     if (chart && chart.ctx && chart.ctx.canvas) {
       const { scales } = chart.config.options;
       const { x } = scales;
       const { deltaY, deltaX } = Wheel;
       const labelLength = data.labels.length;
-      console.log(Wheel?.deltaMode);
 
       // Check if the user is not scrolling using a touchpad
       scrollUsingMouse(deltaY, x, labelLength);
@@ -204,6 +196,29 @@ const ActivityByType = () => {
       chart.update();
     }
   }
+
+  const lines = {
+    id: "lines",
+    beforeDatasetsDraw(chart) {
+      const {
+        ctx,
+        tooltip,
+        chartArea: { top, bottom },
+      } = chart;
+
+      if (tooltip?._active[0]) {
+        ctx.beginPath();
+        ctx.strokeStyle = "#676767";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([6, 4]);
+        ctx.moveTo(tooltip?._active[0]?.element?.x, top);
+        ctx.lineTo(tooltip?._active[0]?.element?.x, bottom);
+        ctx.stroke();
+        ctx.restore();
+        ctx.setLineDash([6, 0]);
+      }
+    },
+  };
 
   const lineData = {
     labels: lineLabels,
@@ -217,6 +232,22 @@ const ActivityByType = () => {
           ),
   };
 
+  Tooltip.positioners.top = (_, eventPosition) => {
+    const {
+      chartArea: { top },
+      scales: { x },
+    } = lineChartRef?.current;
+
+    return {
+      x: x.getPixelForValue(x.getValueForPixel(eventPosition.x)),
+      y: top,
+    };
+  };
+
+  const titleTooltip = () => {
+    return "";
+  };
+
   const lineOptions = {
     interaction: {
       intersect: false,
@@ -225,13 +256,20 @@ const ActivityByType = () => {
     plugins: {
       legend: lineLegend,
       tooltip: {
+        position: "top",
+        intersect: false,
+        mode: "index",
         enabled: true,
+        displayColors: false,
+        yAlign: "bottom",
+        backgroundColor: "#F4F4F6",
+        bodyColor: "black",
+        bodyFont: {
+          weight: "normal",
+          family: "Poppins",
+        },
         callbacks: {
-          title: function (context) {
-            return `${context[0].label} ${
-              year[0] === undefined ? "2023" : year[0]
-            }`;
-          },
+          title: titleTooltip,
         },
       },
     },
@@ -362,6 +400,7 @@ const ActivityByType = () => {
                   data={lineData}
                   options={lineOptions}
                   ref={lineChartRef}
+                  plugins={[lines]}
                   className="w-full !h-[calc(100%-48px)]"
                 />
               ) : (

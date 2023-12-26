@@ -122,16 +122,34 @@ const FlightDetails = ({
 
       const lineData = {
         labels: [
-          "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
         ],
         datasets: [
           {
             label: "Number of Flights 1",
             data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
-            borderColor: flight.change ? getLineColor(parseFloat(flight.change)) : "transparent",
-            backgroundColor: 'transparent',
-            pointStyle: 'line',
+            borderColor: flight.change
+              ? getLineColor(parseFloat(flight.change))
+              : "transparent",
+            backgroundColor: "transparent",
+            pointStyle: "line",
+            tension: 0.5,
             pointRadius: 0,
+            hoverBackgroundColor: "white",
+            pointHoverRadius: 5,
+            pointHoverBorderColor: "#676767",
+            clip: true,
           },
         ],
       };
@@ -158,10 +176,15 @@ const FlightDetails = ({
                             : styles.greaterThanTen
                         }
                       >
-                        <span className={
-                          parseFloat(flight[header.key]) < 10
-                            ? styles.lessThanText
-                            : styles.greaterThanText}>{flight[header.key]}</span>
+                        <span
+                          className={
+                            parseFloat(flight[header.key]) < 10
+                              ? styles.lessThanText
+                              : styles.greaterThanText
+                          }
+                        >
+                          {flight[header.key]}
+                        </span>
                         {parseFloat(flight[header.key]) > 0 &&
                         parseFloat(flight[header.key]) < 10 ? (
                           <MdOutlineArrowOutward className={styles.logo} />
@@ -203,7 +226,6 @@ const FlightDetails = ({
       >
         <div className={styles.flightCardHead}>
           <h2>{detailsHeading}</h2>
-         
 
           <div className="flex">
             {!hideArrowRightLeftButton && (
@@ -222,8 +244,8 @@ const FlightDetails = ({
                   fontWeight: "500",
                   marginTop: "25px",
                   marginRight: "30px",
-                  '&:hover': {
-                    backgroundColor: '#28ACE2', 
+                  "&:hover": {
+                    backgroundColor: "#28ACE2",
                   },
                 }}
               >
@@ -253,8 +275,8 @@ const FlightDetails = ({
                 fontWeight: "500",
                 marginTop: "25px",
                 marginRight: "30px",
-                '&:hover': {
-                  backgroundColor: '#28ACE2', 
+                "&:hover": {
+                  backgroundColor: "#28ACE2",
                 },
               }}
             >
@@ -263,7 +285,7 @@ const FlightDetails = ({
             </Button>
           )}
         </div>
-        
+
         <TableContainer
           component={Paper}
           sx={{
@@ -292,7 +314,12 @@ const FlightDetails = ({
               </TableRow>
             </TableHead>
             <TableBody
-              sx={{ borderBottom: "1px solid #F3F5F9", textAlign: "center", fontSize:"16px,", color:"#000" }}
+              sx={{
+                borderBottom: "1px solid #F3F5F9",
+                textAlign: "center",
+                fontSize: "16px,",
+                color: "#000",
+              }}
             >
               {renderTableRows()}
             </TableBody>

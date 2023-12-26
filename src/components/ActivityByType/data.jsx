@@ -178,6 +178,7 @@ export const lineScales = {
     },
   },
   y: {
+    grace: 1,
     title: {
       display: true,
       text: "Number of Flights",

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import StandardCard from "../common/StandardCard";
 import styles from "./Line.module.scss";
-import { Button } from "@mui/material";
+import { Button, Menu, MenuItem } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { TbReload } from "react-icons/tb";
@@ -22,7 +22,41 @@ const LineChart = ({
   showButton2,
   showButton3,
 }) => {
-  // Data for the line chart
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (value) => {
+    // Handle actions upon selecting a dropdown menu item
+    console.log("Selected:", value);
+    handleClose();
+  };
+
+  const footer = (tooltipItems) => {
+    if (!tooltipItems || tooltipItems.length === 0) {
+      return "";
+    }
+
+    const monthIndex = tooltipItems[0].dataIndex;
+    let footerText = "";
+
+    if (data.datasets) {
+      footerText = years
+        .map((year, index) => {
+          const value = data.datasets[index].data[monthIndex];
+          return `${year.year}: ${value}`;
+        })
+        .join("\n");
+    }
+
+    return footerText;
+  };
 
   // Options for the line chart
   const options = {
@@ -62,6 +96,12 @@ const LineChart = ({
       legend: {
         display: false, // Hide legend labels
       },
+      tooltip: {
+        callbacks: {
+          footer: footer, // Assign the footer callback function
+        },
+        // backgroundColor: "#F4F4F6",
+      },
       // Customizing the chart background to be plain white
       backgroundColor: "white",
     },
@@ -99,28 +139,47 @@ const LineChart = ({
             </Button>
           )}
           {showButton2 && (
-            <Button
-              variant="contained"
-              sx={{
-                width: "215px",
-                height: "38px",
-                borderRadius: "12px",
-                border: "1px solid #EBECF2",
-                background: "#FFF",
-                boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
-                color: "#000",
-                fontSize: "15px",
-                fontWeight: "500",
-                marginTop: "35px",
-                marginRight: "30px",
-                "&:hover": {
-                  backgroundColor: "#28ACE2",
-                },
-              }}
-            >
-              <BsGraphUpArrow className={styles.filterButton} />
-              {graphText}
-            </Button>
+            <div>
+              <Button
+                variant="contained"
+                onClick={handleClick}
+                sx={{
+                  width: "215px",
+                  height: "38px",
+                  borderRadius: "12px",
+                  border: "1px solid #EBECF2",
+                  background: "#FFF",
+                  boxShadow: "0px 21px 19.7px -9px rgba(0, 0, 0, 0.05)",
+                  color: "#000",
+                  fontSize: "15px",
+                  fontWeight: "500",
+                  marginTop: "35px",
+                  marginRight: "30px",
+                  "&:hover": {
+                    backgroundColor: "#28ACE2",
+                  },
+                }}
+              >
+                <BsGraphUpArrow className={styles.filterButton} />
+                {graphText}
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                
+              >
+                <MenuItem onClick={() => handleMenuItemClick("Option 1")}>
+                  Option 1
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuItemClick("Option 2")}>
+                  Option 2
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuItemClick("Option 3")}>
+                  Option 3
+                </MenuItem>
+              </Menu>
+            </div>
           )}
           {showButton3 && (
             <Button

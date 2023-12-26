@@ -499,34 +499,34 @@ const IndustryOverview = () => {
     ],
     datasets: [
       {
-        label: "Number of Flights 1",
         data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
         borderColor: "#FF8660", // Change the line color for this dataset
         backgroundColor: "rgba(0, 0, 255, 0.2)",
+        color: "black",
       },
       {
-        label: "Number of Flights 2",
         data: [150, 220, 180, 320, 270, 380, 340, 400, 450, 410, 390, 480],
         borderColor: "#6C60FF", // Change the line color for this dataset
         backgroundColor: "rgba(255, 0, 0, 0.2)",
+        color: "black",
       },
       {
-        label: "Number of Flights 3",
         data: [200, 260, 320, 290, 380, 450, 470, 480, 490, 470, 430, 500],
         borderColor: "#106CC2", // Change the line color for this dataset
         backgroundColor: "rgba(0, 255, 0, 0.2)",
+        color: "black",
       },
       {
-        label: "Number of Flights 4",
         data: [280, 330, 400, 350, 430, 470, 490, 480, 460, 420, 470, 500],
         borderColor: "#04BF00", // Change the line color for this dataset
         backgroundColor: "rgba(0, 255, 0, 0.2)",
+        color: "black",
       },
       {
-        label: "Number of Flights 5",
         data: [300, 380, 410, 420, 480, 500, 490, 480, 450, 410, 390, 450],
         borderColor: "#CE2A96", // Change the line color for this dataset
         backgroundColor: "rgba(0, 255, 0, 0.2)",
+        color: "black",
       },
       // Add more datasets and set different borderColor values as needed
     ],
@@ -600,16 +600,30 @@ const IndustryOverview = () => {
           image={Map}
           detailsHeading={"Live Flights"}
           tableHeaders={liveFlightHeaders}
-          filterFields={['origin' ]}
+          filterFields={["origin"]}
           hideArrowRightLeftButton
         />
         <div className="block lg:flex w-full justify-between gap-10">
           <div className="flex flex-col w-full lg:w-[65%] gap-10">
-            <LineChart showButton1 showButton2 showButton3 graphText={"Graph Type"}  chartWidth="940px" showYears showTitle heading={"Flight History"} data={lineData} years={lineYears} sideText={"Number of Flights"} showButtons title="Flight History" />
+            <LineChart
+              showButton1
+              showButton2
+              showButton3
+              graphText={"Graph Type"}
+              chartWidth="940px"
+              showYears
+              showTitle
+              heading={"Flight History"}
+              data={lineData}
+              years={lineYears}
+              sideText={"Number of Flights"}
+              showButtons
+              title="Flight History"
+            />
             <ActivityByType />
           </div>
           <div className="lg:w-[35%]">
-          <ChartTriBoxes />
+            <ChartTriBoxes />
           </div>
         </div>
         <FlightDetails
@@ -617,7 +631,7 @@ const IndustryOverview = () => {
           image={RoutesMap}
           detailsHeading={"Top Routes"}
           tableHeaders={flightRouteHeaders}
-          filterFields={['origin']}
+          filterFields={["origin"]}
           hideArrowRightLeftButton
         />
         <FlightDetails
@@ -625,7 +639,7 @@ const IndustryOverview = () => {
           image={AirportMap}
           detailsHeading={"Top Airports"}
           tableHeaders={topAirportsHeaders}
-          filterFields={['airport']}
+          filterFields={["airport"]}
           hideArrowRightLeftButton
         />
         <FlightDetails
@@ -633,7 +647,7 @@ const IndustryOverview = () => {
           image={AirportMap}
           detailsHeading={"Top Locations"}
           tableHeaders={toplocationsHeaders}
-          filterFields={['country' ]}
+          filterFields={["country"]}
           hideFilterButton
           buttonText={"Country"}
         />

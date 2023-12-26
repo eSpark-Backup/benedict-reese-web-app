@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import StandardCard from "../common/StandardCard";
 import styles from "./Line.module.scss";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, ListSubheader, Menu, MenuItem } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 import { BsGraphUpArrow } from "react-icons/bs";
 import { TbReload } from "react-icons/tb";
@@ -130,7 +130,7 @@ const LineChart = ({
                 marginTop: "35px",
                 marginRight: "30px",
                 "&:hover": {
-                  backgroundColor: "#28ACE2",
+                  backgroundColor: "#FFF",
                 },
               }}
             >
@@ -144,7 +144,7 @@ const LineChart = ({
                 variant="contained"
                 onClick={handleClick}
                 sx={{
-                  width: "215px",
+                  width: "160px",
                   height: "38px",
                   borderRadius: "12px",
                   border: "1px solid #EBECF2",
@@ -156,7 +156,7 @@ const LineChart = ({
                   marginTop: "35px",
                   marginRight: "30px",
                   "&:hover": {
-                    backgroundColor: "#28ACE2",
+                    backgroundColor: "#FFF",
                   },
                 }}
               >
@@ -167,16 +167,31 @@ const LineChart = ({
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
-                
+                PaperProps={{
+                  style: {
+                    width: "160px", // Adjust the width according to your preference
+                  },
+                }}
               >
-                <MenuItem onClick={() => handleMenuItemClick("Option 1")}>
-                  Option 1
+                <ListSubheader
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "400",
+                    lineHeight: "19px",
+                    color: "#959595 !important",
+                    textAlign:"center"
+                  }}
+                >
+                  Missions
+                </ListSubheader>
+                <MenuItem onClick={() => handleMenuItemClick("Hours")}>
+                  Hours
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuItemClick("Option 2")}>
-                  Option 2
+                <MenuItem onClick={() => handleMenuItemClick("Distance")}>
+                  Distance
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuItemClick("Option 3")}>
-                  Option 3
+                <MenuItem onClick={() => handleMenuItemClick("Calendar")}>
+                  Calendar
                 </MenuItem>
               </Menu>
             </div>
@@ -197,7 +212,7 @@ const LineChart = ({
                 marginTop: "35px",
                 marginRight: "30px",
                 "&:hover": {
-                  backgroundColor: "#28ACE2",
+                  backgroundColor: "#FFF",
                 },
               }}
             >

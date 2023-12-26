@@ -3,7 +3,7 @@ import StandardCard from "../common/StandardCard";
 import { Button } from "@mui/material";
 import { FaFilter } from "react-icons/fa";
 
-export const Insights = ({ mainParagraph, secondaryParagraphs, heading  }) => {
+export const Insights = ({ mainParagraph, secondaryParagraphs, heading }) => {
   return (
     <div className="w-full ">
       <div className="flex justify-between mb-10">
@@ -20,7 +20,7 @@ export const Insights = ({ mainParagraph, secondaryParagraphs, heading  }) => {
               color: "#1800ad",
               marginLeft: "20px",
               textTransform: "none",
-              marginTop:"6px"
+              marginTop: "6px",
             }}
           >
             Beta
@@ -38,8 +38,8 @@ export const Insights = ({ mainParagraph, secondaryParagraphs, heading  }) => {
             fontSize: "15px",
             fontWeight: "500",
             textTransform: "none",
-            '&:hover': {
-              backgroundColor: '#28ACE2', 
+            "&:hover": {
+              backgroundColor: "#FFF",
             },
           }}
         >

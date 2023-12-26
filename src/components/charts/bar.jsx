@@ -165,6 +165,9 @@ const VerticalProgressBars = () => {
             fontWeight: "500",
             marginTop: "35px",
             marginRight: "30px",
+            "&:hover": {
+              backgroundColor: "#FFF",
+            },
           }}
         >
           <BsGraphUpArrow className={`${styles.filterButton} mr-2`} />

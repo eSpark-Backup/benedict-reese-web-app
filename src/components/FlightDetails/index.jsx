@@ -222,8 +222,8 @@ const FlightDetails = ({
                   fontWeight: "500",
                   marginTop: "25px",
                   marginRight: "30px",
-                  '&:hover': {
-                    backgroundColor: '#28ACE2', 
+                  "&:hover": {
+                    backgroundColor: "#FFF",
                   },
                 }}
               >
@@ -253,8 +253,8 @@ const FlightDetails = ({
                 fontWeight: "500",
                 marginTop: "25px",
                 marginRight: "30px",
-                '&:hover': {
-                  backgroundColor: '#28ACE2', 
+                "&:hover": {
+                  backgroundColor: "#FFF",
                 },
               }}
             >

@@ -314,8 +314,8 @@ const ChartTriBoxes = () => {
               color: "#000",
               fontSize: "15px",
               fontWeight: "500",
-              '&:hover': {
-                backgroundColor: '#28ACE2', 
+              "&:hover": {
+                backgroundColor: "#FFF",
               },
             }}
             onClick={() => setModalOpen(!modalOpen)}

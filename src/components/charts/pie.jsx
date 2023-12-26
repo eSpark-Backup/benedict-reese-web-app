@@ -38,6 +38,20 @@ const Chart = ({
   const isSidebarOpen = localStorage.getItem("isSidebarOpen");
   const options = {
     plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            const dataset = context.dataset || {};
+            const datasetLabel = dataset.label || '';
+            if (label) {
+              return `${label}: ${(value / dataset.data.reduce((a, b) => a + b, 0) * 100)}%`;
+            }
+            return '';
+          },
+        },
+      },
       legend: {
         display: false,
       },

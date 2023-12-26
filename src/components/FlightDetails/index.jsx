@@ -112,14 +112,14 @@ const FlightDetails = ({
   };
 
   const getLineColor = (flightChange) => {
-    return flightChange < 10 ? "red" : "#04BF00";
+    return flightChange && parseFloat(flightChange) < 10 ? "red" : "#04BF00";
   };
-
+  
   const renderTableRows = () => {
     return filteredFlights.map((flight, index) => {
       const isRowExpanded = expandedRow === index;
       const viewText = isRowExpanded ? "Hide" : "View";
-
+  
       const lineData = {
         labels: [
           "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -127,14 +127,15 @@ const FlightDetails = ({
         datasets: [
           {
             label: "Number of Flights 1",
-            data: [50, 100, 200, 300, 400, 500, 420, 480, 490, 470, 430, 500],
-            borderColor: flight.change ? getLineColor(parseFloat(flight.change)) : "transparent",
+            data: [100, 100, 98, 130, 220, 140, 160, 220, 160, 175, 185, 200],
+            borderColor: getLineColor(parseFloat(flight.change)),
             backgroundColor: 'transparent',
             pointStyle: 'line',
             pointRadius: 0,
           },
         ],
       };
+  
       return (
         <React.Fragment key={flight.id}>
           <TableRow>

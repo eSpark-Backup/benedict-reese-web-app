@@ -24,7 +24,7 @@ psycopg2==2.9.3
 psycopg2-binary==2.9.3
 pycodestyle==2.9.1
 pycparser==2.21
-pymongo==4.6.3
+pymongo==4.18.2
 pyOpenSSL==26.0.0
 pyparsing==3.0.9
 pyRFC3339==1.1

@@ -7,7 +7,7 @@ cffi==1.15.1
 charset-normalizer==2.1.1
 cryptography==48.0.1
 dj-database-url==1.0.0
-Django==4.2.30
+Django==5.2.17
 django-ca==1.21.0
 django-cors-headers==3.13.0
 django-heroku==0.3.1
